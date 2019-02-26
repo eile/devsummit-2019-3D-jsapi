@@ -1,5 +1,5 @@
 
-<!-- .slide: data-background="../images/bg-1.png" -->
+<!-- .slide: data-background="images/bg-1.png" -->
 
 ## Interactive 3D Maps with the<br/> ArcGIS API for JavaScript
 
@@ -12,7 +12,7 @@
 
 ---
 
-<!-- .slide: data-background="../images/bg-4.png" -->
+<!-- .slide: data-background="images/bg-4.png" -->
 
 ## Fancy example
 
@@ -20,7 +20,7 @@
 
 ---
 
-<!-- .slide: data-background="../images/bg-4.png" -->
+<!-- .slide: data-background="images/bg-4.png" -->
 
 ## Simple stuff
 
@@ -36,7 +36,7 @@ Out of the box functionality (one page per topic)
 
 ---
 
-<!-- .slide: data-background="../images/bg-4.png" -->
+<!-- .slide: data-background="images/bg-4.png" -->
 
 ## Resources
 
@@ -49,30 +49,54 @@ Out of the box functionality (one page per topic)
 
 ---
 
-<!-- .slide: data-background="../images/bg-4.png" -->
+<!-- .slide: data-background="images/bg-4.png" -->
 
-## Data: populating your map
-
-<ul>
-  <li>Explanation Layers vs Data Sources?</li>
-  <li>Adding <code>view.graphics</code> by clicking on scene</li>
-  <li><code>GraphicsLayer</code> with GeoJSON</li>
-  <li><code>GraphicsLayer</code> with CSV</li>
-  <li>Living Atlas content with <code>FeatureLayer</code></li>
-  <ul>
-    <li>Renderer options</li>
-    <li>Show popups</li>
-  </ul>
-  <li>ArcGIS Online content with <code>SceneLayer</code></li>
-  <ul>
-    <li>Renderer options</li>
-    <li>Show <code>hitTest</code></li>
-  </ul>
-</ul>
+## Add data to your map
 
 ---
 
-<!-- .slide: data-background="../images/bg-4.png" -->
+<!-- .slide: data-background="images/bg-3.png" -->
+
+### Add data to your map
+
+- Add a `TileLayer`
+  - https://services.arcgisonline.co.nz/arcgis/rest/services/Imagery/newzealand/MapServer
+  - Discuss adding as op layer vs basemap?  
+- Add buildings (3D object scene layer, not BSL)
+  - Data sources: living atlas, portal item, URL
+- Add point features
+  - FeatureLayer and/or GeoJSON/CSV?
+- Overview of layer/data types
+
+---
+
+<!-- .slide: data-background="images/bg-3.png" -->
+
+### Visualizing data
+
+- Theoretical background on Renderers/Symbols
+- Change building style
+  - Textures on/off
+  - Edges
+- Change point style
+  - From primitive to web style icon
+  - Callouts, maybe perspective
+  - Add tree layer + 3D models from web styles?
+- elevationInfo? 
+
+---
+
+<!-- .slide: data-background="images/bg-3.png" -->
+
+### Interact with data
+
+- Introduce BSL
+- Interacting with BSL: hitTest -> hide layer
+- goTo 
+
+---
+
+<!-- .slide: data-background="images/bg-4.png" -->
 
 ## Finish
 
