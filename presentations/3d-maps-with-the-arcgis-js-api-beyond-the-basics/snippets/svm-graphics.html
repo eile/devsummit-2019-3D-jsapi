@@ -1,0 +1,70 @@
+<script>
+  function snippet(containers, interlinks) {
+    require([
+      "dojo/promise/all",
+      "esri/geometry/Polygon",
+      "esri/Map",
+      "esri/Graphic",
+      "esri/layers/SceneLayer",
+      "esri/layers/GraphicsLayer",
+      "esri/views/SceneView",
+      "esri/symbols/SimpleFillSymbol",
+      "esri/widgets/Sketch/SketchViewModel"
+    ], function (
+      all,
+      Polygon,
+      Map,
+      Graphic,
+      SceneLayer,
+      GraphicsLayer,
+      SceneView,
+      SimpleFillSymbol,
+      SketchViewModel
+    ) {
+
+      var layer = new SceneLayer("https://servicesqa.arcgis.com/SdQnSRS214Ul5Jv5/arcgis/rest/services/SP__4326__US_NewYorkCity__Trees/SceneServer/layers/0");
+      layer.popupEnabled = false;
+
+      var graphicsLayer = new GraphicsLayer();
+
+      var view = new SceneView({
+        container: containers.viewDiv,
+
+        map: new Map({
+          basemap: "streets",
+          ground: "world-elevation",
+          layers: [layer, graphicsLayer]
+        }),
+
+        camera: {
+          position: {
+            x: -8235500,
+            y: 4962199,
+            z: 874,
+            spatialReference: {
+              latestWkid: 3857,
+              wkid: 102100
+            }
+          },
+          heading: 0,
+          tilt: 30
+        }
+      });
+
+      view.when(function () {
+        var svm = new SketchViewModel({
+          layer: graphicsLayer,
+          view: view
+        });
+        svm.create("polygon");
+      });
+    });
+  }
+
+  settings = {
+    disableOverviewMap: true
+  };
+
+</script>
+
+<script src="./support/snippet.js"></script>

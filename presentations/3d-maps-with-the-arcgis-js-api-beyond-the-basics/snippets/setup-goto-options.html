@@ -1,0 +1,114 @@
+<script>
+function snippet(containers, interlinks) {
+  require([
+    "esri/Map",
+    "esri/views/SceneView",
+    "esri/Camera",
+    "esri/Graphic",
+    "esri/geometry/Point",
+    "esri/core/promiseUtils"
+  ], function(
+    Map,
+    SceneView,
+    Camera,
+    Graphic,
+    Point,
+    promiseUtils
+  ) {
+
+    const initialCamera = new Camera({
+      position: {
+        x: -12969535,
+        y: 4004700,
+        z: 8000,
+        spatialReference: 102100
+      }
+    });
+
+    const view = new SceneView({
+      container: containers.viewDiv,
+
+      map: new Map({
+        basemap: "topo",
+        ground: "world-elevation"
+      }),
+
+      camera: initialCamera
+    });
+
+    function createGraphics() {
+      const sym = {
+        type: "point-3d",
+        symbolLayers: [{
+          type: "object",
+          height: 50,
+          resource: { primitive: "inverted-cone" },
+          material: { color: "red" }
+        }]
+      };
+
+      const locations = [
+        [-12973118, 4005565],
+        [-12972831, 4005564],
+        [-12972833, 4005086],
+        [-12973379, 4005082],
+        [-12973379, 4005315],
+        [-12973122, 4005319]
+      ];
+
+      return locations.map((xy) => {
+        return new Graphic({
+          geometry: new Point({
+            x: xy[0],
+            y: xy[1],
+            spatialReference: 102100
+          }),
+          symbol: sym
+        });
+      });
+    }
+
+    const graphics = createGraphics();
+
+    view.when(() => {
+      view.graphics.addMany(graphics);
+    });
+
+
+    const goToTarget = {
+      target: view.graphics,
+      scale: 5000,
+      heading: 30,
+      tilt: 70
+    };
+
+    const goToOptions = [
+      { speedFactor: 2 }, "speedFactor: 2",
+      { duration: 1000 }, "duration: 1000",
+      { easing: "linear" }, "easing: \"linear\""
+    ];
+
+    let idx = 0;
+
+    interlinks.playButton = () => {
+      if (idx % 2 === 0) {
+        const optionsIndex = idx % goToOptions.length;
+        view.goTo(goToTarget, goToOptions[optionsIndex]);
+        interlinks.log(goToOptions[optionsIndex + 1]);
+      } else {
+        view.camera = initialCamera.clone();
+        interlinks.log("");
+      }
+
+      idx++;
+    };
+  });
+}
+
+settings = {
+  disableOverviewMap: true
+};
+
+</script>
+
+<script src="./support/snippet.js"></script>
