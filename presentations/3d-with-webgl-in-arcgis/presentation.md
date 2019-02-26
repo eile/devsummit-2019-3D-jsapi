@@ -10,6 +10,179 @@
 <p>Philip Mielke, Esri Redlands</p>
 <p>Arno Fiva, Esri R&amp;D Center Z&uuml;rich</p>
 
+
+---
+
+<!-- .slide: data-background="../images/bg-4.png" -->
+
+## goTo
+
+<div class="two-columns">
+  <div class="left-column">
+
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="scene-view-go-to-button01"></button>
+<pre><code class="lang-ts">// target heading = current heading + 30
+var newHeading = view.camera.heading + 30;
+
+// go to heading preserves view.center
+view.goTo({
+    heading: newHeading
+});</code></pre>
+</div>
+
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="scene-view-go-to-button02"></button>
+<pre><code class="lang-ts">// coordinates (lon, lat) of Mount Fuji
+var newCenter = [138.729050, 35.360638];
+
+view.goTo({
+   center: newCenter,
+   zoom: 13
+});</code></pre>
+</div>
+
+  </div>
+  <div class="right-column">
+    <iframe id="go-to-demo" data-src="./samples/concepts-goTo.html" ></iframe>
+  </div>
+</div>
+
+
+---
+
+<!-- .slide: data-background="../images/bg-4.png" -->
+
+## Filtering
+
+<div class="two-columns">
+  <div class="left-column">
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="mesh-filtering-button01"></button>
+<pre><code class="lang-js">// only show buildings constructed before 1900
+sceneLayer.definitionExpression =
+  "CNSTRCT_YR < 1900 AND CNSTRCT_YR > 0";
+</code></pre>
+</div>
+
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="mesh-filtering-button03"></button>
+<pre><code class="lang-js">// reset filter
+sceneLayer.definitionExpression = null;
+</code></pre>
+</div>
+
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="mesh-filtering-button02"></button>
+<pre><code class="lang-js">// only show tall buildings
+sceneLayer.definitionExpression =
+  "HEIGHTROOF > 300";
+</code></pre>
+</div>
+
+  </div>
+  <div class="right-column">
+    <iframe id="scene-layer-mesh2" data-src="./samples/concepts-definitionExpression.html" ></iframe>
+  </div>
+</div>
+
+---
+
+<!-- .slide: data-background="../images/bg-4.png" -->
+
+## Assigning a renderer
+
+<div class="two-columns">
+  <div class="left-column">
+<div class="code-snippet" style="font-size: 130%;">
+<button class="play" id="mesh-renderer-button01"></button>
+<pre><code class="lang-js">// draw buildings in transparent green
+sceneLayer.renderer = {
+  type: "simple",
+  symbol: {
+    type: "mesh-3d",
+    symbolLayers: [{
+      type: "fill",
+      material: {
+        color: [144, 238, 144, 0.3]
+      }
+    }]
+  }
+};
+</code></pre>
+</div>
+
+<div class="code-snippet" style="font-size: 130%;">
+<button class="play" id="mesh-renderer-button02"></button>
+<pre><code class="lang-js">// color buildings by construction year
+sceneLayer.renderer = {
+ type: "simple",
+ visualVariables: [{
+   type: "color",
+   field: "CNSTRCT_YR",
+   stops: [{
+       value: 1867,
+       color: [69, 83, 122]
+     },
+     ...
+   ]
+ }]
+};
+</code></pre>
+</div>
+
+  </div>
+  <div class="right-column">
+    <iframe id="scene-layer-mesh2" data-src="./samples/concepts-renderer.html" ></iframe>
+  </div>
+</div>
+
+---
+
+<!-- .slide: data-background="../images/bg-4.png" -->
+
+## Underground
+
+<div class="two-columns">
+  <div class="left-column">
+
+<div class="code-snippet" style="font-size: 130%;">
+<button class="play" id="showUndergroundButton"></button>
+<pre><code class="lang-js">// remove basemap
+map.basemap = null;
+// assign surface color so we still see the ground
+map.ground.surfaceColor = "#AAA";
+// set ground opacity to 0.4 to see through it
+map.ground.opacity = 0.4;
+</code></pre>
+</div>
+
+<div class="code-snippet" style="font-size: 130%;">
+<button class="play" id="goUndergroundButton"></button>
+<pre><code class="lang-js">// remove navigation constraints
+map.ground.navigationConstraint = {
+  type: "none"
+};
+
+// underground camera position
+view.goTo(new Camera({
+  position: {
+    spatialReference: SpatialReference.WebMercator,
+    x:-8238933.779779457,
+    y:4968874.720108374,
+    z:-6.607122800312936
+  },
+  heading: 11.88045761396725,
+  tilt: 105.15918832469535}),
+</code></pre>
+</div>
+
+  </div>
+  <div class="right-column">
+    <iframe id="scene-layer-mesh2" data-src="./samples/underground.html" ></iframe>
+  </div>
+</div>
+
 ---
 
 <!-- .slide: data-background="../images/bg-4.png" -->
@@ -23,7 +196,7 @@
 <div class="two-columns">
   <div class="left-column">
 
-<div>Create BuildingSceneLayer:</div>
+<div>Create BuildingSceneLayer</div>
 <div class="code-snippet" style="font-size: 120%;margin-top: 20px;">
 <pre><code class="lang-js" style="margin-bottom: 20px;">
 const buildingLayer = new BuildingSceneLayer({
@@ -33,7 +206,7 @@ const buildingLayer = new BuildingSceneLayer({
 map.layers.add(buildingLayer);
 </code></pre></div>
 
-<div>Hide sublayer:</div>
+<div>Hide Sublayer</div>
 <div class="code-snippet" style="font-size: 120%;margin-top: 20px;">
 <button class="play" id="hideLayerButton"></button>
 <pre><code class="lang-js" style="margin-bottom: 20px;">
