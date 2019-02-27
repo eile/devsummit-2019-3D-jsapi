@@ -1,4 +1,4 @@
-<!-- .slide: data-background="../reveal.js/img/2019/devsummit/bg-1.png" -->
+<!-- .slide: data-background="../images/bg-1.png" -->
 
 <h1 style="text-align: left; font-size: 80px;">Using TypeScript</h1>
 <h2 style="text-align: left; font-size: 60px;">with the ArcGIS API for JavaScript</h2>
@@ -7,7 +7,7 @@
 
 ---
 
-<!-- .slide: data-background="../reveal.js/img/2019/devsummit/bg-2.png" -->
+<!-- .slide: data-background="../images/bg-2.png" -->
 
 ## Agenda
 
@@ -17,7 +17,7 @@
 
 ---
 
-<!-- .slide: data-background="../reveal.js/img/2019/devsummit/bg-4.png" -->
+<!-- .slide: data-background="../images/bg-4.png" -->
 
 ## Super quick TS intro
 
@@ -42,7 +42,7 @@
 
 ---
 
-<!-- .slide: data-background="../reveal.js/img/2019/devsummit/bg-4.png" -->
+<!-- .slide: data-background="../images/bg-4.png" -->
 
 ## Development tooling
 
@@ -69,7 +69,7 @@
 
 ---
 
-<!-- .slide: data-background="../reveal.js/img/2019/devsummit/bg-4.png" -->
+<!-- .slide: data-background="../images/bg-4.png" -->
 
 ## Working with the JavaScript API
 
@@ -103,7 +103,7 @@
 
 ---
 
-<!-- .slide: data-background="../reveal.js/img/2019/devsummit/bg-4.png" -->
+<!-- .slide: data-background="../images/bg-4.png" -->
 
 ## Advanced API concepts
 
@@ -146,7 +146,7 @@
 
 ---
 
-<!-- .slide: data-background="../reveal.js/img/2019/devsummit/bg-5.png" -->
+<!-- .slide: data-background="../images/bg-5.png" -->
 
 ## Headline Here 5
 
@@ -154,7 +154,7 @@
 
 ---
 
-<!-- .slide: data-background="../reveal.js/img/2019/devsummit/bg-6.png" -->
+<!-- .slide: data-background="../images/bg-6.png" -->
 
 ## Headline Here 6
 
@@ -162,14 +162,14 @@
 
 ---
 
-<!-- .slide: data-background="../reveal.js/img/2019/devsummit/bg-5.png" -->
+<!-- .slide: data-background="../images/bg-5.png" -->
 
 ## Questions?
 
 ---
 
-<!-- .slide: data-background="../reveal.js/img/2019/devsummit/bg-esri.png" -->
+<!-- .slide: data-background="../images/bg-esri.png" -->
 
 ---
 
-<!-- .slide: data-background="../reveal.js/img/2019/devsummit/bg-rating.png" -->
+<!-- .slide: data-background="../images/bg-rating.png" -->
