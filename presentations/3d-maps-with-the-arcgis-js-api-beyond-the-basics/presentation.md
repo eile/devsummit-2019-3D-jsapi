@@ -445,20 +445,13 @@ view.padding = {
 
 <div class="twos">
   <div class="snippet">
-  <pre><code class="lang-js hljs javascript">document.getElementById("viewDiv").onclick = function (event) {
+  <pre><code class="lang-js hljs javascript">document.getElementById("viewDiv").onclick =
+function (event) {
   event.stopPropagation();
 
   var point = view.toMap(event);
-  new Polygon({
-    rings: [[..., [point.x, point.y]],
-    spatialReference: point.spatialReference
-  });
-
-  graphic = new Graphic({
-    geometry: polygon,
-    symbol: fill
-  });
-  view.graphics.push(graphic);
+  // add point to polygon
+  view.graphics.push(polygon);
 }
 </code></pre>
   <svg data-play-frame="frame-tomap-graphics" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
@@ -482,24 +475,13 @@ view.padding = {
   <pre><code class="lang-js hljs javascript">document.getElementById("viewDiv").onclick = function (event) {
   event.stopPropagation();
 
-  view.hitTest({
-    x: event.clientX, 
-    y: event.clientY 
-  }).then(function (response) {
+  view.hitTest({x: event.clientX, y: event.clientY})
+  .then(function (response) {
     var result = response.results[0];
     if (result && result.graphic) {
       var point = result.graphic.geometry;
-
-      new Polygon({
-        rings: [[..., [point.x, point.y]],
-        spatialReference: point.spatialReference
-      });
-
-      graphic = new Graphic({
-        geometry: polygon,
-        symbol: fill
-      });
-      view.graphics.push(graphic);
+      // add point to polygon
+      view.graphics.push(polygon);
     }
   }
 }
@@ -532,6 +514,7 @@ view.padding = {
   var line = new Polyline({
     paths:[first point, last point], 
   });
+
   layer.graphics.push(new Graphic({... line});
 }
 </code></pre>
@@ -550,11 +533,13 @@ view.padding = {
 ### Mouse Interaction
 #### _SketchViewModel_
 
+- High-Level Widget for drawing
+
 <div class="twos">
   <div class="snippet">
   <pre><code class="lang-js hljs javascript">var graphicsLayer = new GraphicsLayer();
 var map = new Map({
-  layers: [..., graphicsLayer]
+  layers: [graphicsLayer]
 }),
 
 view.when(function () {
@@ -592,6 +577,8 @@ view.when(function () {
 ### Server-Side Filtering
 #### _DefinitionExpression_
 
+- Applied when fetching data
+
 <div class="twos">
   <div class="snippet">
   <pre><code class="lang-js hljs javascript">var layer = new FeatureLayer(...);
@@ -621,14 +608,11 @@ var view = new SceneView({
 ### Client-Side Filtering
 #### _Spatial Filter_
 
+- FeatureFilter on FeatureLayerView and SceneLayerView
+  
 <div class="twos">
   <div class="snippet">
-  <pre><code class="lang-js hljs javascript">var graphicsLayer = new GraphicsLayer();
-var map = new Map({
-  layers: [..., graphicsLayer]
-}),
-
-view.when(function () {
+  <pre><code class="lang-js hljs javascript">view.when(function () {
   var svm = new SketchViewModel({
     layer: graphicsLayer,
     view: view
@@ -637,12 +621,10 @@ view.when(function () {
 
   graphicsLayer.graphics.on("change", () => {
     const graphic = graphicsLayer.graphics.getItemAt(0);
-    if (graphic && layerView) {
-      layerView.filter = new FeatureFilter({
-        geometry: graphic.geometry.clone(),
-        spatialRelationship: "intersects"
-      });
-    }
+    layerView.filter = new FeatureFilter({
+      geometry: graphic.geometry.clone(),
+      spatialRelationship: "intersects"
+    });
   });
 });
 </code></pre>
@@ -653,37 +635,47 @@ view.when(function () {
   </div>
 </div>
 
+
+---
+
+<!-- .slide: data-background="images/bg-6.png" -->
+
+## ArcGIS API for JavaScript
+### _Symbology_
+
 ---
 
 <!-- .slide: data-background="images/bg-5.png" -->
 
-### Filtering
+### Symbology
 #### _Inside - Outside_
+
+- Set up two areas for different Styles
 
 <div class="twos">
   <div class="snippet">
-  <pre><code class="lang-js hljs javascript">var graphicsLayer = new GraphicsLayer();
+  <pre><code class="lang-js hljs javascript">
 var map = new Map({
   layers: [inside, outside, graphicsLayer]
 }),
 
-var geometry = new Polygon({...});
+var mask = new Polygon({...});
 var graphic = new Graphic({
-  geometry: geometry,
+  geometry: mask,
   symbol: fill
 });
 graphicsLayer.graphics.push(graphic);
 
 view.whenLayerView(inside).then(function (lv) {
   lv.filter = new FeatureFilter({
-    geometry: geometry,
+    geometry: mask,
     spatialRelationship: "intersects"
   });
 });
 
 view.whenLayerView(outside).then(function (lv) {
   lv.filter = new FeatureFilter({
-    geometry: geometry,
+    geometry: mask,
     spatialRelationship: "disjoint"
   });
 });
@@ -694,13 +686,6 @@ view.whenLayerView(outside).then(function (lv) {
     <iframe id="frame-filter-inout" data-src="./snippets/inout-graphics.html"></iframe>
   </div>
 </div>
-
----
-
-<!-- .slide: data-background="images/bg-6.png" -->
-
-## ArcGIS API for JavaScript
-### _Symbology_
 
 ---
 
@@ -835,13 +820,15 @@ viewRight = new SceneView({
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-### Data Preparation
+### Memory and Quality
 
-- Publish in Scene SpatialReference to avoid reprojection
-- In ArcGIS Online layer Item Settings:
-  - Tick the checkbox for Optimize Layer Drawings
-  - Rebuild Spatial Index
-  - Set the Cache Control to 1 hour
+- Reduce number of layers
+  - In particular Map Tile Layers
+  - Combine Data into a single Layer
+- Textured SceneLayers use more than non-textured
+- Edges
+- Graphics
+- API will reduce quality under Memory Pressure
 
 ---
 
@@ -865,6 +852,18 @@ buildings.renderer = {
     <iframe id="frame-memory" data-src="./snippets/memory.html"></iframe>
   </div>
 </div>
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+### Data Preparation
+
+- Publish in Scene SpatialReference to avoid reprojection
+- In ArcGIS Online Layer Item Settings:
+  - Tick the checkbox for Optimize Layer Drawings
+  - Rebuild Spatial Index
+  - Set the Cache Control to 1 hour
 
 ---
 
