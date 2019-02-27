@@ -42,6 +42,132 @@
 
 ---
 
+<!-- .slide: class="section" -->
+
+# Fundamentals
+
+---
+
+## Primitive (Basic) Types
+
+- `boolean`, `number`, `string`, `[]`, `{}`
+- `any`
+
+```ts
+type Foo = number;
+
+const foo: Foo = 8;
+const bar: string = "Lorem ipsum";
+
+// Here be dragons
+const waldo: any = {
+  doStuff: (things: any) => something
+};
+```
+
+---
+
+## Type Inference
+
+- TypeScript compiler can infer types automatically 
+
+```ts
+let foo = 8; // number type is inferred
+
+foo = 12; // Ok
+
+foo = "12"; // Error!
+```
+
+---
+
+## Interfaces
+
+- Define contracts between parts of an application
+
+```ts
+type Foo = number;
+type Bar = string;
+
+interface Foobar {
+  foo: Foo,
+  bar: Bar
+}
+
+const baz: Foobar = { foo: 8, bar: "Lorem ipsum" }; // Ok
+const qux: Foobar = { foo: "12", bar: "Lorem ipsum" } // Error!
+```
+
+---
+
+- Interfaces facilitate predictable behavior
+
+```ts
+interface Foobar {
+  foo: number,
+  bar: string
+}
+
+const waldo = {
+  doStuff: (things: Foobar): Foobar => ({
+    foo: things.foo + 1,
+    bar: `${things.bar}!`
+  })
+};
+
+waldo.doStuff({ foo: 1, bar: "a" }); // Ok, { foo: 2, bar: "a!" }
+waldo.doStuff(1, "a"); // Error!
+```
+
+---
+
+## Classes
+
+```ts
+class Waldo {
+  public doStuff(things: Foobar): Foobar { ... }
+
+  private iterateNumber(num: number) {
+    return num + 1;
+  }
+
+  private addExclamationPoint(str: string) {
+    return `${str}!`;
+  }
+}
+
+const testWaldo = new Waldo(); // Create a Waldo instance
+testWaldo.iterateNumber(2); // Error!
+```
+
+---
+
+## Extension
+
+- Interfaces can extend other interfaces *or* classes
+- Classes can extend other classes and *implement* interfaces
+
+```ts
+interface Point {
+  x: number;
+  y: number;
+}
+
+interface Point3d extends Point { z: number; }
+
+class MyPoint implements Point3d {
+  x = 0;
+  y = 0;
+  z = 0;
+}
+
+class My4dPoint extends MyPoint {
+  time = Date.now();
+}
+```
+
+---
+
 <!-- .slide: data-background="../images/bg-4.png" -->
 
 ## Development tooling
@@ -65,7 +191,7 @@
 
 ## Setting Up
 
-- [developers.arcgis.com/javascript/latest/guide/typescript-setup](https://developers.arcgis.com/javascript/latest/guide/typescript-setup/index.html)
+[developers.arcgis.com/javascript/latest/guide/typescript-setup](https://developers.arcgis.com/javascript/latest/guide/typescript-setup/index.html)
 
 ---
 
@@ -124,7 +250,7 @@
 - Can be useful to use Accessor based classes in your app
 - Also required for creating custom API based widgets
 - API classes are using dojo declare, requires some additional work to integrate with TS
-- [Code](./demos/subclass)
+- [Code](./demos/subclassing)
 
 ---
 
@@ -133,7 +259,7 @@
 - Multiple inheritance possible with dojo declare
 - Supported in typescript at runtime and strictly type-checked
 - Uses declaration merging
-- [Code](./demos/subclass)
+- [Code](./demos/subclassing)
 
 ---
 
