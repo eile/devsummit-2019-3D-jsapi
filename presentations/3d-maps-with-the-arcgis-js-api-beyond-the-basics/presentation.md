@@ -101,7 +101,7 @@ viewRight = new SceneView({
 #### _Promises_
 
 - Asynchronous operations return a `Promise`
-  - Example: [`geometryService.project()`](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-GeometryService.html#project)
+- Example: [`geometryService.project()`](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-GeometryService.html#project)
 - `Promise` provides result and error callbacks
 
 ```js
@@ -441,6 +441,8 @@ view.padding = {
 ### Mouse Interaction
 #### _View.toMap_
 
+- `toMap` translates screen (mouse) point to map coordinates
+
 <div class="twos">
   <div class="snippet">
   <pre><code class="lang-js hljs javascript">document.getElementById("viewDiv").onclick = function (event) {
@@ -473,6 +475,8 @@ view.padding = {
 ### Mouse Interaction
 #### _View.hitTest_
 
+- `hitTest` intersects scene and delivers hit objects
+
 <div class="twos">
   <div class="snippet">
   <pre><code class="lang-js hljs javascript">document.getElementById("viewDiv").onclick = function (event) {
@@ -504,6 +508,36 @@ view.padding = {
   </div>
   <div class="snippet-preview">
     <iframe id="frame-hittest-graphics" data-src="./snippets/hittest-graphics.html"></iframe>
+  </div>
+</div>
+
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+### Mouse Interaction
+#### _View.hitTest_
+
+- 4.11: `hitTest` delivers multiple hits
+
+<div class="twos">
+  <div class="snippet">
+  <pre><code class="lang-js hljs javascript">view.hitTest({...})
+.then(function (response) {
+  for (result of response.results){
+    layer.graphics.push(new Graphic({... result.mapPoint});
+  }
+
+  var line = new Polyline({
+    paths:[first point, last point], 
+  });
+  layer.graphics.push(new Graphic({... line});
+}
+</code></pre>
+  </div>
+  <div class="snippet-preview">
+    <iframe id="frame-hittest-graphics" data-src="./snippets/hittest-scene.html"></iframe>
   </div>
 </div>
 
