@@ -33,7 +33,68 @@ Out of the box functionality (one page per topic)
   <li>Widgets, e.g. search</li>
 </ul>
 
+---
 
+<!-- .slide: data-background="images/bg-3.png" -->
+
+### The simplest possible app
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Create a 3D map</title>  
+  
+  <link rel="stylesheet" href="//js.arcgis.com/4.10/esri/css/main.css">
+  <script src="//js.arcgis.com/4.10/"></script>  
+  
+</head>
+<body>
+  <script>
+      require([
+        "esri/Map",
+        "esri/views/SceneView",
+        "dojo/domReady!"
+      ], function(Map, SceneView) {
+        
+        var map = new Map({
+          basemap: "satellite"
+        });
+        
+        var view = new SceneView({
+          container: "viewDiv",
+          map: map
+        });        
+      });
+  </script>
+  <div id="viewDiv"></div> 
+</body>
+</html>
+```
+
+<span style="font-size: 50%">https://developers.arcgis.com/javascript/latest/sample-code/sandbox/index.html?sample=intro-sceneview</span>
+
+---
+
+<!-- .slide: data-background="images/bg-3.png" -->
+
+### Architecture
+
+<br/>
+<img src="images/architecture-map-sceneview.png" width="60%" style="border: none; background: none; box-shadow: none"/>
+
+---
+
+<!-- .slide: data-background="images/bg-3.png" -->
+
+### Changing a map from 2D to 3D
+
+- [`Map`](https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html) is universal
+- [`MapView`](https://developers.arcgis.com/javascript/latest/api-reference/esri-MapView.html) creates a 2D map
+- [`SceneView`](https://developers.arcgis.com/javascript/latest/api-reference/esri-SceneView.html) creates a 3D map
+
+<span style="font-size: 50%">https://developers.arcgis.com/javascript/latest/sample-code/sandbox/index.html?sample=layers-vectortilelayer</span>
 ---
 
 <!-- .slide: data-background="images/bg-4.png" -->
