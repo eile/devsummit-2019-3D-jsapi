@@ -147,6 +147,59 @@ Out of the box functionality (one page per topic)
 
 ---
 
+### Renderers and Symbols
+
+- Use the same renderers in 2D and 3D
+  - [`SimpleRenderer`](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-SimpleRenderer.html), [`ClassBreaksRenderer`](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-ClassBreaksRenderer.html), [`UniqueValueRenderer`](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-UniqueValueRenderer.html)
+- 2D symbols are supported, _lossy conversion_
+- For 3D visualizations, use 3D symbols
+  -  [`PointSymbol3D`](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-PointSymbol3D.html), [`LineSymbol3D`](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-LineSymbol3D.html), [`PolygonSymbol3D`](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-PolygonSymbol3D.html), [`MeshSymbol3D`](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-MeshSymbol3D.html)
+
+---
+
+### 3D Symbols
+
+<!-- (flat) IconSymbol3DLayer - LineSymbol3DLayer - FillSymbol3DLayer -->
+
+<table class="symbology">
+  <tr>
+    <th>PointSymbol3D</th>
+    <th>LineSymbol3D</th>
+    <th>PolygonSymbol3D</th>
+  </tr>
+  <tr>
+    <td>
+      <div class="image-title">IconSymbol3DLayer</div>
+      <img src='./images/isl.png' width='310'/>
+    </td>
+    <td>
+      <div class="image-title">LineSymbol3DLayer</div>
+      <img src='./images/lsl.png' width='310'/>
+    </td>
+    <td>
+      <div class="image-title dark">FillSymbol3DLayer</div>
+      <img src='./images/fsl.png' width='310'/>
+    </td>
+  </tr>
+  <tr>
+    <!-- (volumetric) ObjectSymbol3DLayer - PathSymbol3DLayer - ExtrudeSymbol3DLayer -->
+    <td>
+      <div class="image-title">ObjectSymbol3DLayer</div>
+      <img src='./images/osl.png' width='310'/>
+    </td>
+    <td>
+      <div class="image-title">PathSymbol3DLayer</div>
+      <img src='./images/psl.png' width='310'/>
+    </td>
+    <td>
+      <div class="image-title">ExtrudeSymbol3DLayer</div>
+      <img src='./images/esl.png' width='310'/>
+    </td>
+  </tr>
+</table>
+
+---
+
 <!-- .slide: data-background="images/bg-3.png" -->
 
 ### Interact with data

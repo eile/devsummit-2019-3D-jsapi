@@ -16,7 +16,7 @@
 }
 
 .reveal .slide-background {
-  background-image: url("../images/bg-5.png");
+  background-image: url("../images/bg-3.png");
 }
 
 .reveal .footer {
@@ -25,4 +25,16 @@
   left: 6px;
   font-size: 0.4em;
   z-index: 99;
+}
+
+.reveal .image-title {
+  position: absolute;
+  width: 286px;
+  text-align: center;
+  font-size: 0.6em;
+  margin: 30px 12px 0px 12px;
+  padding: 0.2em 0.5em 0.2em 0.5em;
+  border-radius: 0.1em;
+  background-color: rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
 }
