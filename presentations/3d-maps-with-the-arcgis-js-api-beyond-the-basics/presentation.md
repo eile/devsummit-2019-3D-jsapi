@@ -449,9 +449,10 @@ view.padding = {
 function (event) {
   event.stopPropagation();
 
+  // get mouse position in map coordinates
   var point = view.toMap(event);
-  // add point to polygon
-  view.graphics.push(polygon);
+  polygon = addPointToPolygon(point);
+  view.graphics.push(polygon); // add to view
 }
 </code></pre>
   <svg data-play-frame="frame-tomap-graphics" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
@@ -477,11 +478,13 @@ function (event) {
 
   view.hitTest({x: event.clientX, y: event.clientY})
   .then(function (response) {
+    // check only front-most hit
     var result = response.results[0];
+    // Use it if it is a graphic
     if (result && result.graphic) {
       var point = result.graphic.geometry;
-      // add point to polygon
-      view.graphics.push(polygon);
+      polygon = addPointToPolygon(point);
+      view.graphics.push(polygon); // add to view
     }
   }
 }

@@ -7,6 +7,7 @@
       "esri/Graphic",
       "esri/layers/FeatureLayer",
       "esri/layers/GraphicsLayer",
+      "esri/layers/SceneLayer",
       "esri/views/SceneView",
       "esri/symbols/SimpleFillSymbol",
       "esri/widgets/Sketch/SketchViewModel",
@@ -18,6 +19,7 @@
       Graphic,
       FeatureLayer,
       GraphicsLayer,
+      SceneLayer,
       SceneView,
       SimpleFillSymbol,
       SketchViewModel,
@@ -28,6 +30,22 @@
       layer.popupEnabled = false;
       layer.definitionExpression = "health = 'good'"
 
+      var sceneLayer = new SceneLayer({
+        url: "https://tiles.arcgis.com/tiles/WQ9KVmV6xGGMnCiQ/arcgis/rest/services/NYC3D_AGO_Z_BFCull/SceneServer",
+        renderer: {
+          type: "simple",
+          symbol: {
+            type: "mesh-3d",
+            symbolLayers: [{
+              type: "fill",
+              material: { color: "white" },
+              edges: { type: "solid", color: [0, 0, 0] },
+            }]
+          }
+        }
+      });
+      sceneLayer.popupEnabled = false;
+
       var graphicsLayer = new GraphicsLayer();
 
       var view = new SceneView({
@@ -36,7 +54,7 @@
         map: new Map({
           basemap: "streets",
           ground: "world-elevation",
-          layers: [layer, graphicsLayer]
+          layers: [layer, sceneLayer, graphicsLayer]
         }),
 
         camera: {
@@ -55,10 +73,6 @@
       });
 
       view.when(function () {
-        var layerView;
-        view.whenLayerView(layer).then(function (lv) {
-          layerView = lv;
-        });
 
         var svm = new SketchViewModel({
           layer: graphicsLayer,
@@ -68,12 +82,17 @@
 
         graphicsLayer.graphics.on("change", () => {
           const graphic = graphicsLayer.graphics.getItemAt(0);
-          if (graphic && layerView) {
-            layerView.filter = new FeatureFilter({
-              geometry: graphic.geometry,
-              spatialRelationship: "intersects"
-            });
-          }
+          const filter = new FeatureFilter({
+            geometry: graphic.geometry,
+            spatialRelationship: "intersects"
+          });
+          
+          view.whenLayerView(layer).then(function (layerView) {
+            layerView.filter = filter;
+          });
+          view.whenLayerView(sceneLayer).then(function (layerView) {
+            layerView.filter = filter;
+          });
         });
       });
     });

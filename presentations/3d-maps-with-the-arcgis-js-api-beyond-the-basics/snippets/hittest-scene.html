@@ -29,19 +29,21 @@
     ) {
 
       var graphicsLayer = new GraphicsLayer({ elevationInfo: { mode:"absolute-height" }});
-      var sceneLayer = new SceneLayer("https://tiles.arcgis.com/tiles/WQ9KVmV6xGGMnCiQ/arcgis/rest/services/NYC3D_AGO_Z_BFCull/SceneServer");
-      sceneLayer.popupEnabled = false;
-      // Create MeshSymbol3D for symbolizing SceneLayer
-      var symbol = new PolygonSymbol3D({
-        symbolLayers: [new FillSymbol3DLayer({
-          material: { color: [244, 247, 240, 0.4] },
-          edges: { type: "solid", color: [0, 0, 0] },
-        })]
+      var sceneLayer = new SceneLayer({
+        url: "https://tiles.arcgis.com/tiles/WQ9KVmV6xGGMnCiQ/arcgis/rest/services/NYC3D_AGO_Z_BFCull/SceneServer",
+        renderer: {
+          type: "simple",
+          symbol: {
+            type: "mesh-3d",
+            symbolLayers: [{
+              type: "fill",
+              material: { color: [244, 247, 240, 0.4] },
+              edges: { type: "solid", color: [0, 0, 0] },
+            }]
+          }
+        }
       });
-
-      // Add the renderer to sceneLayer
-      sceneLayer.renderer = new SimpleRenderer({
-        symbol: symbol,});
+      sceneLayer.popupEnabled = false;
 
       var view = new SceneView({
         container: containers.viewDiv,
