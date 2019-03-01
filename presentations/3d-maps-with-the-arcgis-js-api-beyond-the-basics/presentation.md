@@ -22,13 +22,12 @@ Live version of this presentation is available on:<br>https://arcgis.github.io/d
 ## Agenda
 
 1. API Architecture
-2. Camera and Navigation
-3. Interacting with Data
-4. Filtering
-5. Symbology
-6. Interactive Widgets
-7. Performance and Quality
-8. 3D Models
+1. Working with SceneView
+1. Interacting with Data
+1. Feature Filtering
+1. Symbology
+1. Performance and Quality
+1. 3D Models
 
 ---
 
@@ -81,64 +80,9 @@ require([
 
 ---
 
-<!-- .slide: data-background="images/bg-3.png" -->
-
-### JavaScript API
-#### _2D vs 3D_
-
-- Unified data model: [`Map`](https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html)
-  - [`Layer`](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-Layer.html) &mdash; Fundamental Map component
-  - [`Renderer`](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-Renderer.html) &mdash; Visualization Methods
-  - [`Symbol`](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-Symbol.html) &mdash; Symbolization Instructions
-- Separate views
-  - [`MapView`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html) &mdash; 2D Visualization
-  - [`SceneView`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html) &mdash; 3D Visualization
-- Easy to transition: switch between `MapView` and `SceneView`
-
----
-
-
 <!-- .slide: data-background="images/bg-2.png" -->
 
-### JavaScript API
-#### _2D &amp; 3D Viewing_
-
-<div class="twos">
-  <div class="snippet">
-  <pre><code class="lang-js hljs javascript">
-var map = new Map({
-  basemap: "streets-vector",
-
-  layers: [new FeatureLayer(
-    "...Germany/FeatureServer/0"
-  )]
-});
-
-viewLeft = new MapView({
-  container: "viewDivLeft",
-
-  map: map
-});
-
-viewRight = new SceneView({
-  container: "viewDivRight",
-  map: map
-});
-
-</code></pre>
-  </div>
-  <div class="snippet-preview">
-    <iframe id="frame-2d-3d-parallel" data-src="./snippets/setup-2d-3d-parallel.html"></iframe>
-  </div>
-</div>
-
-
----
-
-
-<!-- .slide: data-background="images/bg-2.png" -->
-
-### JavaScript API
+### API Architecture
 #### _Promises_
 
 - Asynchronous operations return a `Promise`
@@ -153,7 +97,7 @@ promise
       // process result
       view.graphics.add(new Graphic({
         geometry: result[0],
-        symbol: ...
+        symbol: { ... }
       }));
     })
     .catch((error) => {
@@ -166,7 +110,7 @@ promise
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-### JavaScript API
+### API Architecture
 #### _Promises_
 
 - `Promise` is chainable and allows writing sequential asynchronous code
@@ -206,8 +150,7 @@ view
 
 <!-- .slide: data-background="images/bg-4.png" -->
 
-## ArcGIS API for JavaScript
-### _Camera and Navigation_
+## Working with SceneView
 
 ---
 
@@ -215,7 +158,6 @@ view
 <!-- .slide: data-background="images/bg-2.png" -->
 
 ### SceneView
-#### _The 3D View_
 
 - The [`SceneView`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html) provides 3D specific functionality
 
@@ -248,9 +190,7 @@ class SceneView {
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-
-### SceneView
-#### _Camera Definition_
+### Camera
 
 - 3D viewing parameters in a [`SceneView`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html) are controlled by [`esri/Camera`](https://developers.arcgis.com/javascript/latest/api-reference/esri-Camera.html)
 
@@ -272,8 +212,7 @@ class Camera {
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-### SceneView
-#### _Camera Interaction_
+### Camera
 
 - Changing [`SceneView.camera`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#camera) immediately updates the 3D view
 
@@ -299,8 +238,7 @@ view.camera = camera;</code></pre>
 
 <!-- .slide: data-background="images/bg-3.png" -->
 
-### SceneView
-#### _View Navigation_
+### goTo
 
 - Use [`SceneView.goTo(target, options)`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#goTo) to navigate
  - Supports different targets:<br/> `Camera`, `Geometry`, `Geometry[]`, `Graphic`, `Graphic[]`
@@ -312,8 +250,7 @@ view.camera = camera;</code></pre>
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-### SceneView
-#### _View Navigation &num;1_
+### goTo
 
 - Use [`SceneView.goTo()`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#goTo) to create smooth camera animations
 
@@ -341,8 +278,7 @@ view.goTo({
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-### SceneView
-#### _View Navigation &num;2_
+### goTo
 
 - Use [`SceneView.goTo()`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#goTo) to frame a set of graphics
 
@@ -376,8 +312,7 @@ view.goTo({
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-### SceneView
-#### _View Navigation &num;3_
+### goTo
 
 - Use [`SceneView.goTo(..., options)`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#goTo) to control the animation
 
@@ -413,8 +348,7 @@ view.goTo(target, {
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-### SceneView
-#### _View Constraints_
+### View Constraints
 
 - Use [`SceneView.constraints`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#constraints) to control navigation and rendering aspects
 
@@ -451,8 +385,7 @@ view.constraints.clipDistance = {
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-### SceneView
-#### _View Padding_
+### View Padding
 
 - Use [`SceneView.padding`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#constraints) to focus view on a rectangle
 
@@ -477,8 +410,7 @@ view.padding = {
 
 <!-- .slide: data-background="images/bg-4.png" -->
 
-## ArcGIS API for JavaScript
-### _Interacting with Data_
+## Interacting with Data
 
 ---
 
@@ -615,8 +547,7 @@ view.when(function () {
 
 <!-- .slide: data-background="images/bg-4.png" -->
 
-## ArcGIS API for JavaScript
-### _Filtering_
+## Feature Filtering
 
 - Model - View
 - Layer - LayerView
@@ -689,8 +620,7 @@ layer.definitionExpression = "health = 'good'"
 
 <!-- .slide: data-background="images/bg-6.png" -->
 
-## ArcGIS API for JavaScript
-### _Symbology_
+## Symbology
 
 ---
 
@@ -817,8 +747,7 @@ for (var i = 0; i < trees.length; ++i) {
 
 <!-- .slide: data-background="images/bg-4.png" -->
 
-## ArcGIS API for JavaScript
-### _Performance and Quality_
+## Performance and Quality
 
 ---
 
