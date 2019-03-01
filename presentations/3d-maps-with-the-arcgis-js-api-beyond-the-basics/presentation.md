@@ -21,7 +21,7 @@ Live version of this presentation is available on:<br>https://arcgis.github.io/d
 
 ## Agenda
 
-1. 4.x Foundations
+1. API Architecture
 2. Camera and Navigation
 3. Interacting with Data
 4. Filtering
@@ -34,11 +34,52 @@ Live version of this presentation is available on:<br>https://arcgis.github.io/d
 
 <!-- .slide: data-background="images/bg-4.png" -->
 
-## ArcGIS API for JavaScript
-### _4.x Foundations_
+## API Architecture
 
 ---
 
+## API Architecture
+### _Simple sample_
+
+```javascript
+require([
+  "esri/Map",
+  "esri/views/SceneView",
+  "esri/views/FeatureLayer"
+], function(Map, SceneView) {
+  
+  var map = new Map({
+    basemap: "satellite"
+  });
+  
+  var view = new SceneView({
+    container: "viewDiv",
+    map: map
+  });
+  
+  var layer = new FeatureLayer({
+    url: "http://..."
+  });
+  
+  map.add(layer);
+  
+});
+```
+
+---
+
+## API Architecture
+
+<br/>
+<img src="images/architecture-map-webscene-sceneview-layers-layerviews.png" width="60%" style="border: none; background: none; box-shadow: none"/>
+
+---
+
+## API Architecture
+
+<img src="images/architecture-map-webscene-webmap-sceneview-mapview.png" width="60%" style="border: none; background: none; box-shadow: none"/>
+
+---
 
 <!-- .slide: data-background="images/bg-3.png" -->
 
