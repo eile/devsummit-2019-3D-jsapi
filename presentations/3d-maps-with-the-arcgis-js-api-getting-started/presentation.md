@@ -20,18 +20,27 @@
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
+
+## Agenda
+
+1. Getting Started
+2. Adding Data
+3. Visualizing Data
+4. Interacting with Data
+5. Web Scenes
+
+---
+
 <!-- .slide: data-background="images/bg-4.png" -->
 
-## Simple stuff
+## Getting Started
 
-Out of the box functionality (one page per topic)
-<ul>
-  <li>Create <code>Map</code></li>
-  <li>Make it 3D with <code>SceneView</code>, local vs global</li>
-  <li>Different baselayers/terains</li>
-  <li>Theory: Map/MapView/SceneView</li>
-  <li>Widgets, e.g. search</li>
-</ul>
+---
+
+### ToDo
+
+- Widgets, e.g. search
 
 ---
 
@@ -77,6 +86,16 @@ Out of the box functionality (one page per topic)
 
 ---
 
+### The simplest possible app
+
+- Out of the box you get:
+  - 3D rendering of the world
+  - User interaction with the 3D view (navigation)
+  - A set of basemaps to work with
+  - 3D terrain
+
+---
+
 <!-- .slide: data-background="images/bg-3.png" -->
 
 ### Architecture
@@ -112,13 +131,13 @@ Out of the box functionality (one page per topic)
 
 <!-- .slide: data-background="images/bg-4.png" -->
 
-## Add data to your map
+## Adding Data
 
 ---
 
 <!-- .slide: data-background="images/bg-3.png" -->
 
-### Add data to your map
+### ToDo
 
 - Add a `TileLayer`
   - https://services.arcgisonline.co.nz/arcgis/rest/services/Imagery/newzealand/MapServer
@@ -131,11 +150,14 @@ Out of the box functionality (one page per topic)
 
 ---
 
-<!-- .slide: data-background="images/bg-3.png" -->
+<!-- .slide: data-background="images/bg-4.png" -->
+## Visualizing Data
 
-### Visualizing data
+---
 
-- Theoretical background on Renderers/Symbols
+### ToDo
+
+- ~~Theoretical background on Renderers/Symbols~~
 - Change building style
   - Textures on/off
   - Edges
@@ -200,9 +222,13 @@ Out of the box functionality (one page per topic)
 
 ---
 
-<!-- .slide: data-background="images/bg-3.png" -->
+<!-- .slide: data-background="images/bg-4.png" -->
 
-### Interact with data
+## Interacting with Data
+
+---
+
+### ToDo
 
 - Introduce BSL
 - Interacting with BSL: hitTest -> hide layer
