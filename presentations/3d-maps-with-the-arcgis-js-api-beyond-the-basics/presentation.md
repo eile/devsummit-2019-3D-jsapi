@@ -82,8 +82,7 @@ require([
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-### API Architecture
-#### _Promises_
+### Promises
 
 - Asynchronous operations return a `Promise`
 - Example: [`geometryService.project()`](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-GeometryService.html#project)
@@ -110,8 +109,7 @@ promise
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-### API Architecture
-#### _Promises_
+### Promises
 
 - `Promise` is chainable and allows writing sequential asynchronous code
 - Certain API classes behave like `Promise`, but using `when()`
@@ -142,8 +140,25 @@ view
 
 ---
 
-### whenLayerView
-- also https://jscore.esri.com/javascript/latest/api-reference/esri-views-SceneView.html#allLayerViews
+### LayerView
+<ul>
+  <li>`LayerView` are created automatically, but _asynchronously_</li>
+  <li>Use [`view.whenLayerView()`](https://jscore.esri.com/javascript/latest/api-reference/esri-views-SceneView.html#whenLayerView) to obtain the LayerView for a layer
+<pre><code class="lang-js hljs javascript">var layer = new FeatureLayer({ ... });
+view.map.add(layer);
+
+// API will now create LayerView (async)
+
+view
+  .whenLayerView(layer)
+  .then((layerView) => {
+    // do something with the LayerView
+    layerView.filter = { ... };
+  });
+</code></pre> 
+  </li>
+  <li>There is also [`view.allLayerViews`](https://jscore.esri.com/javascript/latest/api-reference/esri-views-SceneView.html#allLayerViews), but beware async creation</li>
+</ul>
 
 ---
 
@@ -239,12 +254,13 @@ view.camera = camera;</code></pre>
 <!-- .slide: data-background="images/bg-3.png" -->
 
 ### goTo
-
-- Use [`SceneView.goTo(target, options)`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#goTo) to navigate
- - Supports different targets:<br/> `Camera`, `Geometry`, `Geometry[]`, `Graphic`, `Graphic[]`
- - Supports specifying desired `scale`, `position`, `heading` and `tilt`
- - Allows specifying animation options:<br/> `animate`, `speedFactor` or `duration`, `easing`
- - Returns a `Promise` which resolves when the animation has finished
+<ul>
+  <li>Simple, smooth navigation using [`SceneView.goTo(target, options)`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#goTo)</li>
+  <li class="fragment">Supports different targets:<br/> `Camera`, `Geometry`, `Geometry[]`, `Graphic`, `Graphic[]`</li>
+  <li class="fragment">Specifying desired `scale`, `position`, `heading` and `tilt`</li>
+  <li class="fragment">Specify animation options: `animate`, `speedFactor`, `duration`, `easing`</li>
+  <li class="fragment">Returns a `Promise` which resolves when the animation has finished</li>
+</ul>
 
 ---
 
@@ -261,7 +277,7 @@ view.camera = camera;</code></pre>
 // current heading + 30 degrees
 var heading = view.camera.heading + 30;
 
-// go to w/ heading only preserves view.center
+// go to with heading only preserves view.center
 view.goTo({
   heading: heading
 });
@@ -314,7 +330,7 @@ view.goTo({
 
 ### goTo
 
-- Use [`SceneView.goTo(..., options)`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#goTo) to control the animation
+- Use the options to control the animation
 
 <div class="twos">
   <div class="snippet">
