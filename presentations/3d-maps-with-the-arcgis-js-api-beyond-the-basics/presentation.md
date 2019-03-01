@@ -742,22 +742,20 @@ view.whenLayerView(outside).then(function (lv) {
 
 <div class="twos">
   <div class="snippet">
-  <pre><code class="lang-js hljs javascript">var outside = new FeatureLayer(...);
+  <pre><code class="lang-js hljs javascript">// Declutter and improve perspective
 outside.screenSizePerspectiveEnabled = true;
 outside.featureReduction = {
   type: "selection"
 };
 
+// use 2D tree symbol
 outside.renderer = new SimpleRenderer({
   symbol: new PointSymbol3D({
-    symbolLayers: [new IconSymbol3DLayer({
-      resource: {
-        href: "..."
-      },
-      size: 12,
-      material: {
-        color: "darkgreen"
-      }
+    symbolLayers: [
+      new IconSymbol3DLayer({
+        resource: { href: "..." },
+        size: 12,
+        material: { color: "darkgreen" }
     })],
     verticalOffset: {
       screenLength: 6
@@ -781,7 +779,8 @@ outside.renderer = new SimpleRenderer({
 
 <div class="twos">
   <div class="snippet">
-  <pre><code class="lang-js hljs javascript">inside.renderer = new UniqueValueRenderer({
+  <pre><code class="lang-js hljs javascript">// select unique symbols by species
+inside.renderer = new UniqueValueRenderer({
   field: "spc_common",
   defaultSymbol: new WebStyleSymbol({
     name: "Alnus",
@@ -789,19 +788,22 @@ outside.renderer = new SimpleRenderer({
   })
 });
 
+// species lookup table
 var trees = [
   ["black locust", "Robinia"],
   ...
   ["London planetree", "Platanus"]
-
 ];
+
+// Use WebStyleSymbol to map species to model
 for (var i = 0; i < trees.length; ++i) {
   var id = trees[i][0];
   var name = trees[i][1];
-  inside.renderer.addUniqueValueInfo(id, new WebStyleSymbol({
-    name: name,
-    styleName: "EsriRealisticTreesStyle"
-  }));
+  inside.renderer.addUniqueValueInfo(id, 
+    new WebStyleSymbol({
+      name: name,
+      styleName: "EsriRealisticTreesStyle"
+    }));
 }
 </code></pre>
   <svg data-play-frame="frame-filter-inside" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
@@ -884,8 +886,10 @@ viewRight = new SceneView({
 
 <div class="twos">
   <div class="snippet">
-  <pre><code class="lang-js hljs javascript">view.map.basemap = "topo";
+  <pre><code class="lang-js hljs javascript">// Use simpler basemap
+view.map.basemap = "topo";
 
+// Reduce number of trees
 treeLayerView.maximumNumberOfFeatures = 10000;
 
 buildings.renderer = {
