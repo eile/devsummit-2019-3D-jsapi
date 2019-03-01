@@ -556,10 +556,14 @@ function (event) {
   <div class="snippet">
   <pre><code class="lang-js hljs javascript">view.hitTest({...})
 .then(function (response) {
+  // for each hit...
   for (result of response.results){
-    layer.graphics.push(new Graphic({... result.mapPoint});
+    // ... add sphere graphic
+    layer.graphics.push(
+      new Graphic({... result.mapPoint});
   }
 
+  // add line from first to last hit
   var line = new Polyline({
     paths:[first point, last point], 
   });
@@ -631,17 +635,9 @@ view.when(function () {
 <div class="twos">
   <div class="snippet">
   <pre><code class="lang-js hljs javascript">var layer = new FeatureLayer(...);
+
+// only show healthy trees
 layer.definitionExpression = "health = 'good'"
-
-var view = new SceneView({
-  container: containers.viewDiv,
-
-  map: new Map({
-    basemap: "streets",
-    ground: "world-elevation",
-    layers: [layer]
-  }),
-});
 </code></pre>
   <svg data-play-frame="frame-def-graphics" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
   </div>
@@ -662,17 +658,21 @@ var view = new SceneView({
 <div class="twos">
   <div class="snippet">
   <pre><code class="lang-js hljs javascript">view.when(function () {
+  // Create SketchViewModel to draw filter
   var svm = new SketchViewModel({
     layer: graphicsLayer,
     view: view
   });
   svm.create("polygon");
 
+  // SVM finished filter
   graphicsLayer.graphics.on("change", () => {
+
+    // apply geometry as contains filter:
     const graphic = graphicsLayer.graphics.getItemAt(0);
     layerView.filter = new FeatureFilter({
       geometry: graphic.geometry.clone(),
-      spatialRelationship: "intersects"
+      spatialRelationship: "contains"
     });
   });
 });
@@ -705,16 +705,12 @@ var view = new SceneView({
   <div class="snippet">
   <pre><code class="lang-js hljs javascript">
 var map = new Map({
-  layers: [inside, outside, graphicsLayer]
+  layers: [inside, outside]
 }),
 
 var mask = new Polygon({...});
-var graphic = new Graphic({
-  geometry: mask,
-  symbol: fill
-});
-graphicsLayer.graphics.push(graphic);
 
+// Layer showing features inside of mask:
 view.whenLayerView(inside).then(function (lv) {
   lv.filter = new FeatureFilter({
     geometry: mask,
@@ -722,6 +718,7 @@ view.whenLayerView(inside).then(function (lv) {
   });
 });
 
+// Layer showing features outside of mask:
 view.whenLayerView(outside).then(function (lv) {
   lv.filter = new FeatureFilter({
     geometry: mask,
