@@ -157,6 +157,11 @@ view
 
 ---
 
+### whenLayerView
+- also https://jscore.esri.com/javascript/latest/api-reference/esri-views-SceneView.html#allLayerViews
+
+---
+
 
 <!-- .slide: data-background="images/bg-4.png" -->
 

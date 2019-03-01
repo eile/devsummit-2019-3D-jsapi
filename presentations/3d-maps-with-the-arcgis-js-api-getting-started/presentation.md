@@ -82,7 +82,7 @@ Out of the box functionality (one page per topic)
 ### Architecture
 
 <br/>
-<img src="images/architecture-map-sceneview.png" width="60%" style="border: none; background: none; box-shadow: none"/>
+<img src="images/architecture-map-sceneview-layers.png" width="60%" style="border: none; background: none; box-shadow: none"/>
 
 ---
 
@@ -207,6 +207,89 @@ Out of the box functionality (one page per topic)
 - Introduce BSL
 - Interacting with BSL: hitTest -> hide layer
 - goTo 
+
+---
+
+<!-- .slide: data-background="images/bg-4.png" -->
+
+## WebScene
+### _Loading and saving your scene_
+
+---
+
+## WebScene
+#### _Remember:_
+<br/>
+<img src="images/architecture-map-sceneview-layers.png" width="60%" style="border: none; background: none; box-shadow: none"/>
+
+---
+
+## WebScene
+
+<img src="images/architecture-map-webscene-sceneview-layers.png" width="60%" style="border: none; background: none; box-shadow: none"/>
+
+---
+
+## WebScene
+<br/>
+<img src="images/architecture-map-webscene.png" width="60%" style="border: none; background: none; box-shadow: none"/>
+<br/>
+<br/>
+
+<div class="twos" style="font-size: 80%">
+  <div style="margin-left: 4em">
+    <ul>
+      <li>Works with `MapView` and `SceneView`</li>
+      <li>Cannot be saved</li>
+    </ul>   
+  </div>
+  
+  <div>
+    <ul>
+      <li>Only works with `SceneView`</li>
+      <li>Can be saved to Online/Enterprise</li>
+    </ul>   
+  </div>
+  
+</div>
+
+---
+
+## WebScene
+#### _Loading a scene_
+
+```javascript
+require([
+  "esri/WebScene",
+  "esri/views/SceneView",
+  "dojo/domReady!"
+], function(WebScene, SceneView) {
+  
+  var scene = new WebScene({
+    portalItem: {
+      id: "19dcff93eeb64f208d09d328656dd492"
+    }
+  });
+  
+  var view = new SceneView({
+    container: "viewDiv",
+    map: scene
+  });
+});
+```
+
+<span style="font-size: 50%">https://developers.arcgis.com/javascript/latest/sample-code/sandbox/index.html?sample=webscene-basic</span>
+
+---
+
+## WebScene
+- Save to ArcGIS Online or Enterprise ([SDK sample](https://developers.arcgis.com/javascript/latest/sample-code/webscene-save/index.html))
+- Persists _data_, not _view_ or _app behavior_
+- ...with some exceptions, for example:
+  - Popup behavior
+  - Initial view
+- JSON specification similar to WebMap
+  - https://developers.arcgis.com/web-scene-specification/
 
 ---
 
