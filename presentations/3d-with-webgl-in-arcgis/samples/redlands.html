@@ -129,7 +129,7 @@
         view: view
       });
 
-      // view.ui.add(layerList, "top-right");
+      view.ui.add(layerList, "top-right");
 
       // Reset scene
       webscene.when(function() {
@@ -198,6 +198,26 @@
       }).catch(console.error);
 
 
+      // Slide: Add Layers
+
+      onshow("feature-filter", function() {
+
+      });
+
+      onclick("addBasemapButton", function() {
+
+      });
+
+      onclick("addElevationButton", function() {
+
+      });
+
+      onclick("addBuildingsButton", function() {
+        buildingLayer.visible = true;
+        treeLayer.visible = true;
+        streetLightLayer.visible = true;
+      });
+
       // Slide: Mask Filter
 
       var buildingCamera = {
@@ -214,6 +234,7 @@
       onshow("feature-filter", function() {
         buildingLayer.visible = true;
         treeLayer.visible = true;
+        streetLightLayer.visible = true;
       });
 
       var polygon = {
@@ -236,7 +257,7 @@
         }).catch(console.error);
       };
 
-      onclick("buildings_goto_button", function() {
+      onclick("gotoBuildingButton", function() {
         view.graphics.removeAll();
         view.goTo(buildingCamera).always(function() {
           var graphic = new Graphic({
@@ -282,21 +303,41 @@
         applyFeatureFilter();
         view.camera = buildingCamera;
         adminBuildingLayer.visible = true;
+
+        hideSublayerWithName("Overview");
+
+        view.on("click", function(event) {
+
+          view.hitTest(event).then(function(response) {
+            // check if a feature is returned from the hurricanesLayer
+            // do something with the result graphic
+            response.results.some(function(result) {
+              const graphic = result.graphic;
+              if (graphic && graphic.attributes) {
+                const category = graphic.attributes["BaseCategory"];
+                if (category) {
+                  console.log("Hiding", category);
+                  hideSublayerWithName(category)
+                  return true;
+                }
+              }
+              return false;
+            });
+          });
+        });
+
       });
 
       onclick("hideRoofButton", function() {
         hideSublayerWithName("Roof");
         hideSublayerWithName("SpecialtyEquipment");
+        hideSublayerWithName("Windows");
+        hideSublayerWithName("Doors");
       });
 
       onclick("hideWallsButton", function() {
         hideSublayerWithName("Walls");
         hideSublayerWithName("ExteriorShell");
-      });
-
-      onclick("hideWindowsButton", function() {
-        hideSublayerWithName("Windows");
-        hideSublayerWithName("Doors");
       });
 
       // onclick("showStructuralSublayersButton", hideNonStructuralSublayers);
@@ -511,10 +552,6 @@
         adminBuildingLayer.visible = true;
         webscene.basemap = "satellite";
         applyFeatureFilter();
-      });
-
-      onclick("showCampusButton", function() {
-        applyEnvironment(view, afternoon);
       });
 
       onclick("highQualityButton", function() {
