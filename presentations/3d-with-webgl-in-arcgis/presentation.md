@@ -44,261 +44,295 @@ view.goTo({
 
   </div>
   <div class="right-column">
-    <iframe id="go-to-demo" data-src="./samples/concepts-goTo.html" ></iframe>
+    <iframe id="go-to-demo" data-src="./samples/redlands.html" ></iframe>
   </div>
 </div>
 
-
 ---
 
-<!-- .slide: data-background="../images/bg-4.png" -->
+<!-- .slide: data-background="../images/bg-4.png" data-title="feature-filter" -->
 
-## Filtering
+## Filter
 
 <div class="two-columns">
   <div class="left-column">
+
 <div class="code-snippet" style="font-size: 160%;">
-<button class="play" id="mesh-filtering-button01"></button>
-<pre><code class="lang-js">// only show buildings constructed before 1900
-sceneLayer.definitionExpression =
-  "CNSTRCT_YR < 1900 AND CNSTRCT_YR > 0";
-</code></pre>
+<button class="play" id="buildings_goto_button"></button>
+<pre><code class="lang-ts">view.goTo(buildingLayer);</code></pre>
 </div>
 
 <div class="code-snippet" style="font-size: 160%;">
-<button class="play" id="mesh-filtering-button03"></button>
-<pre><code class="lang-js">// reset filter
-sceneLayer.definitionExpression = null;
-</code></pre>
+<button class="play" id="buildings_filter_button"></button>
+<pre><code class="lang-ts">var geometry = {
+  type: "polygon",
+  rings: [
+    [-13045144.22519497, 4036815.986120914],
+    [-13045149.901010452, 4036915.714135076],
+    [-13045241.422037635, 4036939.3821808314],
+    [-13045195.95151689, 4036815.973322056]
+  ],
+  spatialReference: SpatialReference.WebMercator,
+};
+
+layerView.filter = new FeatureFilter({
+  geometry: geometry,
+});</code></pre>
 </div>
 
 <div class="code-snippet" style="font-size: 160%;">
-<button class="play" id="mesh-filtering-button02"></button>
-<pre><code class="lang-js">// only show tall buildings
-sceneLayer.definitionExpression =
-  "HEIGHTROOF > 300";
-</code></pre>
+<button class="play" id="addBSLButton"></button>
+<pre><code class="lang-ts">adminBuildingLayer.visible = true;</code></pre>
 </div>
 
   </div>
   <div class="right-column">
-    <iframe id="scene-layer-mesh2" data-src="./samples/concepts-definitionExpression.html" ></iframe>
+    <iframe id="go-to-demo" data-src="./samples/redlands.html" ></iframe>
   </div>
 </div>
 
+
 ---
 
-<!-- .slide: data-background="../images/bg-4.png" -->
+<!-- .slide: data-background="../images/bg-4.png" data-title="building-scene-layer-widgets" -->
 
-## Assigning a renderer
+## Building Scene Layer
 
 <div class="two-columns">
   <div class="left-column">
-<div class="code-snippet" style="font-size: 130%;">
-<button class="play" id="mesh-renderer-button01"></button>
-<pre><code class="lang-js">// draw buildings in transparent green
-sceneLayer.renderer = {
-  type: "simple",
-  symbol: {
-    type: "mesh-3d",
-    symbolLayers: [{
-      type: "fill",
-      material: {
-        color: [144, 238, 144, 0.3]
-      }
-    }]
-  }
-};
-</code></pre>
+
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="startLineMeasureButton"></button>
+<pre>
+<code class="lang-ts">new DirectLineMeasurement3D({
+  view: view
+}).viewModel.newMeasurement();</code></pre>
 </div>
 
-<div class="code-snippet" style="font-size: 130%;">
-<button class="play" id="mesh-renderer-button02"></button>
-<pre><code class="lang-js">// color buildings by construction year
-sceneLayer.renderer = {
- type: "simple",
- visualVariables: [{
-   type: "color",
-   field: "CNSTRCT_YR",
-   stops: [{
-       value: 1867,
-       color: [69, 83, 122]
-     },
-     ...
-   ]
- }]
-};
-</code></pre>
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="startAreaMeasureButton"></button>
+<pre><code class="lang-ts">var widget = new AreaMeasurement3D({
+  view: view
+});
+widget.viewModel.newMeasurement();</code></pre>
 </div>
+
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="startSliceButton"></button>
+<pre><code class="lang-ts">var widget = new Slice({
+  view: view
+});
+widget.viewModel.newSlice();
+
+// exclude layers from slice
+widget.viewModel.excludedLayers
+  .addMany(structuralSublayers);</code></pre>
+</div>
+
 
   </div>
   <div class="right-column">
-    <iframe id="scene-layer-mesh2" data-src="./samples/concepts-renderer.html" ></iframe>
+    <iframe id="go-to-demo" data-src="./samples/redlands.html" ></iframe>
   </div>
 </div>
 
+
+
+
 ---
 
-<!-- .slide: data-background="../images/bg-4.png" -->
+<!-- .slide: data-background="../images/bg-4.png" data-title="building-scene-layer-api" -->
+
+## Building Scene Layer
+
+<div class="two-columns">
+  <div class="left-column">
+
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="hideWallsButton"></button>
+<pre><code class="lang-ts">Hide walls</code></pre>
+</div>
+
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="hideRoofButton"></button>
+<pre><code class="lang-ts">Hide roof</code></pre>
+</div>
+
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="hideWindowsButton"></button>
+<pre><code class="lang-ts">Hide windows</code></pre>
+</div>
+
+
+  </div>
+  <div class="right-column">
+    <iframe id="go-to-demo" data-src="./samples/redlands.html" ></iframe>
+  </div>
+</div>
+
+
+---
+
+<!-- .slide: data-background="../images/bg-4.png" data-title="underground" -->
 
 ## Underground
 
 <div class="two-columns">
   <div class="left-column">
 
-<div class="code-snippet" style="font-size: 130%;">
+<div class="code-snippet" style="font-size: 160%;">
 <button class="play" id="showUndergroundButton"></button>
-<pre><code class="lang-js">// remove basemap
-map.basemap = null;
-// assign surface color so we still see the ground
-map.ground.surfaceColor = "#AAA";
-// set ground opacity to 0.4 to see through it
-map.ground.opacity = 0.4;
+<pre>
+<code class="lang-ts">
+sewerLayer.visible = true;
+adminBuildingLayer.opacity = 0.4;
+webscene.ground.opacity = 0.4;
 </code></pre>
 </div>
 
-<div class="code-snippet" style="font-size: 130%;">
+<div class="code-snippet" style="font-size: 160%;">
 <button class="play" id="goUndergroundButton"></button>
-<pre><code class="lang-js">// remove navigation constraints
-map.ground.navigationConstraint = {
-  type: "none"
+<pre>
+<code class="lang-ts">
+webscene.ground.navigationConstraint = {
+  type: "none",
 };
+view.goTo(undergroundCamera);</code></pre>
+</div>
 
-// underground camera position
-view.goTo(new Camera({
-  position: {
-    spatialReference: SpatialReference.WebMercator,
-    x:-8238933.779779457,
-    y:4968874.720108374,
-    z:-6.607122800312936
-  },
-  heading: 11.88045761396725,
-  tilt: 105.15918832469535}),
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="goWaterNetworkButton"></button>
+<pre>
+<code class="lang-ts">
+webscene.ground.navigationConstraint = {
+  type: "none",
+};
+view.goTo(undergroundCamera);</code></pre>
+</div>
+
+  </div>
+  <div class="right-column">
+    <iframe id="go-to-demo" data-src="./samples/redlands.html" ></iframe>
+  </div>
+</div>
+
+
+---
+
+<!-- .slide: data-background="../images/bg-4.png" data-title="rendering-environment" -->
+
+## Rendering
+
+<div class="two-columns">
+  <div class="left-column">
+
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="showCampusButton"></button>
+<pre>
+<code class="lang-ts">
+view.goTo(campusCamera, { duration: 5000 });
 </code></pre>
 </div>
 
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="highQualityButton"></button>
+<pre>
+<code class="lang-ts">
+view.lighting.ambientOcclusionEnabled = true;
+</code></pre>
+</div>
+
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="sunsetButton"></button>
+<pre>
+<code class="lang-ts">
+// Sunset
+</code></pre>
+</div>
+
+
   </div>
   <div class="right-column">
-    <iframe id="scene-layer-mesh2" data-src="./samples/underground.html" ></iframe>
+    <iframe id="go-to-demo" data-src="./samples/redlands.html" ></iframe>
   </div>
 </div>
+
 
 ---
 
-<!-- .slide: data-background="../images/bg-4.png" -->
+<!-- .slide: data-background="../images/bg-4.png" data-title="rendering-nightmode" -->
 
-## BuildingSceneLayer
-
-<div style="font-size: 60%;">
-  [Sample on ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/latest/sample-code/building-scene-layer-slice)
-</div>
+## Rendering
 
 <div class="two-columns">
   <div class="left-column">
 
-<div>Create BuildingSceneLayer</div>
-<div class="code-snippet" style="font-size: 120%;margin-top: 20px;">
-<pre><code class="lang-js" style="margin-bottom: 20px;">
-const buildingLayer = new BuildingSceneLayer({
-  url: tileServer + "/Esri_Admin_Building/SceneServer",
-  title: "Administration Building"
-});
-map.layers.add(buildingLayer);
-</code></pre></div>
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="showTacticalViewButton"></button>
+<pre>
+<code class="lang-ts">view.goTo(tacticalCamera);
+</code></pre>
+</div>
 
-<div>Hide Sublayer</div>
-<div class="code-snippet" style="font-size: 120%;margin-top: 20px;">
-<button class="play" id="hideLayerButton"></button>
-<pre><code class="lang-js" style="margin-bottom: 20px;">
-buildingLayer.allSublayers.forEach(function(layer) {
-  if (layer.modelName === "Overview") {
-    layer.visible = !layer.visible;
-  }
-});
-</code></pre></div>
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="darkBuildingsButton"></button>
+<pre>
+<code class="lang-ts">
+buildingLayer = darkBuildingRenderer;
+</code></pre>
+</div>
+
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="darkBasemapButton"></button>
+<pre>
+<code class="lang-ts">
+view.basemap = "";
+</code></pre>
+</div>
+
 
   </div>
   <div class="right-column">
-    <iframe id="scene-view-map-view" data-src="./samples/building-scene-layer.html"></iframe>
+    <iframe id="go-to-demo" data-src="./samples/redlands.html" ></iframe>
   </div>
 </div>
 
+
 ---
 
-<!-- .slide: data-background="../images/bg-4.png" -->
+<!-- .slide: data-background="../images/bg-4.png" data-title="rendering-dispatch" -->
 
-## 3D Measurements
-
-<div style="font-size: 60%;">
-  [Sample on ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/latest/sample-code/widgets-measurement-3d)
-</div>
+## Rendering
 
 <div class="two-columns">
   <div class="left-column">
 
-<div>Line Measurements</div>
-<div class="code-snippet" style="font-size: 140%;margin-top: 20px;">
-<pre><code class="lang-js" style="margin-bottom: 20px;">
-var widget = new DirectLineMeasurement3D({
-  view: view
-});
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="showTacticalTeamsButton"></button>
+<pre>
+<code class="lang-ts">view.goTo(tacticalCamera);
+</code></pre>
+</div>
 
-widget.viewModel.newMeasurement();
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="showLocationButton"></button>
+<pre>
+<code class="lang-ts">
+buildingLayer = darkBuildingRenderer;
+</code></pre>
+</div>
 
-view.ui.add(widget, "bottom-right");
-</code></pre></div>
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="trackLocationButton"></button>
+<pre>
+<code class="lang-ts">
+view.basemap = "";
+</code></pre>
+</div>
+
 
   </div>
   <div class="right-column">
-    <iframe id="scene-view-map-view" data-src="./samples/3d-measurements.html"></iframe>
-  </div>
-</div>
-
----
-
-<!-- .slide: data-background="../images/bg-4.png" -->
-
-## Point Styles
-
-<div style="font-size: 60%;">
-  [Sample on ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/latest/sample-code/visualization-point-styles)
-</div>
-
-<div class="two-columns">
-  <div class="left-column">
-
-<div>Add Callouts</div>
-<div class="code-snippet" style="font-size: 120%;margin-top: 20px;">
-<button class="play" id="addPointsLayerButton"></button>
-<pre><code class="lang-js" style="margin-bottom: 20px;">
-var pointsLayer = new FeatureLayer({
-  url: server + "/LyonPointsOfInterest/FeatureServer"
-  title: "Touristic attractions",
-  elevationInfo: { mode: "relative-to-scene" },
-  renderer: pointsRenderer,
-  ...
-}
-map.layers.add(pointsLayer);
-</code></pre></div>  
-
-<div>Declutter</div>
-<div class="code-snippet" style="font-size: 120%;margin-top: 20px;">
-<button class="play" id="declutterButton"></button>
-<pre><code class="lang-js" style="margin-bottom: 20px;">
-pointsLayer.featureReduction = {
-  type: "selection"
-};
-</code></pre></div>
-
-<div>Improve Perspective</div>
-<div class="code-snippet" style="font-size: 120%;margin-top: 20px;">
-<button class="play" id="improvePerspectiveButton"></button>
-<pre><code class="lang-js" style="margin-bottom: 20px;">
-pointsLayer.screenSizePerspectiveEnabled = true;
-</code></pre></div>
-
-  </div>
-  <div class="right-column">
-    <iframe id="scene-view-map-view" data-src="./samples/visualization-point-styles.html"></iframe>
+    <iframe id="go-to-demo" data-src="./samples/redlands.html" ></iframe>
   </div>
 </div>
