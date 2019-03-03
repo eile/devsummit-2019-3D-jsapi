@@ -37,6 +37,8 @@ Live version of this presentation is available on:<br>https://arcgis.github.io/d
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
+
 ## API Architecture
 ### _Simple sample_
 
@@ -77,6 +79,31 @@ require([
 ## API Architecture
 
 <img src="images/architecture-map-webscene-webmap-sceneview-mapview.png" width="60%" style="border: none; background: none; box-shadow: none"/>
+
+---
+
+### Properties
+#### _Uniform access_
+
+- Read/write all properties directly
+- Initialize properties via constructor
+- Automatic type conversion ("autocast")
+- Watch for property changes instead of events
+
+```javascript
+var scene = new WebScene({
+  // basemap is a property
+  basemap: "satellite" 
+});
+
+scene.basemap = "streets";
+
+scene.watch("basemap", (newValue) => { 
+  console.log("Basemap has changed");
+});
+```
+
+<span style="font-size: 50%">https://developers.arcgis.com/javascript/latest/api-reference/esri-WebScene.html#properties-summary</span>
 
 ---
 
