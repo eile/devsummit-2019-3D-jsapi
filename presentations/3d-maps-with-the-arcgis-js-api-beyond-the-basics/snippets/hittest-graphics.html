@@ -6,6 +6,7 @@
       "esri/Map",
       "esri/Graphic",
       "esri/layers/SceneLayer",
+      "esri/layers/FeatureLayer",
       "esri/views/SceneView",
       "esri/symbols/SimpleFillSymbol"
     ], function (
@@ -14,11 +15,12 @@
       Map,
       Graphic,
       SceneLayer,
+      FeatureLayer,
       SceneView,
       SimpleFillSymbol
     ) {
 
-      var layer = new SceneLayer("https://servicesqa.arcgis.com/SdQnSRS214Ul5Jv5/arcgis/rest/services/SP__4326__US_NewYorkCity__Trees/SceneServer/layers/0");
+      var layer = new FeatureLayer("https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Tree_Census_2015/FeatureServer");;
       layer.popupEnabled = false;
 
       var sceneLayer = new SceneLayer("https://tiles.arcgis.com/tiles/WQ9KVmV6xGGMnCiQ/arcgis/rest/services/NYC3D_AGO_Z_BFCull/SceneServer");

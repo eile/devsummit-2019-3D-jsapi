@@ -21,84 +21,68 @@ Live version of this presentation is available on:<br>https://arcgis.github.io/d
 
 ## Agenda
 
-1. 4.x Foundations
-2. Camera and Navigation
-3. Interacting with Data
-4. Filtering
-5. Symbology
-6. Interactive Widgets
-7. Performance and Quality
-8. 3D Models
+1. API Architecture
+1. Working with SceneView
+1. Interacting with Data
+1. Feature Filtering
+1. Symbology
+1. Performance and Quality
+1. 3D Models
 
 ---
 
 <!-- .slide: data-background="images/bg-4.png" -->
 
-## ArcGIS API for JavaScript
-### _4.x Foundations_
+## API Architecture
 
 ---
 
+## API Architecture
+### _Simple sample_
 
-<!-- .slide: data-background="images/bg-3.png" -->
-
-### JavaScript API
-#### _2D vs 3D_
-
-- Unified data model: [`Map`](https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html)
-  - [`Layer`](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-Layer.html) &mdash; Fundamental Map component
-  - [`Renderer`](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-Renderer.html) &mdash; Visualization Methods
-  - [`Symbol`](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-Symbol.html) &mdash; Symbolization Instructions
-- Separate views
-  - [`MapView`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html) &mdash; 2D Visualization
-  - [`SceneView`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html) &mdash; 3D Visualization
-- Easy to transition: switch between `MapView` and `SceneView`
+```javascript
+require([
+  "esri/Map",
+  "esri/views/SceneView",
+  "esri/views/FeatureLayer"
+], function(Map, SceneView) {
+  
+  var map = new Map({
+    basemap: "satellite"
+  });
+  
+  var view = new SceneView({
+    container: "viewDiv",
+    map: map
+  });
+  
+  var layer = new FeatureLayer({
+    url: "http://..."
+  });
+  
+  map.add(layer);
+  
+});
+```
 
 ---
 
+## API Architecture
+
+<br/>
+<img src="images/architecture-map-webscene-sceneview-layers-layerviews.png" width="60%" style="border: none; background: none; box-shadow: none"/>
+
+---
+
+## API Architecture
+
+<img src="images/architecture-map-webscene-webmap-sceneview-mapview.png" width="60%" style="border: none; background: none; box-shadow: none"/>
+
+---
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-### JavaScript API
-#### _2D &amp; 3D Viewing_
-
-<div class="twos">
-  <div class="snippet">
-  <pre><code class="lang-js hljs javascript">
-var map = new Map({
-  basemap: "streets-vector",
-
-  layers: [new FeatureLayer(
-    "...Germany/FeatureServer/0"
-  )]
-});
-
-viewLeft = new MapView({
-  container: "viewDivLeft",
-
-  map: map
-});
-
-viewRight = new SceneView({
-  container: "viewDivRight",
-  map: map
-});
-
-</code></pre>
-  </div>
-  <div class="snippet-preview">
-    <iframe id="frame-2d-3d-parallel" data-src="./snippets/setup-2d-3d-parallel.html"></iframe>
-  </div>
-</div>
-
-
----
-
-
-<!-- .slide: data-background="images/bg-2.png" -->
-
-### JavaScript API
-#### _Promises_
+### Promises
 
 - Asynchronous operations return a `Promise`
 - Example: [`geometryService.project()`](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-GeometryService.html#project)
@@ -112,7 +96,7 @@ promise
       // process result
       view.graphics.add(new Graphic({
         geometry: result[0],
-        symbol: ...
+        symbol: { ... }
       }));
     })
     .catch((error) => {
@@ -125,8 +109,7 @@ promise
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-### JavaScript API
-#### _Promises_
+### Promises
 
 - `Promise` is chainable and allows writing sequential asynchronous code
 - Certain API classes behave like `Promise`, but using `when()`
@@ -157,11 +140,32 @@ view
 
 ---
 
+### LayerView
+<ul>
+  <li>`LayerView` are created automatically, but _asynchronously_</li>
+  <li>Use [`view.whenLayerView()`](https://jscore.esri.com/javascript/latest/api-reference/esri-views-SceneView.html#whenLayerView) to obtain the LayerView for a layer
+<pre><code class="lang-js hljs javascript">var layer = new FeatureLayer({ ... });
+view.map.add(layer);
+
+// API will now create LayerView (async)
+
+view
+  .whenLayerView(layer)
+  .then((layerView) => {
+    // do something with the LayerView
+    layerView.filter = { ... };
+  });
+</code></pre> 
+  </li>
+  <li>There is also [`view.allLayerViews`](https://jscore.esri.com/javascript/latest/api-reference/esri-views-SceneView.html#allLayerViews), but beware async creation</li>
+</ul>
+
+---
+
 
 <!-- .slide: data-background="images/bg-4.png" -->
 
-## ArcGIS API for JavaScript
-### _Camera and Navigation_
+## Working with SceneView
 
 ---
 
@@ -169,7 +173,6 @@ view
 <!-- .slide: data-background="images/bg-2.png" -->
 
 ### SceneView
-#### _The 3D View_
 
 - The [`SceneView`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html) provides 3D specific functionality
 
@@ -202,9 +205,7 @@ class SceneView {
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-
-### SceneView
-#### _Camera Definition_
+### Camera
 
 - 3D viewing parameters in a [`SceneView`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html) are controlled by [`esri/Camera`](https://developers.arcgis.com/javascript/latest/api-reference/esri-Camera.html)
 
@@ -226,8 +227,7 @@ class Camera {
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-### SceneView
-#### _Camera Interaction_
+### Camera
 
 - Changing [`SceneView.camera`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#camera) immediately updates the 3D view
 
@@ -253,21 +253,20 @@ view.camera = camera;</code></pre>
 
 <!-- .slide: data-background="images/bg-3.png" -->
 
-### SceneView
-#### _View Navigation_
-
-- Use [`SceneView.goTo(target, options)`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#goTo) to navigate
- - Supports different targets:<br/> `Camera`, `Geometry`, `Geometry[]`, `Graphic`, `Graphic[]`
- - Supports specifying desired `scale`, `position`, `heading` and `tilt`
- - Allows specifying animation options:<br/> `animate`, `speedFactor` or `duration`, `easing`
- - Returns a `Promise` which resolves when the animation has finished
+### goTo
+<ul>
+  <li>Simple, smooth navigation using [`SceneView.goTo(target, options)`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#goTo)</li>
+  <li class="fragment">Supports different targets:<br/> `Camera`, `Geometry`, `Geometry[]`, `Graphic`, `Graphic[]`</li>
+  <li class="fragment">Specifying desired `scale`, `position`, `heading` and `tilt`</li>
+  <li class="fragment">Specify animation options: `animate`, `speedFactor`, `duration`, `easing`</li>
+  <li class="fragment">Returns a `Promise` which resolves when the animation has finished</li>
+</ul>
 
 ---
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-### SceneView
-#### _View Navigation &num;1_
+### goTo
 
 - Use [`SceneView.goTo()`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#goTo) to create smooth camera animations
 
@@ -278,7 +277,7 @@ view.camera = camera;</code></pre>
 // current heading + 30 degrees
 var heading = view.camera.heading + 30;
 
-// go to w/ heading only preserves view.center
+// go to with heading only preserves view.center
 view.goTo({
   heading: heading
 });
@@ -295,8 +294,7 @@ view.goTo({
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-### SceneView
-#### _View Navigation &num;2_
+### goTo
 
 - Use [`SceneView.goTo()`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#goTo) to frame a set of graphics
 
@@ -330,10 +328,9 @@ view.goTo({
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-### SceneView
-#### _View Navigation &num;3_
+### goTo
 
-- Use [`SceneView.goTo(..., options)`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#goTo) to control the animation
+- Use the options to control the animation
 
 <div class="twos">
   <div class="snippet">
@@ -367,8 +364,7 @@ view.goTo(target, {
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-### SceneView
-#### _View Constraints_
+### View Constraints
 
 - Use [`SceneView.constraints`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#constraints) to control navigation and rendering aspects
 
@@ -405,8 +401,7 @@ view.constraints.clipDistance = {
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-### SceneView
-#### _View Padding_
+### View Padding
 
 - Use [`SceneView.padding`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#constraints) to focus view on a rectangle
 
@@ -431,8 +426,7 @@ view.padding = {
 
 <!-- .slide: data-background="images/bg-4.png" -->
 
-## ArcGIS API for JavaScript
-### _Interacting with Data_
+## Interacting with Data
 
 ---
 
@@ -510,10 +504,14 @@ function (event) {
   <div class="snippet">
   <pre><code class="lang-js hljs javascript">view.hitTest({...})
 .then(function (response) {
+  // for each hit...
   for (result of response.results){
-    layer.graphics.push(new Graphic({... result.mapPoint});
+    // ... add sphere graphic
+    layer.graphics.push(
+      new Graphic({... result.mapPoint});
   }
 
+  // add line from first to last hit
   var line = new Polyline({
     paths:[first point, last point], 
   });
@@ -565,8 +563,7 @@ view.when(function () {
 
 <!-- .slide: data-background="images/bg-4.png" -->
 
-## ArcGIS API for JavaScript
-### _Filtering_
+## Feature Filtering
 
 - Model - View
 - Layer - LayerView
@@ -585,17 +582,9 @@ view.when(function () {
 <div class="twos">
   <div class="snippet">
   <pre><code class="lang-js hljs javascript">var layer = new FeatureLayer(...);
+
+// only show healthy trees
 layer.definitionExpression = "health = 'good'"
-
-var view = new SceneView({
-  container: containers.viewDiv,
-
-  map: new Map({
-    basemap: "streets",
-    ground: "world-elevation",
-    layers: [layer]
-  }),
-});
 </code></pre>
   <svg data-play-frame="frame-def-graphics" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
   </div>
@@ -616,17 +605,21 @@ var view = new SceneView({
 <div class="twos">
   <div class="snippet">
   <pre><code class="lang-js hljs javascript">view.when(function () {
+  // Create SketchViewModel to draw filter
   var svm = new SketchViewModel({
     layer: graphicsLayer,
     view: view
   });
   svm.create("polygon");
 
+  // SVM finished filter
   graphicsLayer.graphics.on("change", () => {
+
+    // apply geometry as contains filter:
     const graphic = graphicsLayer.graphics.getItemAt(0);
     layerView.filter = new FeatureFilter({
       geometry: graphic.geometry.clone(),
-      spatialRelationship: "intersects"
+      spatialRelationship: "contains"
     });
   });
 });
@@ -643,8 +636,7 @@ var view = new SceneView({
 
 <!-- .slide: data-background="images/bg-6.png" -->
 
-## ArcGIS API for JavaScript
-### _Symbology_
+## Symbology
 
 ---
 
@@ -659,16 +651,12 @@ var view = new SceneView({
   <div class="snippet">
   <pre><code class="lang-js hljs javascript">
 var map = new Map({
-  layers: [inside, outside, graphicsLayer]
+  layers: [inside, outside]
 }),
 
 var mask = new Polygon({...});
-var graphic = new Graphic({
-  geometry: mask,
-  symbol: fill
-});
-graphicsLayer.graphics.push(graphic);
 
+// Layer showing features inside of mask:
 view.whenLayerView(inside).then(function (lv) {
   lv.filter = new FeatureFilter({
     geometry: mask,
@@ -676,6 +664,7 @@ view.whenLayerView(inside).then(function (lv) {
   });
 });
 
+// Layer showing features outside of mask:
 view.whenLayerView(outside).then(function (lv) {
   lv.filter = new FeatureFilter({
     geometry: mask,
@@ -699,22 +688,20 @@ view.whenLayerView(outside).then(function (lv) {
 
 <div class="twos">
   <div class="snippet">
-  <pre><code class="lang-js hljs javascript">var outside = new FeatureLayer(...);
+  <pre><code class="lang-js hljs javascript">// Declutter and improve perspective
 outside.screenSizePerspectiveEnabled = true;
 outside.featureReduction = {
   type: "selection"
 };
 
+// use 2D tree symbol
 outside.renderer = new SimpleRenderer({
   symbol: new PointSymbol3D({
-    symbolLayers: [new IconSymbol3DLayer({
-      resource: {
-        href: "..."
-      },
-      size: 12,
-      material: {
-        color: "darkgreen"
-      }
+    symbolLayers: [
+      new IconSymbol3DLayer({
+        resource: { href: "..." },
+        size: 12,
+        material: { color: "darkgreen" }
     })],
     verticalOffset: {
       screenLength: 6
@@ -738,7 +725,8 @@ outside.renderer = new SimpleRenderer({
 
 <div class="twos">
   <div class="snippet">
-  <pre><code class="lang-js hljs javascript">inside.renderer = new UniqueValueRenderer({
+  <pre><code class="lang-js hljs javascript">// select unique symbols by species
+inside.renderer = new UniqueValueRenderer({
   field: "spc_common",
   defaultSymbol: new WebStyleSymbol({
     name: "Alnus",
@@ -746,19 +734,22 @@ outside.renderer = new SimpleRenderer({
   })
 });
 
+// species lookup table
 var trees = [
   ["black locust", "Robinia"],
   ...
   ["London planetree", "Platanus"]
-
 ];
+
+// Use WebStyleSymbol to map species to model
 for (var i = 0; i < trees.length; ++i) {
   var id = trees[i][0];
   var name = trees[i][1];
-  inside.renderer.addUniqueValueInfo(id, new WebStyleSymbol({
-    name: name,
-    styleName: "EsriRealisticTreesStyle"
-  }));
+  inside.renderer.addUniqueValueInfo(id, 
+    new WebStyleSymbol({
+      name: name,
+      styleName: "EsriRealisticTreesStyle"
+    }));
 }
 </code></pre>
   <svg data-play-frame="frame-filter-inside" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
@@ -772,8 +763,7 @@ for (var i = 0; i < trees.length; ++i) {
 
 <!-- .slide: data-background="images/bg-4.png" -->
 
-## ArcGIS API for JavaScript
-### _Performance and Quality_
+## Performance and Quality
 
 ---
 
@@ -841,8 +831,10 @@ viewRight = new SceneView({
 
 <div class="twos">
   <div class="snippet">
-  <pre><code class="lang-js hljs javascript">view.map.basemap = "topo";
+  <pre><code class="lang-js hljs javascript">// Use simpler basemap
+view.map.basemap = "topo";
 
+// Reduce number of trees
 treeLayerView.maximumNumberOfFeatures = 10000;
 
 buildings.renderer = {

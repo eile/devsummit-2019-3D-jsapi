@@ -20,18 +20,27 @@
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
+
+## Agenda
+
+1. Getting Started
+2. Adding Data
+3. Visualizing Data
+4. Interacting with Data
+5. Web Scenes
+
+---
+
 <!-- .slide: data-background="images/bg-4.png" -->
 
-## Simple stuff
+## Getting Started
 
-Out of the box functionality (one page per topic)
-<ul>
-  <li>Create <code>Map</code></li>
-  <li>Make it 3D with <code>SceneView</code>, local vs global</li>
-  <li>Different baselayers/terains</li>
-  <li>Theory: Map/MapView/SceneView</li>
-  <li>Widgets, e.g. search</li>
-</ul>
+---
+
+### ToDo
+
+- Widgets, e.g. search
 
 ---
 
@@ -77,12 +86,22 @@ Out of the box functionality (one page per topic)
 
 ---
 
+### The simplest possible app
+
+- Out of the box you get:
+  - 3D rendering of the world
+  - User interaction with the 3D view (navigation)
+  - A set of basemaps to work with
+  - 3D terrain
+
+---
+
 <!-- .slide: data-background="images/bg-3.png" -->
 
 ### Architecture
 
 <br/>
-<img src="images/architecture-map-sceneview.png" width="60%" style="border: none; background: none; box-shadow: none"/>
+<img src="images/architecture-map-sceneview-layers.png" width="60%" style="border: none; background: none; box-shadow: none"/>
 
 ---
 
@@ -112,13 +131,13 @@ Out of the box functionality (one page per topic)
 
 <!-- .slide: data-background="images/bg-4.png" -->
 
-## Add data to your map
+## Adding Data
 
 ---
 
 <!-- .slide: data-background="images/bg-3.png" -->
 
-### Add data to your map
+### ToDo
 
 - Add a `TileLayer`
   - https://services.arcgisonline.co.nz/arcgis/rest/services/Imagery/newzealand/MapServer
@@ -131,11 +150,14 @@ Out of the box functionality (one page per topic)
 
 ---
 
-<!-- .slide: data-background="images/bg-3.png" -->
+<!-- .slide: data-background="images/bg-4.png" -->
+## Visualizing Data
 
-### Visualizing data
+---
 
-- Theoretical background on Renderers/Symbols
+### ToDo
+
+- ~~Theoretical background on Renderers/Symbols~~
 - Change building style
   - Textures on/off
   - Edges
@@ -200,13 +222,100 @@ Out of the box functionality (one page per topic)
 
 ---
 
-<!-- .slide: data-background="images/bg-3.png" -->
+<!-- .slide: data-background="images/bg-4.png" -->
 
-### Interact with data
+## Interacting with Data
+
+---
+
+### ToDo
 
 - Introduce BSL
 - Interacting with BSL: hitTest -> hide layer
 - goTo 
+
+---
+
+<!-- .slide: data-background="images/bg-4.png" -->
+
+## WebScene
+### _Loading and saving your scene_
+
+---
+
+## WebScene
+#### _Remember:_
+<br/>
+<img src="images/architecture-map-sceneview-layers.png" width="60%" style="border: none; background: none; box-shadow: none"/>
+
+---
+
+## WebScene
+
+<img src="images/architecture-map-webscene-sceneview-layers.png" width="60%" style="border: none; background: none; box-shadow: none"/>
+
+---
+
+## WebScene
+<br/>
+<img src="images/architecture-map-webscene.png" width="60%" style="border: none; background: none; box-shadow: none"/>
+<br/>
+<br/>
+
+<div class="twos" style="font-size: 80%">
+  <div style="margin-left: 4em">
+    <ul>
+      <li>Works with `MapView` and `SceneView`</li>
+      <li>Cannot be saved</li>
+    </ul>   
+  </div>
+  
+  <div>
+    <ul>
+      <li>Only works with `SceneView`</li>
+      <li>Can be saved to Online/Enterprise</li>
+    </ul>   
+  </div>
+  
+</div>
+
+---
+
+## WebScene
+#### _Loading a scene_
+
+```javascript
+require([
+  "esri/WebScene",
+  "esri/views/SceneView",
+  "dojo/domReady!"
+], function(WebScene, SceneView) {
+  
+  var scene = new WebScene({
+    portalItem: {
+      id: "19dcff93eeb64f208d09d328656dd492"
+    }
+  });
+  
+  var view = new SceneView({
+    container: "viewDiv",
+    map: scene
+  });
+});
+```
+
+<span style="font-size: 50%">https://developers.arcgis.com/javascript/latest/sample-code/sandbox/index.html?sample=webscene-basic</span>
+
+---
+
+## WebScene
+- Save to ArcGIS Online or Enterprise ([SDK sample](https://developers.arcgis.com/javascript/latest/sample-code/webscene-save/index.html))
+- Persists _data_, not _view_ or _app behavior_
+- ...with some exceptions, for example:
+  - Popup behavior
+  - Initial view
+- JSON specification similar to WebMap
+  - https://developers.arcgis.com/web-scene-specification/
 
 ---
 

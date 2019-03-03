@@ -1,4 +1,4 @@
-<script type="text/javascript" src="../data/satellite.min.js"></script>
+<script type="text/javascript" src="./data/satellite.min.js"></script>
 
 <script>
 function snippet(containers, interlinks) {
@@ -92,7 +92,7 @@ function snippet(containers, interlinks) {
     function loadSatellites() {
       var date = new Date();
 
-      return esriRequest("../data/satellites.txt", { responseType: "text" }).then((response) => {
+      return esriRequest("./data/satellites.txt", { responseType: "text" }).then((response) => {
         var lines = response.data.split('\n');
         var count = (lines.length / 2).toFixed(0);
         var result = [];

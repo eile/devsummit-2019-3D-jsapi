@@ -84,7 +84,7 @@
           const graphic = graphicsLayer.graphics.getItemAt(0);
           const filter = new FeatureFilter({
             geometry: graphic.geometry,
-            spatialRelationship: "intersects"
+            spatialRelationship: "contains"
           });
           
           view.whenLayerView(layer).then(function (layerView) {
