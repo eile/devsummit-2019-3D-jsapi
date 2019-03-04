@@ -1,14 +1,16 @@
 
 <!-- .slide: data-background="images/bg-1.png" -->
 
-## Interactive 3D Maps with the<br/> ArcGIS API for JavaScript
+### Interactive 3D Maps with the<br/> ArcGIS API for JavaScript
 
-#### Getting Started
-
-<br />
-
-<p>Johannes Schmid, Esri R&amp;D Center Z&uuml;rich</p>
-<p>Arno Fiva, Esri R&amp;D Center Z&uuml;rich</p>
+### _Getting Started_
+<p style="font-size: 75%"><br/>
+  Johannes Schmid, Esri R&amp;D Center Z&uuml;rich<br/>
+  Arno Fiva, Esri R&amp;D Center Z&uuml;rich
+</p>
+<p><br/><small>
+Live version of this presentation:<br>https://arcgis.github.io/devsummit-2019-3D-jsapi/presentations/3d-maps-with-the-arcgis-js-api-getting-started
+</small></p>
 
 ---
 

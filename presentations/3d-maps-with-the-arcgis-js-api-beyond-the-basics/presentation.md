@@ -1,18 +1,15 @@
 <!-- .slide: data-background="images/bg-1.png" -->
 
-### ArcGIS API for JavaScript
- 
-#### Interactive 3D Maps: Beyond the Basics
+### Interactive 3D Maps with the<br/> ArcGIS API for JavaScript
 
-<br/>
+### _Beyond the Basics_
 
-<p style="font-size: smaller">Johannes Schmid, ESRI R&amp;D Center Z&uuml;rich</p>
-<p style="font-size: smaller">Stefan Eilemann, ESRI R&amp;D Center Z&uuml;rich</p>
-
-<br/>
-
-<p><small>
-Live version of this presentation is available on:<br>https://arcgis.github.io/devsummit-2019-3D-jsapi/presentations/3d-maps-with-the-arcgis-js-api-beyond-the-basics
+<p style="font-size: 75%"><br/>
+  Johannes Schmid, Esri R&amp;D Center Z&uuml;rich<br/>
+  Stefan Eilemann, ESRI R&amp;D Center Z&uuml;rich
+</p>
+<p><br/><small>
+Live version of this presentation:<br>https://arcgis.github.io/devsummit-2019-3D-jsapi/presentations/3d-maps-with-the-arcgis-js-api-beyond-the-basics
 </small></p>
 
 ---
