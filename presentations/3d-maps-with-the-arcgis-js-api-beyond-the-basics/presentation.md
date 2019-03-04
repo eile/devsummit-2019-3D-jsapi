@@ -901,10 +901,20 @@ buildings.renderer = {
 
 ## External renderer
 
-- ToDo: add teaser image/video
-- You have data that you cannot visualize with available renderers, methods
+- You have data that you cannot visualize with available layers and renderers
 - You want visualizations/animations that are not (yet) available
 - You are familiar with WebGL and can afford the development effort
+
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+## External renderer
+
+<video controls>
+  <source src="images/hurricane.mp4" type="video/mp4">
+</video>
 
 ---
 
@@ -917,14 +927,6 @@ buildings.renderer = {
   _Thu 10.30am, Primrose A_
 - 3D Visualization with the ArcGIS API for JavaScript<br/>
   _Thu 4pm, Primrose C-D_
-
----
-
-<!-- .slide: data-background="images/bg-2.png" -->
-
-<video controls>
-  <source src="images/hurricane.mp4" type="video/mp4">
-</video>
 
 ---
 
