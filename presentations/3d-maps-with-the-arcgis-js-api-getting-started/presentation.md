@@ -41,7 +41,7 @@ Live version of this presentation:<br>https://arcgis.github.io/devsummit-2019-3D
 Browser requirements
 - Any _modern_ browser will work (IE 11+)
 - Mobile: _latest_ Samsung & Apple devices
-- Dedicated graphics card recommended
+- Desktop: dedicated graphics card recommended
 
 ---
 
