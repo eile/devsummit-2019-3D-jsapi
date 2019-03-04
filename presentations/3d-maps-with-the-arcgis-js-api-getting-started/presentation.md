@@ -22,6 +22,29 @@
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
+## Preface
+
+- This session is about writing JavaScript & HTML!
+- Esri provides configurable applications
+  - [SceneViewer](https://www.esri.com/en-us/arcgis/products/3d-scene-viewer)
+  - [Story Maps](https://storymaps.arcgis.com/en/)
+  - [Web AppBuilder](https://www.esri.com/en-us/arcgis/products/web-appbuilder/overview)
+  
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+## Preface
+
+Browser requirements
+- Any _modern_ browser will work (IE 11+)
+- Mobile: _latest_ Samsung & Apple devices
+- Dedicated graphics card recommended
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
 ## Agenda
 
 1. Getting Started
@@ -143,6 +166,38 @@
 
 ## Adding Data
 
+---
+
+### Projections
+
+[SceneView.viewingMode](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#viewingMode)
+
+<table>
+  <tr>
+    <td style="vertical-align: middle">
+      Global scene:<br/>
+      <ul>
+        <li>WebMercator</li>
+        <li>WGS84</li>
+      </ul>  
+    </td>
+    <td>
+      <img src="images/global-scene.jpg" width="405px"/>
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: middle">
+      Local scene:<br/>
+      <ul>
+        <li>Any projected CS</li>
+        <li>One PCS only!</li>
+      </ul>  
+    </td>
+    <td>
+      <img src="images/local-scene.jpg" width="405px"/>
+    </td>
+  </tr>
+</table>
 ---
 
 <!-- .slide: data-background="images/bg-3.png" -->
@@ -534,20 +589,20 @@ getSublayer("Windows").visible = false;</code></pre>
 
 ---
 
-## WebScene
+### WebScene
 #### _Remember:_
 <br/>
 <img src="images/architecture-map-sceneview-layers.png" width="60%" style="border: none; background: none; box-shadow: none"/>
 
 ---
 
-## WebScene
+### WebScene
 
 <img src="images/architecture-map-webscene-sceneview-layers.png" width="60%" style="border: none; background: none; box-shadow: none"/>
 
 ---
 
-## WebScene
+### WebScene
 <br/>
 <img src="images/architecture-map-webscene.png" width="60%" style="border: none; background: none; box-shadow: none"/>
 <br/>
@@ -572,7 +627,7 @@ getSublayer("Windows").visible = false;</code></pre>
 
 ---
 
-## WebScene
+### WebScene
 #### _Loading a scene_
 
 ```javascript
@@ -599,7 +654,7 @@ require([
 
 ---
 
-## WebScene
+### WebScene
 - Save to ArcGIS Online or Enterprise ([SDK sample](https://developers.arcgis.com/javascript/latest/sample-code/webscene-save/index.html))
 - Persists _data_, not _view_ or _app behavior_
 - ...with some exceptions, for example:
@@ -612,7 +667,25 @@ require([
 
 <!-- .slide: data-background="images/bg-4.png" -->
 
-## Finish
+## Where to?
 
-* Other sessions
-* Survey
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+### Related sessions
+
+- Interactive 3D Maps with the JavaScript API: _Beyond the Basics_ <br/>
+  _Wed 5.30pm, Primrose B_
+- Practical Guide for Building a 3D Web App From 2D Data<br/>
+  _Thu 10.30am, Primrose A_
+- 3D Visualization with the ArcGIS API for JavaScript<br/>
+  _Thu 4pm, Primrose C-D_
+
+---
+
+<!-- .slide: data-background="images/bg-survey.jpg" -->
+
+---
+
+<!-- .slide: data-background="images/bg-esri.png" -->
