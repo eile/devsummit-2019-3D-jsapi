@@ -296,22 +296,38 @@ map.layers.add(buildingsLayer);
 
 ---
 
-<!-- .slide: data-background="../images/bg-8.png" -->
+### Layer types
+- Most "2D" layers are supported in 3D
+  - `TileLayer`, `VectorTileLayer`, `ImageryLayer`, `WMSLayer`, ...
+  - `GraphicsLayer`, `FeatureLayer`, `GeoJSONLayer` <span style="font-size: 75%">(new in 4.11)</span>, ...
+- Some are not (yet)
+  - `KMLLayer`, `MapNotesLayer`, `GeoRSSLayer`
+- Comprehensive support list in the [Layer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-Layer.html) API reference
 
-## Overview of Layers
+---
 
-|     2D & 3D  |     3D only  |
-|-----------|-----------|
-| `FeatureLayer` | `ElevationLayer` |
-| `CSVLayer` | `SceneLayer` |
-| `StreamLayer` | `IntegratedMeshLayer` |
-| `ImageryLayer`, `MapImageLayer` | `PointCloudLayer` |
-| `ImageryLayer` | `BuildingSceneLayer` |
-| `WMSLayer`, `WMTSLayer` |  |
-| `OpenStreetMapLayer` |  |
-| `TileLayer` |  |
-| `WebTileLayer` |  |
-| `VectorTileLayer` |  |
+### Scene layers
+
+
+<ul>
+  <li>
+    <span style="color:#D9BA6F">Scene layers</span> are specialized 3D layers
+    <ul>
+      <li>Optimized for 3D drawing performance</li>
+      <li>Open data format: [I3S](https://github.com/Esri/i3s-spec)</li>
+      <li>Not supported in 2D at the moment</li>
+    </ul>
+  </li>
+  <li class="fragment">
+    Multiple types
+    <ul>
+      <li>SceneLayer: [3D objects](https://www.arcgis.com/home/webscene/viewer.html?webscene=19dcff93eeb64f208d09d328656dd492) (multipatch) or points</li>
+      <li class="fragment">BuildingSceneLayer</li>
+      <li class="fragment">[PointCloudLayer](https://www.arcgis.com/home/webscene/viewer.html?webscene=c2a4c7405ffa447b9e2127987d814af0)</li>
+      <li class="fragment">[IntegratedMeshLayer](https://www.arcgis.com/home/webscene/viewer.html?webscene=00c36beb1f264698a78ef2677f6a14fd)</li>
+    </ul>
+  </li>
+</ul>
 
 ---
 
