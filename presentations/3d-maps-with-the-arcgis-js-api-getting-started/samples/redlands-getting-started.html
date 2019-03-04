@@ -197,27 +197,6 @@
         };
       }).catch(console.error);
 
-
-      // Slide: Add Layers
-
-      onshow("feature-filter", function() {
-
-      });
-
-      onclick("addBasemapButton", function() {
-
-      });
-
-      onclick("addElevationButton", function() {
-
-      });
-
-      onclick("addBuildingsButton", function() {
-        buildingLayer.visible = true;
-        treeLayer.visible = true;
-        streetLightLayer.visible = true;
-      });
-
       // Slide: Mask Filter
 
       var buildingCamera = {
@@ -230,12 +209,6 @@
         heading: 331.8727179163951,
         tilt: 77.860205959406
       };
-
-      onshow("feature-filter", function() {
-        buildingLayer.visible = true;
-        treeLayer.visible = true;
-        streetLightLayer.visible = true;
-      });
 
       var polygon = {
         type: "polygon",
@@ -257,78 +230,44 @@
         }).catch(console.error);
       };
 
-      onclick("gotoBuildingButton", function() {
-        view.graphics.removeAll();
-        view.goTo(buildingCamera).always(function() {
-          var graphic = new Graphic({
-            geometry: polygon,
-            symbol: {
-              type: "simple-fill",
-              color: [227, 139, 79, 0.8],
-              outline: {
-                color: [255, 255, 255],
-                width: 1,
-              },
-            },
-          });
-          view.graphics.add(graphic);
-        });
-      });
-
-      onclick("buildings_filter_button", function() {
+      onshow("building-scene-layer", function() {
+        webscene.basemap = "satellite";
+        buildingLayer.visible = true;
+        treeLayer.visible = true;
+        streetLightLayer.visible = true;
+        view.camera = buildingCamera;
         applyFeatureFilter();
       });
 
-      onclick("addBSLButton", function() {
+      onclick("addBuildingButton", function() {
         adminBuildingLayer.visible = true;
       });
 
-
       // Slide: Building Scene Layer (API)
 
-      function hideSublayerWithName(name) {
-        adminBuildingLayer.when(function () {
-          var sublayers = adminBuildingLayer.allSublayers;
-          sublayers.forEach(function(sublayer) {
-            if (sublayer.title.startsWith(name)) {
-              sublayer.visible = false;
-            }
+      function getSublayer(name) {
+        return adminBuildingLayer
+          .allSublayers
+          .find(function(sublayer) {
+            return sublayer.title.startsWith(name);
           });
-        });
+      };
+
+      function hideSublayerWithName(name) {
+        getSublayer(name).visible = false;
       };
 
       onshow("building-scene-layer-api", function() {
+        webscene.basemap = "satellite";
         buildingLayer.visible = true;
         treeLayer.visible = true;
         applyFeatureFilter();
         view.camera = buildingCamera;
         adminBuildingLayer.visible = true;
-
-        hideSublayerWithName("Overview");
-
-        view.on("click", function(event) {
-
-          view.hitTest(event).then(function(response) {
-            // check if a feature is returned from the hurricanesLayer
-            // do something with the result graphic
-            response.results.some(function(result) {
-              const graphic = result.graphic;
-              if (graphic && graphic.attributes) {
-                const category = graphic.attributes["BaseCategory"];
-                if (category) {
-                  console.log("Hiding", category);
-                  hideSublayerWithName(category)
-                  return true;
-                }
-              }
-              return false;
-            });
-          });
-        });
-
       });
 
       onclick("hideRoofButton", function() {
+        hideSublayerWithName("ExteriorShell");
         hideSublayerWithName("Roof");
         hideSublayerWithName("SpecialtyEquipment");
         hideSublayerWithName("Windows");
@@ -336,11 +275,10 @@
       });
 
       onclick("hideWallsButton", function() {
-        hideSublayerWithName("Walls");
         hideSublayerWithName("ExteriorShell");
+        hideSublayerWithName("Walls");
       });
 
-      // onclick("showStructuralSublayersButton", hideNonStructuralSublayers);
 
 
       // Slide: Building Scene Layer (Widgets)

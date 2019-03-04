@@ -13,7 +13,7 @@
 
 ---
 
-<!-- .slide: data-background="../images/bg-4.png" -->
+<!-- .slide: data-background="../images/bg-4.png" data-title="feature-filter" -->
 
 ## goTo
 
@@ -21,25 +21,18 @@
   <div class="left-column">
 
 <div class="code-snippet" style="font-size: 160%;">
-<button class="play" id="scene-view-go-to-button01"></button>
-<pre><code class="lang-ts">// target heading = current heading + 30
-var newHeading = view.camera.heading + 30;
-
-// go to heading preserves view.center
-view.goTo({
-    heading: newHeading
-});</code></pre>
+<button class="play" id="addBasemapButton"></button>
+<pre><code class="lang-ts">// Show basemap 2D and tilt</code></pre>
 </div>
 
 <div class="code-snippet" style="font-size: 160%;">
-<button class="play" id="scene-view-go-to-button02"></button>
-<pre><code class="lang-ts">// coordinates (lon, lat) of Mount Fuji
-var newCenter = [138.729050, 35.360638];
+<button class="play" id="addElevationButton"></button>
+<pre><code class="lang-ts">// Add mountains
+</div>
 
-view.goTo({
-   center: newCenter,
-   zoom: 13
-});</code></pre>
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="addBuildingsButton"></button>
+<pre><code class="lang-ts">// Add building scene layer, lights, trees</code></pre>
 </div>
 
   </div>
@@ -58,32 +51,80 @@ view.goTo({
   <div class="left-column">
 
 <div class="code-snippet" style="font-size: 160%;">
-<button class="play" id="buildings_goto_button"></button>
-<pre><code class="lang-ts">view.goTo(buildingLayer);</code></pre>
-</div>
-
-<div class="code-snippet" style="font-size: 160%;">
-<button class="play" id="buildings_filter_button"></button>
-<pre><code class="lang-ts">var geometry = {
-  type: "polygon",
+<pre><code class="lang-ts">// Define polygon vertices
+var polygon = new Polygon({
   rings: [
     [-13045144.22519497, 4036815.986120914],
     [-13045149.901010452, 4036915.714135076],
-    [-13045241.422037635, 4036939.3821808314],
-    [-13045195.95151689, 4036815.973322056]
+    ...
   ],
-  spatialReference: SpatialReference.WebMercator,
-};
-
-layerView.filter = new FeatureFilter({
-  geometry: geometry,
 });</code></pre>
 </div>
 
 <div class="code-snippet" style="font-size: 160%;">
-<button class="play" id="addBSLButton"></button>
-<pre><code class="lang-ts">adminBuildingLayer.visible = true;</code></pre>
+<button class="play" id="gotoBuildingButton"></button>
+<pre><code class="lang-ts">// Zoom to building
+view.goTo(polygon).then(function() {
+  // Draw polygon
+  view.graphics.add(new Graphic({
+    symbol: { type: "fill", color: "orange" },
+    geometry: polygon,
+  }));
+});</code></pre>
 </div>
+
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="buildings_filter_button"></button>
+<pre><code class="lang-ts">// Filter buildings inside polygon
+layerView.filter = new FeatureFilter({
+  geometry: geometry,
+  spatialRelationship: "disjoint",
+});</code></pre>
+</div>
+
+  </div>
+  <div class="right-column">
+    <iframe id="go-to-demo" data-src="./samples/redlands.html" ></iframe>
+  </div>
+</div>
+
+
+---
+
+<!-- .slide: data-background="../images/bg-4.png" data-title="building-scene-layer-api" -->
+
+## Building Scene Layer
+
+<div class="two-columns">
+  <div class="left-column">
+
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="addBSLButton"></button>
+<pre><code class="lang-ts">TODO</code></pre>
+</div>
+
+<div class="code-snippet" style="font-size: 160%;">
+<pre><code class="lang-ts">// Retrieve building sublayer
+function getSublayer(title) {
+  adminBuildingLayer.allSublayers.find(
+    function(sublayer) {
+      return sublayer.title === title;
+});}</code></pre>
+</div>
+
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="hideWallsButton"></button>
+<pre><code class="lang-ts">// Hide sublayer named "Walls"
+getSublayer("Walls").visible = false;</code></pre>
+</div>
+
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="hideRoofButton"></button>
+<pre><code class="lang-ts">// Hide roof and windows
+getSublayer("Roof").visible = false;
+getSublayer("Windows").visible = false;</code></pre>
+</div>
+
 
   </div>
   <div class="right-column">
@@ -100,6 +141,7 @@ layerView.filter = new FeatureFilter({
 
 <div class="two-columns">
   <div class="left-column">
+
 
 <div class="code-snippet" style="font-size: 160%;">
 <button class="play" id="startLineMeasureButton"></button>
@@ -125,42 +167,10 @@ widget.viewModel.newMeasurement();</code></pre>
 widget.viewModel.newSlice();
 
 // exclude layers from slice
-widget.viewModel.excludedLayers
-  .addMany(structuralSublayers);</code></pre>
-</div>
-
-
-  </div>
-  <div class="right-column">
-    <iframe id="go-to-demo" data-src="./samples/redlands.html" ></iframe>
-  </div>
-</div>
-
-
-
-
----
-
-<!-- .slide: data-background="../images/bg-4.png" data-title="building-scene-layer-api" -->
-
-## Building Scene Layer
-
-<div class="two-columns">
-  <div class="left-column">
-
-<div class="code-snippet" style="font-size: 160%;">
-<button class="play" id="hideWallsButton"></button>
-<pre><code class="lang-ts">Hide walls</code></pre>
-</div>
-
-<div class="code-snippet" style="font-size: 160%;">
-<button class="play" id="hideRoofButton"></button>
-<pre><code class="lang-ts">Hide roof</code></pre>
-</div>
-
-<div class="code-snippet" style="font-size: 160%;">
-<button class="play" id="hideWindowsButton"></button>
-<pre><code class="lang-ts">Hide windows</code></pre>
+widget.viewModel.excludedLayers.addMany(
+    getSublayer("Floors"),
+    getSublayer("Structural"),
+    getSublayer("Furniture"), ...);</code></pre>
 </div>
 
 
@@ -183,8 +193,9 @@ widget.viewModel.excludedLayers
 <div class="code-snippet" style="font-size: 160%;">
 <button class="play" id="showUndergroundButton"></button>
 <pre>
-<code class="lang-ts">
-sewerLayer.visible = true;
+<code class="lang-ts">// Add underground features
+TODO
+// Make ground transparent
 adminBuildingLayer.opacity = 0.4;
 webscene.ground.opacity = 0.4;
 </code></pre>
@@ -193,21 +204,20 @@ webscene.ground.opacity = 0.4;
 <div class="code-snippet" style="font-size: 160%;">
 <button class="play" id="goUndergroundButton"></button>
 <pre>
-<code class="lang-ts">
+<code class="lang-ts">// Remove navigation constraints
 webscene.ground.navigationConstraint = {
-  type: "none",
+  type: "none"
 };
+
+// Place camera underground
 view.goTo(undergroundCamera);</code></pre>
 </div>
 
 <div class="code-snippet" style="font-size: 160%;">
 <button class="play" id="goWaterNetworkButton"></button>
 <pre>
-<code class="lang-ts">
-webscene.ground.navigationConstraint = {
-  type: "none",
-};
-view.goTo(undergroundCamera);</code></pre>
+<code class="lang-ts">// Show closeup of sewer system
+view.goTo(sewerCamera);</code></pre>
 </div>
 
   </div>
@@ -221,32 +231,39 @@ view.goTo(undergroundCamera);</code></pre>
 
 <!-- .slide: data-background="../images/bg-4.png" data-title="rendering-environment" -->
 
-## Rendering
+## Rendering: Quality & Lighting
 
 <div class="two-columns">
   <div class="left-column">
 
 <div class="code-snippet" style="font-size: 160%;">
-<button class="play" id="showCampusButton"></button>
-<pre>
-<code class="lang-ts">
-view.goTo(campusCamera, { duration: 5000 });
-</code></pre>
-</div>
-
-<div class="code-snippet" style="font-size: 160%;">
 <button class="play" id="highQualityButton"></button>
 <pre>
-<code class="lang-ts">
-view.lighting.ambientOcclusionEnabled = true;
+<code class="lang-ts">// Atmosphere settings
+view.environment.starsEnabled = true;
+view.environment.atmosphereEnabled = true;
+view.environment.atmosphere = {
+  quality: "high"
+};
+// Lighting settings
+view.environment.lighting = {
+  date: "Thu Mar 15 2018 16:30:00 PST",
+  directShadowsEnabled: true,
+  ambientOcclusionEnabled: true,
+  cameraTrackingEnabled: false,
+};
 </code></pre>
 </div>
 
 <div class="code-snippet" style="font-size: 160%;">
 <button class="play" id="sunsetButton"></button>
 <pre>
-<code class="lang-ts">
-// Sunset
+<code class="lang-ts">// Animated sunset
+Slide.createFrom(view).then(function(slide) {
+  slide.view.environment.lighting.date =
+    "Thu Mar 15 2018 19:30:00 PST";
+  slide.applyTo(view, { duration: 15000 });
+});
 </code></pre>
 </div>
 
@@ -262,7 +279,7 @@ view.lighting.ambientOcclusionEnabled = true;
 
 <!-- .slide: data-background="../images/bg-4.png" data-title="rendering-nightmode" -->
 
-## Rendering
+## Rendering: Colors & Basemaps
 
 <div class="two-columns">
   <div class="left-column">
@@ -270,23 +287,26 @@ view.lighting.ambientOcclusionEnabled = true;
 <div class="code-snippet" style="font-size: 160%;">
 <button class="play" id="showTacticalViewButton"></button>
 <pre>
-<code class="lang-ts">view.goTo(tacticalCamera);
+<code class="lang-ts">view.goTo(esriCampusCamera);
 </code></pre>
 </div>
 
 <div class="code-snippet" style="font-size: 160%;">
 <button class="play" id="darkBuildingsButton"></button>
 <pre>
-<code class="lang-ts">
-buildingLayer = darkBuildingRenderer;
+<code class="lang-ts">// Buildings with white edges
+buildingLayer.renderer = {
+  symbol: TODO...
+};
 </code></pre>
 </div>
 
 <div class="code-snippet" style="font-size: 160%;">
 <button class="play" id="darkBasemapButton"></button>
 <pre>
-<code class="lang-ts">
-view.basemap = "";
+<code class="lang-ts">// Apply color scheme to vector tile layer
+vectorTileLayer.styling = TODO;
+
 </code></pre>
 </div>
 
@@ -302,7 +322,7 @@ view.basemap = "";
 
 <!-- .slide: data-background="../images/bg-4.png" data-title="rendering-dispatch" -->
 
-## Rendering
+## Location
 
 <div class="two-columns">
   <div class="left-column">
@@ -317,16 +337,27 @@ view.basemap = "";
 <div class="code-snippet" style="font-size: 160%;">
 <button class="play" id="showLocationButton"></button>
 <pre>
-<code class="lang-ts">
-buildingLayer = darkBuildingRenderer;
+<code class="lang-ts">// Add location tracking widget
+var track = new Track({
+  view: view,
+});
+track.start();
 </code></pre>
 </div>
 
 <div class="code-snippet" style="font-size: 160%;">
 <button class="play" id="trackLocationButton"></button>
 <pre>
-<code class="lang-ts">
-view.basemap = "";
+<code class="lang-ts">// Called when location updates
+track.on("track", function() {
+  // Point camera to new location
+  var location = track.graphic.geometry;
+  view.goTo({
+    center: location,
+    tilt: 60,
+    scale: 1200,
+  });
+});
 </code></pre>
 </div>
 
