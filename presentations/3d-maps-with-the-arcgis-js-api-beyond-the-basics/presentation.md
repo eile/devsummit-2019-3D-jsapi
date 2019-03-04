@@ -920,6 +920,14 @@ buildings.renderer = {
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
+
+<video controls>
+  <source src="images/hurricane.mp4" type="video/mp4">
+</video>
+
+---
+
 <!-- .slide: data-background="images/bg-survey.jpg" -->
 
 ---
