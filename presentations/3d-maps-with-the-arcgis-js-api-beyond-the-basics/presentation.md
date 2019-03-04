@@ -893,10 +893,26 @@ buildings.renderer = {
 
 ## External renderer
 
+- ToDo: add teaser image/video
 - You have data that you cannot visualize with available renderers, methods
 - You want visualizations/animations that are not (yet) available
 - You are familiar with WebGL and can afford the development effort
-- Advanced WebGL in 3D Scene Views with the ArcGIS API for JavaScript (5563 / 10005) 
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+### Related sessions
+- Advanced WebGL in 3D Scene Views with the ArcGIS API for JavaScript<br/>
+  _Thu 1.30pm, Demo Theater 1 (Oasis 1-2)_ 
+- Practical Guide for Building a 3D Web App From 2D Data<br/>
+  _Thu 10.30am, Primrose A_
+- 3D Visualization with the ArcGIS API for JavaScript<br/>
+  _Thu 4pm, Primrose C-D_
+
+---
+
+<!-- .slide: data-background="images/bg-survey.jpg" -->
 
 ---
 

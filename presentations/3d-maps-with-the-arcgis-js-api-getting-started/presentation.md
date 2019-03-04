@@ -376,7 +376,25 @@ require([
 
 <!-- .slide: data-background="images/bg-4.png" -->
 
-## Finish
+## Where to?
 
-* Other sessions
-* Survey
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+### Related sessions
+
+- Interactive 3D Maps with the JavaScript API: _Beyond the Basics_ <br/>
+  _Wed 5.30pm, Primrose B_
+- Practical Guide for Building a 3D Web App From 2D Data<br/>
+  _Thu 10.30am, Primrose A_
+- 3D Visualization with the ArcGIS API for JavaScript<br/>
+  _Thu 4pm, Primrose C-D_
+
+---
+
+<!-- .slide: data-background="images/bg-survey.jpg" -->
+
+---
+
+<!-- .slide: data-background="images/bg-esri.png" -->
