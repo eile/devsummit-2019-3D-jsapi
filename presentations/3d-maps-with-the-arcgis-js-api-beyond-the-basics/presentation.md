@@ -549,6 +549,17 @@ function (event) {
   </div>
 </div>
 
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+### Mouse Interaction
+
+|               toMap               |              hitTest               |
+| :-------------------------------: | :--------------------------------: |
+|   first hit in map coordinates    |    multiple hits with the scene    |
+| only intersects ground by default | only intersects  layers by default |
+<td colspan=2> Use include: or exclude: options to override defaults 
 
 ---
 
@@ -596,7 +607,7 @@ view.when(function () {
 
 ---
 
-<!-- .slide: data-background="images/bg-5.png" -->
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### Server-Side Filtering
 #### _DefinitionExpression_
@@ -619,7 +630,7 @@ layer.definitionExpression = "health = 'good'"
 
 ---
 
-<!-- .slide: data-background="images/bg-5.png" -->
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### Client-Side Filtering
 #### _Spatial Filter_
@@ -658,13 +669,13 @@ layer.definitionExpression = "health = 'good'"
 
 ---
 
-<!-- .slide: data-background="images/bg-6.png" -->
+<!-- .slide: data-background="images/bg-4.png" -->
 
 ## Symbology
 
 ---
 
-<!-- .slide: data-background="images/bg-5.png" -->
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### Symbology
 #### _Inside - Outside_
@@ -705,7 +716,7 @@ view.whenLayerView(outside).then(function (lv) {
 
 ---
 
-<!-- .slide: data-background="images/bg-6.png" -->
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### Symbology
 #### _Outside_
@@ -742,7 +753,7 @@ outside.renderer = new SimpleRenderer({
 
 ---
 
-<!-- .slide: data-background="images/bg-6.png" -->
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### Symbology
 #### _Inside_
