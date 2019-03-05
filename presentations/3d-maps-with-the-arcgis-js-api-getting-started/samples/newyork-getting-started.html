@@ -85,15 +85,16 @@
       buildingLayer = new SceneLayer({
         portalItem: {
           id: "2e0761b9a4274b8db52c4bf34356911e"
-        }
+        },
+        popupEnabled: false,
+        visible: false,
       });
       map.add(buildingLayer);
-      buildingLayer.visible = false;
 
       var buildingInfoLayer = new FeatureLayer({
         url: "https://services2.arcgis.com/cFEFS0EWrhfDeVw9/ArcGIS/rest/services/Centroids_Manhattan_Information/FeatureServer/0",
         popupEnabled: true,
-        outFields: ["*"],
+        outFields: ["NAME", "CNSTRCT_YR", "HEIGHT"],
         featureReduction: {
           type: "selection"
         },
@@ -154,13 +155,14 @@
         heading: 25.741026394532483,
         tilt: 70.68845366403269
       };
+      var initialCamera = view.camera;
 
       // Add a layer list widget
       const layerList = new LayerList({
         view: view
       });
 
-      view.ui.add(layerList, "top-right");
+      // view.ui.add(layerList, "top-right");
 
 
       // Slide: Add Tile Layer
@@ -169,9 +171,25 @@
 
       });
 
+      var tileLayer;
       onclick("addTileLayerButton", function() {
+        if (tileLayer) {
+          map.layers.remove(tileLayer);
+        }
         var tileLayer = new TileLayer({
           url: "https://tiles.arcgis.com/tiles/nGt4QxSblgDfeJn9/arcgis/rest/services/New_York_Housing_Density/MapServer",
+        });
+        map.layers.add(tileLayer);
+      });
+
+      onclick("addPortalTileLayerButton", function() {
+        if (tileLayer) {
+          map.layers.remove(tileLayer);
+        }
+        var tileLayer = new TileLayer({
+          portalItem: {
+            id: "2d6f6624424a410a994bd9432befb907"
+          }
         });
         map.layers.add(tileLayer);
       });
@@ -198,6 +216,27 @@
         tilt: 71.860780884195
       };
 
+      var buildingInfoRenderer = {
+        type: "simple",
+        symbol: new PointSymbol3D({
+          symbolLayers: [{
+            type: "icon",
+            anchor: "bottom",
+            size: 18,
+            resource: {
+              href: "../images/wiki.png"
+            }
+          }],
+          verticalOffset: {
+            screenLength: 100,
+            maxWorldLength: 100
+          },
+          callout: {
+            type: "line",
+          }
+        })
+      };
+
       onshow("add-scene-layer", function() {
         view.camera = buildingCamera;
       });
@@ -208,6 +247,17 @@
 
       // Slide: Visualize Feature Layer
 
+      var perspectiveCamera =  {
+        position: {
+          spatialReference: { latestWkid: 3857, wkid: 102100 },
+          x: -8240038.906262755,
+          y: 4966487.130917831,
+          z: 272.2965121967718
+        },
+        heading: 29.619421004570835,
+        tilt: 84.54303084560732
+      };
+
       onshow("feature-layer-renderer", function() {
         buildingInfoLayer.visible = true;
         buildingInfoLayer.screenSizePerspectiveEnabled = false;
@@ -215,22 +265,7 @@
 
       onclick("changeFeatureLayerRendererButton", function() {
         buildingInfoLayer.visible = true;
-        buildingInfoLayer.renderer = {
-          type: "simple",
-          symbol: new PointSymbol3D({
-            symbolLayers: [{
-              type: "icon",
-              anchor: "bottom",
-              size: 18,
-              resource: {
-                href: "https://static.arcgis.com/arcgis/styleItems/Icons/thumbnails/Pushpin5.png"
-              },
-              material: {
-                color: "red"
-              }
-            }],
-          })
-        };
+        buildingInfoLayer.renderer = buildingInfoRenderer;
       });
 
       onclick("improvePerspectiveButton", function() {
@@ -244,12 +279,29 @@
       var financialDistrictCamera = {
         position: {
           spatialReference: { latestWkid: 3857, wkid: 102100 },
-          x: -8241591.173219887,
-          y: 4968398.853917105,
-          z: 1206.7576631940901
+          x: -8238645.263435776,
+          y: 4967589.628556055,
+          z: 680.7226509228349
         },
-        heading: 72.21736621211956,
-        tilt: 62.04295188404388
+        heading: 343.07024347475084,
+        tilt: 53.22277820190851
+      };
+
+      var buildingRenderer = {
+        type: "simple",
+        symbol: {
+          type: "mesh-3d", // autocasts as new MeshSymbol3D()
+          symbolLayers: [{
+            type: "fill", // autocasts as new FillSymbol3DLayer()
+            material: {
+              color: [153, 204, 203]
+            },
+            edges: {
+              type: "solid", // autocasts as new SolidEdges3D()
+              color: [50, 50, 50, 0.5]
+            }
+          }]
+        }
       };
 
       onshow("scene-layer-renderer", function() {
@@ -273,10 +325,80 @@
       });
 
       onclick("addEdgesButton", function() {
+        buildingLayer.renderer = buildingRenderer;
+      });
+
+      onclick("addShadowsButton", function() {
+        view.environment.lighting.directShadowsEnabled = true;
+      });
+
+      // Slide: Elevation Info
+
+      onshow("elevation-info", function() {
+        buildingInfoLayer.visible = true;
+        buildingInfoLayer.renderer = buildingInfoRenderer;
+      });
+
+      onclick("showBuildingsButton", function() {
+        buildingLayer.visible = true;
+        buildingLayer.renderer = buildingRenderer;
+        buildingInfoLayer.visible = false;
+      });
+
+      onclick("changeElevationModeButton", function() {
+        buildingInfoLayer.visible = true;
+        buildingInfoLayer.elevationInfo = {
+          mode: "relative-to-scene"
+        };
+      });
+
+      // Slide: SceneView goTo()
+
+      // var goToCamera = {
+      //   position: {
+      //     spatialReference: { latestWkid: 3857, wkid: 102100 },
+      //     x: -8235793.010793808,
+      //     y: 4976109.010944594,
+      //     z: 360.71128391940147
+      //   },
+      //   heading: 203.85591245081164,
+      //   tilt: 85.07629476189648
+      // };
+      var goToCamera = {
+        position: {
+          spatialReference: { latestWkid: 3857, wkid: 102100 },
+          x: -8235336.306600715,
+          y: 4976009.545185938,
+          z: 369.4922970132902
+        },
+        heading: 212.84095935645777,
+        tilt: 84.2726925110897
+      };
+
+      onshow("scene-view-goto", function() {
+        buildingLayer.visible = true;
+        buildingLayer.renderer = buildingRenderer;
+        view.environment.lighting.directShadowsEnabled = true;
+      });
+
+      onclick("goToButton", function() {
+        view.goTo(goToCamera, {
+          duration: 5000,
+          easing: "in-out-coast-quadratic",
+        });
+      });
+
+      // Slide: SceneView hittest
+
+      var objectIds = [];
+      function addObjectId(objectId) {
+        objectIds.push(objectId);
         buildingLayer.renderer = {
-          type: "simple",
-          symbol: {
-            type: "mesh-3d", // autocasts as new MeshSymbol3D()
+          type: "unique-value",
+          valueExpression: "When(indexof([" + objectIds.join(",") +
+            "], $feature.OBJECTID) < 0, '', 'selected')",
+          defaultSymbol: {
+            type: "mesh-3d",
             symbolLayers: [{
               type: "fill", // autocasts as new FillSymbol3DLayer()
               material: {
@@ -286,18 +408,38 @@
                 type: "solid", // autocasts as new SolidEdges3D()
                 color: [50, 50, 50, 0.5]
               }
-            }]
-          }
+            }],
+          },
+          uniqueValueInfos: [{
+            value: "selected",
+            symbol: {
+              type: "mesh-3d",
+              symbolLayers: [{
+                type: "fill",
+                material: {
+                  color: [149, 184, 214],
+                },
+                edges: {
+                  type: "solid", // autocasts as new SolidEdges3D()
+                  color: [50, 50, 50, 0.5]
+                },
+              }],
+            },
+          }]
         };
-      });
+      }
 
-      onclick("addShadowsButton", function() {
-        view.environment.lighting.directShadowsEnabled = true;
-      });
+      onshow("scene-layer-hittest", function() {
+        view.camera = financialDistrictCamera;
+        buildingLayer.visible = true;
+        buildingLayer.renderer = buildingRenderer;
 
-      onclick("improvePerspectiveButton", function() {
-        buildingInfoLayer.screenSizePerspectiveEnabled =
-          !buildingInfoLayer.screenSizePerspectiveEnabled;
+        view.on("click",function(event) {
+          view.hitTest(event).then(function(response) {
+            var graphic = response.results[0].graphic;
+            addObjectId(graphic.attributes["objectid"]);
+          });
+        });
       });
 
     });

@@ -29,7 +29,7 @@
   - [SceneViewer](https://www.esri.com/en-us/arcgis/products/3d-scene-viewer)
   - [Story Maps](https://storymaps.arcgis.com/en/)
   - [Web AppBuilder](https://www.esri.com/en-us/arcgis/products/web-appbuilder/overview)
-  
+
 ---
 
 <!-- .slide: data-background="images/bg-2.png" -->
@@ -71,6 +71,10 @@ Browser requirements
 
 ### The simplest possible app
 
+<span style="font-size: 50%">https://developers.arcgis.com/javascript/latest/sample-code/sandbox/index.html?sample=intro-sceneview</span>
+
+<div style="max-width: 900px; float: none; position: absolute; left: 50%; transform: translate(-50%, 0); font-size: 31px;">
+
 ```html
 <!DOCTYPE html>
 <html>
@@ -105,7 +109,7 @@ Browser requirements
 </html>
 ```
 
-<span style="font-size: 50%">https://developers.arcgis.com/javascript/latest/sample-code/sandbox/index.html?sample=intro-sceneview</span>
+
 
 ---
 
@@ -144,13 +148,6 @@ Browser requirements
 
 ## Resources
 
-<ul>
-  <li>Developer portal (SDK)</li>
-  <li>Sandbox</li>
-  <li>GitHub</li>
-  <li>Pricing?</li>
-</ul>
-
 ---
 
 <!-- .slide: data-background="../images/bg-2.png" -->
@@ -159,6 +156,30 @@ Browser requirements
 <span style="font-size: 50%">https://developers.arcgis.com/javascript/</span>
 
 <img class="plain" src="./images/js-doc.png" height=500 background=none>
+
+<p class="fragment" data-fragment-index="2"
+  style="position: absolute; top:120px; max-width: 1200px; left: 50%; transform: translate(-50%, 0); width: 1100px">
+  <img src="./images/sdk.png" style="width: 100%;" alt="">
+</p>
+
+---
+
+<!-- .slide: data-background="../images/bg-2.png" -->
+### <b>ArcGIS API for JavaScript Sandbox</b>
+
+<span style="font-size: 50%">https://developers.arcgis.com/javascript/latest/sample-code/</span>
+
+<img class="plain" src="./images/sandbox.png" width=1000 background=none>
+
+
+---
+
+<!-- .slide: data-background="../images/bg-2.png" -->
+### <b>GitHub</b>
+
+<span style="font-size: 50%">https://github.com/esri</span>
+
+<img class="plain" src="./images/github.png" width=800 background=none>
 
 ---
 
@@ -198,20 +219,6 @@ Browser requirements
     </td>
   </tr>
 </table>
----
-
-<!-- .slide: data-background="images/bg-3.png" -->
-
-### ToDo
-
-- Add a `TileLayer`
-  - https://services.arcgisonline.co.nz/arcgis/rest/services/Imagery/newzealand/MapServer
-  - Discuss adding as op layer vs basemap?  
-- Add buildings (3D object scene layer, not BSL)
-  - Data sources: living atlas, portal item, URL
-- Add point features
-  - FeatureLayer and/or GeoJSON/CSV?
-- Overview of layer/data types
 
 ---
 
@@ -226,7 +233,19 @@ Browser requirements
 <button class="play" id="addTileLayerButton"></button>
 <pre><code class="lang-ts">// Add layer showing housing density in NYC
 var housingDensityLayer = new TileLayer({
-  url: ".../New_York_Housing_Density/MapServer"
+  url: "//tiles.arcgis.com/.../NY_Housing..."
+});
+map.layers.add(housingDensityLayer);
+</code></pre>
+</div>
+
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="addPortalTileLayerButton"></button>
+<pre><code class="lang-ts">// Add layer using as portal item
+var housingDensityLayer = new TileLayer({
+  portalItem: {
+    id: "2d6f6624424a410a994bd9432befb907"
+  }
 });
 map.layers.add(housingDensityLayer);
 </code></pre>
@@ -242,6 +261,18 @@ map.layers.add(housingDensityLayer);
 
 <!-- .slide: data-background="images/bg-4.png" data-title="add-feature-layer" -->
 
+### URL vs Portal Item ID
+
+
+<span style="font-size: 50%"><a href="">http://www.arcgis.com/home/item.html?id=<span style="color: orange; font-weight: bold;">2d6f6624424a410a994bd9432befb907</span></a></span>
+
+<img class="plain" src="./images/portal-item.png" width=800 background=none>
+
+
+---
+
+<!-- .slide: data-background="images/bg-4.png" data-title="add-feature-layer" -->
+
 ### Add FeatureLayer
 
 <div class="two-columns">
@@ -252,9 +283,11 @@ map.layers.add(housingDensityLayer);
 <pre><code class="lang-ts">// Add points containing information of
 // popular buildings in Manhattan
 var buildingInfo = new FeatureLayer({
-  url: "http:\/\/tiles.arcgis.com/...",
+  portalItem: {
+    id: "28cfd79f7c974597aa687417bf5169ca"
+  }
   popupEnabled: true,
-  outFields: ["\*"],
+  outFields: ["NAME", "CNSTRCT_YR", "HEIGHT"],
 })
 </code></pre>
 </div>
@@ -318,20 +351,6 @@ map.layers.add(buildingsLayer);
 
 ---
 
-### ToDo
-
-- ~~Theoretical background on Renderers/Symbols~~
-- Change building style
-  - Textures on/off
-  - Edges
-- Change point style
-  - From primitive to web style icon
-  - Callouts, maybe perspective
-  - Add tree layer + 3D models from web styles?
-- elevationInfo?
-
----
-
 <!-- .slide: data-background="images/bg-4.png" data-title="feature-layer-renderer" -->
 
 ### Visualization: FeatureLayer
@@ -345,18 +364,18 @@ map.layers.add(buildingsLayer);
 buildingInfoLayer.renderer = {
   type: "simple",
   symbol: new PointSymbol3D({
-    symbolLayers: [{
-      type: "icon",
-      anchor: "bottom",
+    symbolLayers: [new IconSymbol3DLayer({
       size: 18,
       resource: {
-        href: ".../thumbnails/Pushpin5.png"
-      },
-      material: {
-        color: "red"
+        href: "../images/info.png"
       }
-    }]}};
-</code></pre>
+    })],
+    verticalOffset: {
+      screenLength: 100,
+      maxWorldLength: 100
+    },
+    callout: new LineCallout3D()
+}};</code></pre>
 </div>
 
 <div class="code-snippet" style="font-size: 160%;">
@@ -385,21 +404,63 @@ buildingInfoLayer
 <div class="code-snippet" style="font-size: 160%;">
 <button class="play" id="changeBuildingRendererButton"></button>
 <pre><code class="lang-ts">// Visualize buildings
-
+buildingLayer.renderer = new SimpleRenderer({
+  symbol: new MeshSymbol3D({
+    symbolLayers: [new FillSymbol3DLayer({
+      material: {
+        color: [153, 204, 203]
+      }
+    })]
+  })
+});
 </code></pre>
 </div>
 
 <div class="code-snippet" style="font-size: 160%;">
 <button class="play" id="addEdgesButton"></button>
 <pre><code class="lang-ts">// Add solid edges
-
+      material: { ... },
+      edges: new SolidEdges3D({
+        color: [50, 50, 50, 0.5]
+      })
 </code></pre>
 </div>
 
 <div class="code-snippet" style="font-size: 160%;">
 <button class="play" id="addShadowsButton"></button>
-<pre><code class="lang-ts">// Add solid edges
+<pre><code class="lang-ts">view.environment.lighting
+  .directShadowsEnabled = true;
+</code></pre>
+</div>
 
+  </div>
+  <div class="right-column">
+    <iframe id="go-to-demo" data-src="./samples/newyork-getting-started.html" ></iframe>
+  </div>
+</div>
+
+---
+
+<!-- .slide: data-background="images/bg-4.png" data-title="elevation-info" -->
+
+### Visualization: Elevation Mode
+
+<div class="two-columns">
+  <div class="left-column">
+
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="showBuildingsButton"></button>
+<pre><code class="lang-ts">// Add buildings scene layer
+buildingLayer.visible = true;
+</code></pre>
+</div>
+
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="changeElevationModeButton"></button>
+<pre><code class="lang-ts">// Draw point symbols on top of buildings
+buildingInfoLayer.elevationInfo = {
+  mode: "relative-to-scene"
+};
 </code></pre>
 </div>
 
@@ -474,9 +535,11 @@ buildingInfoLayer
 
 <!-- .slide: data-background="images/bg-4.png" -->
 
-### Working with the [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html)
+### Working with the SceneView
 
-<div class="code-snippet" style="font-size: 160%;">
+<span style="font-size: 50%">https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html</span>
+
+<div class="code-snippet" style="max-width: 600px; float: none; position: absolute; left: 50%; transform: translate(-50%, 0); font-size: 160%;">
   <pre><code class="lang-ts">
 class SceneView {
   // Camera specifies the view
@@ -496,6 +559,85 @@ class SceneView {
 
 ---
 
+<!-- .slide: data-background="images/bg-4.png" data-title="scene-layer-hittest" -->
+
+### SceneView: hitTest()
+
+<div class="two-columns">
+  <div class="left-column">
+
+<div class="code-snippet" style="font-size: 160%;">
+<pre><code class="lang-ts">// Visualize buildings
+view.on("click",function(event) {
+  view.hitTest(event).then(function(response) {
+
+    // objectid from first intersected graphic
+    var graphic = response.results[0].graphic;
+    var id = graphic.attributes["objectid"];
+    objectIds.push(id);
+  });
+});
+</code></pre>
+</div>
+
+<div class="code-snippet" style="font-size: 160%;">
+<pre><code class="lang-ts">// Color based on Arcade expression
+buildingLayer.renderer = {
+  type: "unique-value",
+  valueExpression: "When(0 <= indexof([" +
+    objectIds.join(",") +
+    "], $feature.OBJECTID), 'selected', '')",
+  defaultSymbol: { ... }, // green symbol
+  uniqueValueInfos: [{
+    value: "selected",
+    symbol: { ... }, // blue symbol
+  }]
+};
+</code></pre>
+</div>
+
+  </div>
+  <div class="right-column">
+    <iframe id="go-to-demo" data-src="./samples/newyork-getting-started.html" ></iframe>
+  </div>
+</div>
+
+---
+
+<!-- .slide: data-background="images/bg-4.png" data-title="scene-view-goto" -->
+
+### SceneView: goTo()
+
+<div class="two-columns">
+  <div class="left-column">
+
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="goToButton"></button>
+<pre><code class="lang-ts">// Show Skyline
+view.goTo({
+  position: {
+    spatialReference:
+      SpatialReference.WebMercator,
+    x: -8235336,
+    y: 4976009,
+    z: 369
+  },
+  heading: 212, // deg
+  tilt: 84
+}, {
+  duration: 5000, // ms
+  easing: "in-out-coast-quadratic",
+});</code></pre>
+</div>
+
+  </div>
+  <div class="right-column">
+    <iframe id="go-to-demo" data-src="./samples/newyork-getting-started.html" ></iframe>
+  </div>
+</div>
+
+---
+
 <!-- .slide: data-background="images/bg-4.png" data-title="building-scene-layer" -->
 
 ### Building Scene Layer
@@ -510,40 +652,10 @@ var esriAdminBldg = new BuildingSceneLayer({
   url: ".../Esri_Admin_Bldg/SceneServer"
 });
 view.map.add(buildingSceneLayer);
-</code></pre>
-</div>
 
-<div class="code-snippet" style="font-size: 160%;">
-<pre><code class="lang-ts">// Retrieve building sublayer
+// Retrieve building sublayer
 function getSublayer(title) {
-  return esriAdminBldg
-    .allSublayers
-    .find(function(sublayer) {
-      return sublayer.title === title;
-    });
-};</code></pre>
-</div>
-
-  </div>
-  <div class="right-column">
-    <iframe id="go-to-demo" data-src="./samples/redlands-getting-started.html" ></iframe>
-  </div>
-</div>
-
----
-
-<!-- .slide: data-background="../images/bg-4.png" data-title="building-scene-layer-api" -->
-
-## Building Scene Layer
-
-<div class="two-columns">
-  <div class="left-column">
-
-<div class="code-snippet" style="font-size: 160%;">
-<pre><code class="lang-ts">// Retrieve building sublayer
-function getSublayer(title) {
-  return esriAdminBldg
-    .allSublayers
+  return esriAdminBldg.allSublayers
     .find(function(sublayer) {
       return sublayer.title === title;
     });
@@ -563,22 +675,11 @@ getSublayer("Roof").visible = false;
 getSublayer("Windows").visible = false;</code></pre>
 </div>
 
-
   </div>
   <div class="right-column">
     <iframe id="go-to-demo" data-src="./samples/redlands-getting-started.html" ></iframe>
   </div>
 </div>
-
----
-
-<!-- .slide: data-background="images/bg-4.png" -->
-
-### ToDo
-
-- Introduce BSL
-- Interacting with BSL: hitTest -> hide layer
-- goTo
 
 ---
 
@@ -627,10 +728,12 @@ getSublayer("Windows").visible = false;</code></pre>
 
 ---
 
-### WebScene
-#### _Loading a scene_
+### Loading a WebScene
 
-```javascript
+<span style="font-size: 50%">https://developers.arcgis.com/javascript/latest/sample-code/sandbox/index.html?sample=webscene-basic</span>
+
+<div class="code-snippet" style="max-width: 600px; float: none; position: absolute; left: 50%; transform: translate(-50%, 0); font-size: 160%;">
+  <pre><code class="lang-ts">
 require([
   "esri/WebScene",
   "esri/views/SceneView",
@@ -648,9 +751,7 @@ require([
     map: scene
   });
 });
-```
-
-<span style="font-size: 50%">https://developers.arcgis.com/javascript/latest/sample-code/sandbox/index.html?sample=webscene-basic</span>
+</code></pre></div>
 
 ---
 
