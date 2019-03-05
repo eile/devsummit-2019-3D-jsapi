@@ -63,12 +63,6 @@ Browser requirements
 
 ---
 
-### ToDo
-
-- Widgets, e.g. search
-
----
-
 <!-- .slide: data-background="images/bg-3.png" -->
 
 ### The simplest possible app
@@ -793,13 +787,15 @@ require([
 <!-- .slide: data-background="images/bg-2.png" -->
 
 ### Related sessions
-
-- Interactive 3D Maps with the JavaScript API: _Beyond the Basics_ <br/>
-  _Wed 5.30pm, Primrose B_
-- Practical Guide for Building a 3D Web App From 2D Data<br/>
-  _Thu 10.30am, Primrose A_
-- 3D Visualization with the ArcGIS API for JavaScript<br/>
-  _Thu 4pm, Primrose C-D_
+<br/>
+Interactive 3D Maps with the JavaScript API: _Beyond the Basics_ <br/>
+_Wed 5.30pm, Primrose B_<br/>
+<br/>
+Practical Guide for Building a 3D Web App From 2D Data<br/>
+_Thu 10.30am, Primrose A_<br/>
+<br/>
+3D Visualization with the ArcGIS API for JavaScript<br/>
+_Thu 4pm, Primrose C-D_<br/>
 
 ---
 

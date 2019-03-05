@@ -761,3 +761,7 @@ span.hljs-string {
     margin-right: 32%;
     margin-bottom: 70%;
 }
+
+.reveal .slide-background {
+  background-image: url("../images/bg-3.png");
+}
