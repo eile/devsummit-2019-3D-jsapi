@@ -16,9 +16,7 @@ Live version of this presentation:<br>https://esri.github.io/devsummit-2019-3D-j
 
 <!-- .slide: data-background="images/bg-4.png" -->
 
-## Fancy example
-
-<i>This is what you will learn to do</i>
+<img src="images/teaser.jpg" width="100%"/>
 
 ---
 
@@ -721,8 +719,8 @@ getSublayer("Windows").visible = false;</code></pre>
 <br/>
 <br/>
 
-<div class="twos" style="font-size: 80%">
-  <div style="margin-left: 4em">
+<div class="twos">
+  <div>
     <ul>
       <li>Works with `MapView` and `SceneView`</li>
       <li>Cannot be saved</li>
