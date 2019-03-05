@@ -25,12 +25,11 @@ Live version of this presentation:<br>https://esri.github.io/devsummit-2019-3D-j
 <!-- .slide: data-background="../images/bg-2.png" -->
 
 ## Basics
-  
-```javascript
-import { ExternalRenderer } from "esri/views/3d/externalRenderers/interfaces";
-import { add as addExternalRenderer } from "esri/views/3d/externalRenderers";
-import RenderContext = require("esri/views/3d/externalRenderers/RenderContext");
 
+- Implement ExternalRenderer API
+- Add to SceneView
+    
+```ts
 export class VolumeRenderer implements ExternalRenderer {
   setup(context: RenderContext): void {
     this.renderer = new THREE.WebGLRenderer({ context: context.gl });
@@ -46,13 +45,15 @@ export class VolumeRenderer implements ExternalRenderer {
 addExternalRenderer(view, new VolumeRenderer());
 ```
 
---- 
+---
 
 <!-- .slide: data-background="../images/bg-2.png" -->
 
 ## Requesting Redraws
-   
-```javascript
+
+- Whenever external data changes
+
+```ts
 selectVolume(filename, () => {
   requestRender(this._view);
   if (this._animating) {
@@ -62,8 +63,6 @@ selectVolume(filename, () => {
 ```
 
 ---
-
---- 
 
 <!-- .slide: data-background="../images/bg-2.png" -->
 
