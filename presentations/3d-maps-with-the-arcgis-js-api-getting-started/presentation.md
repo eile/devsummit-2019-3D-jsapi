@@ -152,7 +152,7 @@ Browser requirements
 
 ---
 
-<!-- .slide: data-background="../images/bg-2.png" -->
+<!-- .slide: data-background="../images/bg-3.png" -->
 ### <b>ArcGIS API for JavaScript</b>
 
 <span style="font-size: 50%">https://developers.arcgis.com/javascript/</span>
@@ -166,7 +166,7 @@ Browser requirements
 
 ---
 
-<!-- .slide: data-background="../images/bg-2.png" -->
+<!-- .slide: data-background="../images/bg-3.png" -->
 ### <b>ArcGIS API for JavaScript Sandbox</b>
 
 <span style="font-size: 50%">https://developers.arcgis.com/javascript/latest/sample-code/</span>
@@ -176,7 +176,7 @@ Browser requirements
 
 ---
 
-<!-- .slide: data-background="../images/bg-2.png" -->
+<!-- .slide: data-background="../images/bg-3.png" -->
 ### <b>GitHub</b>
 
 <span style="font-size: 50%">https://github.com/esri</span>
@@ -224,7 +224,7 @@ Browser requirements
 
 ---
 
-<!-- .slide: data-background="images/bg-4.png" data-title="add-tile-layer" -->
+<!-- .slide: data-background="images/bg-3.png" data-title="add-tile-layer" -->
 
 ### Add TileLayer
 
@@ -261,7 +261,7 @@ map.layers.add(housingDensityLayer);
 
 ---
 
-<!-- .slide: data-background="images/bg-4.png" data-title="add-feature-layer" -->
+<!-- .slide: data-background="images/bg-3.png" data-title="add-feature-layer" -->
 
 ### URL vs Portal Item ID
 
@@ -273,7 +273,7 @@ map.layers.add(housingDensityLayer);
 
 ---
 
-<!-- .slide: data-background="images/bg-4.png" data-title="add-feature-layer" -->
+<!-- .slide: data-background="images/bg-3.png" data-title="add-feature-layer" -->
 
 ### Add FeatureLayer
 
@@ -302,7 +302,7 @@ var buildingInfo = new FeatureLayer({
 
 ---
 
-<!-- .slide: data-background="images/bg-4.png" data-title="add-scene-layer" -->
+<!-- .slide: data-background="images/bg-3.png" data-title="add-scene-layer" -->
 
 ### Add SceneLayer
 
@@ -369,7 +369,7 @@ map.layers.add(buildingsLayer);
 
 ---
 
-<!-- .slide: data-background="images/bg-4.png" data-title="feature-layer-renderer" -->
+<!-- .slide: data-background="images/bg-3.png" data-title="feature-layer-renderer" -->
 
 ### Visualization: FeatureLayer
 
@@ -412,7 +412,7 @@ buildingInfoLayer
 
 ---
 
-<!-- .slide: data-background="images/bg-4.png" data-title="scene-layer-renderer" -->
+<!-- .slide: data-background="images/bg-3.png" data-title="scene-layer-renderer" -->
 
 ### Visualization: SceneLayer
 
@@ -459,7 +459,7 @@ buildingLayer.renderer = new SimpleRenderer({
 
 ---
 
-<!-- .slide: data-background="images/bg-4.png" data-title="elevation-info" -->
+<!-- .slide: data-background="images/bg-3.png" data-title="elevation-info" -->
 
 ### Visualization: Elevation Mode
 
@@ -490,7 +490,7 @@ buildingInfoLayer.elevationInfo = {
 
 ---
 
-<!-- .slide: data-background="images/bg-4.png" data-title="feature-layer-renderer" -->
+<!-- .slide: data-background="images/bg-3.png" data-title="feature-layer-renderer" -->
 
 ### Renderers and Symbols
 
@@ -551,7 +551,7 @@ buildingInfoLayer.elevationInfo = {
 
 ---
 
-<!-- .slide: data-background="images/bg-4.png" -->
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### Working with the SceneView
 
@@ -577,7 +577,7 @@ class SceneView {
 
 ---
 
-<!-- .slide: data-background="images/bg-4.png" data-title="scene-layer-hittest" -->
+<!-- .slide: data-background="images/bg-3.png" data-title="scene-layer-hittest" -->
 
 ### SceneView: hitTest()
 
@@ -622,7 +622,7 @@ buildingLayer.renderer = {
 
 ---
 
-<!-- .slide: data-background="images/bg-4.png" data-title="scene-view-goto" -->
+<!-- .slide: data-background="images/bg-3.png" data-title="scene-view-goto" -->
 
 ### SceneView: goTo()
 
@@ -656,7 +656,7 @@ view.goTo({
 
 ---
 
-<!-- .slide: data-background="images/bg-4.png" data-title="building-scene-layer" -->
+<!-- .slide: data-background="images/bg-3.png" data-title="building-scene-layer" -->
 
 ### Building Scene Layer
 
