@@ -306,26 +306,6 @@
 
         hideSublayerWithName("Overview");
 
-        view.on("click", function(event) {
-
-          view.hitTest(event).then(function(response) {
-            // check if a feature is returned from the hurricanesLayer
-            // do something with the result graphic
-            response.results.some(function(result) {
-              const graphic = result.graphic;
-              if (graphic && graphic.attributes) {
-                const category = graphic.attributes["BaseCategory"];
-                if (category) {
-                  console.log("Hiding", category);
-                  hideSublayerWithName(category)
-                  return true;
-                }
-              }
-              return false;
-            });
-          });
-        });
-
       });
 
       onclick("hideRoofButton", function() {

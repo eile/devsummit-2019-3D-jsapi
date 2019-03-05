@@ -27,12 +27,15 @@
 
 <div class="code-snippet" style="font-size: 160%;">
 <button class="play" id="addElevationButton"></button>
-<pre><code class="lang-ts">// Add mountains
+<pre><code class="lang-ts">// Add mountains</code></pre>
 </div>
 
 <div class="code-snippet" style="font-size: 160%;">
 <button class="play" id="addBuildingsButton"></button>
-<pre><code class="lang-ts">// Add building scene layer, lights, trees</code></pre>
+<pre><code class="lang-ts">// Add building scene layer, lights, trees
+var sceneLayer = new SceneLayer({
+  url: ".../Buildings_TODO/SceneServer",
+});</code></pre>
 </div>
 
   </div>
