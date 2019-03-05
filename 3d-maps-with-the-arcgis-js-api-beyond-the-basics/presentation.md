@@ -9,7 +9,7 @@
   Stefan Eilemann, ESRI R&amp;D Center Z&uuml;rich
 </p>
 <p><br/><small>
-Live version of this presentation:<br>https://arcgis.github.io/devsummit-2019-3D-jsapi/presentations/3d-maps-with-the-arcgis-js-api-beyond-the-basics
+Live version of this presentation:<br>https://esri.github.io/devsummit-2019-3D-jsapi/3d-maps-with-the-arcgis-js-api-beyond-the-basics
 </small></p>
 
 ---
@@ -593,6 +593,33 @@ view.when(function () {
   </div>
 </div>
 
+---
+
+### Slice Widget
+
+<div class="twos">
+  <div class="snippet">
+  <pre><code class="lang-js hljs javascript">const buildingLayer = new BuildingSceneLayer({
+  portalItem: {
+    id: "fca0557a79c645e6843b00a7b55ce511"
+  }
+});
+view.map.layers.add(buildingLayer);
+
+// Create slice widget
+var sliceWidget = new Slice({
+  view: view
+});
+
+// Add widget to the UI
+view.ui.add(sliceWidget, "top-right");
+</code></pre>
+  <svg data-play-frame="frame-svm-graphics" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  </div>
+  <div class="snippet-preview">
+    <iframe id="widgets-slice" data-src="./snippets/widgets-slice.html"></iframe>
+  </div>
+</div>
 
 ---
 
