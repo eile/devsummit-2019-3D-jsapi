@@ -81,7 +81,8 @@
         }
       });
 
-      view.pixelRatio = 1.6;
+      view.pixelRatio = 2;
+      view.qualitySettings.memoryLimit = 400;
 
       view.watch("updatingPercentage", function () {
         var mc = view.resourceController.memoryController;

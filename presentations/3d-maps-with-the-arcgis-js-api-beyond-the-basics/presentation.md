@@ -1,18 +1,15 @@
 <!-- .slide: data-background="images/bg-1.png" -->
 
-### ArcGIS API for JavaScript
- 
-#### Interactive 3D Maps: Beyond the Basics
+### Interactive 3D Maps with the<br/> ArcGIS API for JavaScript
 
-<br/>
+### _Beyond the Basics_
 
-<p style="font-size: smaller">Johannes Schmid, ESRI R&amp;D Center Z&uuml;rich</p>
-<p style="font-size: smaller">Stefan Eilemann, ESRI R&amp;D Center Z&uuml;rich</p>
-
-<br/>
-
-<p><small>
-Live version of this presentation is available on:<br>https://arcgis.github.io/devsummit-2019-3D-jsapi/presentations/3d-maps-with-the-arcgis-js-api-beyond-the-basics
+<p style="font-size: 75%"><br/>
+  Johannes Schmid, Esri R&amp;D Center Z&uuml;rich<br/>
+  Stefan Eilemann, ESRI R&amp;D Center Z&uuml;rich
+</p>
+<p><br/><small>
+Live version of this presentation:<br>https://arcgis.github.io/devsummit-2019-3D-jsapi/presentations/3d-maps-with-the-arcgis-js-api-beyond-the-basics
 </small></p>
 
 ---
@@ -552,6 +549,17 @@ function (event) {
   </div>
 </div>
 
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+### Mouse Interaction
+
+|               toMap               |              hitTest               |
+| :-------------------------------: | :--------------------------------: |
+|   first hit in map coordinates    |    multiple hits with the scene    |
+| only intersects ground by default | only intersects  layers by default |
+<td colspan=2> Use include: or exclude: options to override defaults 
 
 ---
 
@@ -599,7 +607,7 @@ view.when(function () {
 
 ---
 
-<!-- .slide: data-background="images/bg-5.png" -->
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### Server-Side Filtering
 #### _DefinitionExpression_
@@ -622,7 +630,7 @@ layer.definitionExpression = "health = 'good'"
 
 ---
 
-<!-- .slide: data-background="images/bg-5.png" -->
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### Client-Side Filtering
 #### _Spatial Filter_
@@ -661,13 +669,13 @@ layer.definitionExpression = "health = 'good'"
 
 ---
 
-<!-- .slide: data-background="images/bg-6.png" -->
+<!-- .slide: data-background="images/bg-4.png" -->
 
 ## Symbology
 
 ---
 
-<!-- .slide: data-background="images/bg-5.png" -->
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### Symbology
 #### _Inside - Outside_
@@ -708,7 +716,7 @@ view.whenLayerView(outside).then(function (lv) {
 
 ---
 
-<!-- .slide: data-background="images/bg-6.png" -->
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### Symbology
 #### _Outside_
@@ -745,7 +753,7 @@ outside.renderer = new SimpleRenderer({
 
 ---
 
-<!-- .slide: data-background="images/bg-6.png" -->
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### Symbology
 #### _Inside_
@@ -893,10 +901,20 @@ buildings.renderer = {
 
 ## External renderer
 
-- ToDo: add teaser image/video
-- You have data that you cannot visualize with available renderers, methods
+- You have data that you cannot visualize with available layers and renderers
 - You want visualizations/animations that are not (yet) available
 - You are familiar with WebGL and can afford the development effort
+
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+## External renderer
+
+<video controls>
+  <source src="images/hurricane.mp4" type="video/mp4">
+</video>
 
 ---
 
