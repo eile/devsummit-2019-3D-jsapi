@@ -6,7 +6,7 @@
   Stefan Eilemann, ESRI R&amp;D Center Z&uuml;rich
 </p>
 <p><br/><small>
-Live version of this presentation:<br>https://arcgis.github.io/devsummit-2019-3D-jsapi/Advanced-WebGL-in-3D-SceneViews
+Live version of this presentation:<br>https://esri.github.io/devsummit-2019-3D-jsapi/Advanced-WebGL-in-3D-SceneViews
 </small></p>
 
 ---

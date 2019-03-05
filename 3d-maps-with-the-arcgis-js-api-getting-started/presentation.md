@@ -9,7 +9,7 @@
   Arno Fiva, Esri R&amp;D Center Z&uuml;rich
 </p>
 <p><br/><small>
-Live version of this presentation:<br>https://arcgis.github.io/devsummit-2019-3D-jsapi/3d-maps-with-the-arcgis-js-api-getting-started
+Live version of this presentation:<br>https://esri.github.io/devsummit-2019-3D-jsapi/3d-maps-with-the-arcgis-js-api-getting-started
 </small></p>
 
 ---

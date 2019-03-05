@@ -2,7 +2,7 @@
 
 Learn how you can leverage the WebGL capabilities of your browser with the JavaScript API to build stunning 3D web applications. This session will focus on more advanced aspects like: camera operations, atmosphere and lighting and performance. Also learn how to extend the API with custom WebGL code and integrate it with frameworks like Three.js.
 
-Live: https://arcgis.github.io/devsummit-2019-3D-jsapi/3d-maps-with-the-arcgis-js-api-beyond-the-basics
+Live: https://esri.github.io/devsummit-2019-3D-jsapi/3d-maps-with-the-arcgis-js-api-beyond-the-basics
 
 
 
