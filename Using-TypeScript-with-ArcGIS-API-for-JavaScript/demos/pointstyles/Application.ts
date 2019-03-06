@@ -122,8 +122,7 @@ class Application {
     const labelingInfo = [
       new LabelClass({
         labelExpressionInfo: {
-          value: "{Name}",
-          expression: null
+          expression: "$feature.Name"
         },
         symbol: new LabelSymbol3D({
           symbolLayers: [
