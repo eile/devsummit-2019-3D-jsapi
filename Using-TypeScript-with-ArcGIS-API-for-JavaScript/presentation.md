@@ -274,22 +274,6 @@ class My4dPoint extends MyPoint {
 
 <!-- .slide: data-background="../images/bg-5.png" -->
 
-## Headline Here 5
-
-* Bullet [points here](http://hakim.se).
-
----
-
-<!-- .slide: data-background="../images/bg-6.png" -->
-
-## Headline Here 6
-
-* Bullet [points here](http://hakim.se).
-
----
-
-<!-- .slide: data-background="../images/bg-5.png" -->
-
 ## Questions?
 
 ---
