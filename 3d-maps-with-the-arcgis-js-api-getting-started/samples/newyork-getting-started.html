@@ -117,14 +117,6 @@
         }
       });
 
-      view.when(function() {
-        // Watch for when features are selected
-        view.popup.watch("selectedFeature", function(graphic) {
-          if (graphic) {
-            console.log("Selected", graphic);
-          }
-        });
-      });
 
       map.add(buildingInfoLayer);
       buildingInfoLayer.visible = false;
@@ -239,6 +231,7 @@
 
       onshow("add-scene-layer", function() {
         view.camera = buildingCamera;
+        // view.map.basemap = "dark-gray";
       });
 
       onclick("addSceneLayerButton", function() {
@@ -354,25 +347,15 @@
 
       // Slide: SceneView goTo()
 
-      // var goToCamera = {
-      //   position: {
-      //     spatialReference: { latestWkid: 3857, wkid: 102100 },
-      //     x: -8235793.010793808,
-      //     y: 4976109.010944594,
-      //     z: 360.71128391940147
-      //   },
-      //   heading: 203.85591245081164,
-      //   tilt: 85.07629476189648
-      // };
       var goToCamera = {
         position: {
           spatialReference: { latestWkid: 3857, wkid: 102100 },
-          x: -8235336.306600715,
-          y: 4976009.545185938,
-          z: 369.4922970132902
+          x: -8235793.010793808,
+          y: 4976109.010944594,
+          z: 360.71128391940147
         },
-        heading: 212.84095935645777,
-        tilt: 84.2726925110897
+        heading: 203.85591245081164,
+        tilt: 85.07629476189648
       };
 
       onshow("scene-view-goto", function() {
@@ -390,54 +373,18 @@
 
       // Slide: SceneView hittest
 
-      var objectIds = [];
-      function addObjectId(objectId) {
-        objectIds.push(objectId);
-        buildingLayer.renderer = {
-          type: "unique-value",
-          valueExpression: "When(indexof([" + objectIds.join(",") +
-            "], $feature.OBJECTID) < 0, '', 'selected')",
-          defaultSymbol: {
-            type: "mesh-3d",
-            symbolLayers: [{
-              type: "fill", // autocasts as new FillSymbol3DLayer()
-              material: {
-                color: [153, 204, 203]
-              },
-              edges: {
-                type: "solid", // autocasts as new SolidEdges3D()
-                color: [50, 50, 50, 0.5]
-              }
-            }],
-          },
-          uniqueValueInfos: [{
-            value: "selected",
-            symbol: {
-              type: "mesh-3d",
-              symbolLayers: [{
-                type: "fill",
-                material: {
-                  color: [149, 184, 214],
-                },
-                edges: {
-                  type: "solid", // autocasts as new SolidEdges3D()
-                  color: [50, 50, 50, 0.5]
-                },
-              }],
-            },
-          }]
-        };
-      }
-
       onshow("scene-layer-hittest", function() {
         view.camera = financialDistrictCamera;
         buildingLayer.visible = true;
         buildingLayer.renderer = buildingRenderer;
+        buildingLayer.popupEnabled = true;
+
+        view.popup.dockEnabled = true;
 
         view.on("click",function(event) {
           view.hitTest(event).then(function(response) {
             var graphic = response.results[0].graphic;
-            addObjectId(graphic.attributes["objectid"]);
+            view.goTo({target: graphic, scale: view.scale}, {duration: 3000});
           });
         });
       });

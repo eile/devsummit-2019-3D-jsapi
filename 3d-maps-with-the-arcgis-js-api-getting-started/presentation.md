@@ -260,7 +260,7 @@ map.layers.add(housingDensityLayer);
 ### URL vs Portal Item ID
 
 
-<span style="font-size: 50%"><a href="">http://www.arcgis.com/home/item.html?id=<span style="color: orange; font-weight: bold;">2d6f6624424a410a994bd9432befb907</span></a></span>
+<span style="font-size: 50%"><a href="http://www.arcgis.com/home/item.html?id=2d6f6624424a410a994bd9432befb907">http://www.arcgis.com/home/item.html?id=<span style="color: orange; font-weight: bold;">2d6f6624424a410a994bd9432befb907</span></a></span>
 
 <img class="plain" src="./images/portal-item.png" width=800 background=none>
 
@@ -579,32 +579,22 @@ class SceneView {
   <div class="left-column">
 
 <div class="code-snippet" style="font-size: 160%;">
-<pre><code class="lang-ts">// Visualize buildings
+<pre><code class="lang-ts">// Listen to click events
 view.on("click",function(event) {
-  view.hitTest(event).then(function(response) {
 
-    // objectid from first intersected graphic
+  // Check if user clicked on graphic
+  view.hitTest(event).then(function(response) {
     var graphic = response.results[0].graphic;
-    var id = graphic.attributes["objectid"];
-    objectIds.push(id);
+
+    // Zoom into
+    view.goTo({
+      target: graphic,
+      scale: view.scale
+    }, {
+      duration: 3000
+    });
   });
 });
-</code></pre>
-</div>
-
-<div class="code-snippet" style="font-size: 160%;">
-<pre><code class="lang-ts">// Color based on Arcade expression
-buildingLayer.renderer = {
-  type: "unique-value",
-  valueExpression: "When(0 <= indexof([" +
-    objectIds.join(",") +
-    "], $feature.OBJECTID), 'selected', '')",
-  defaultSymbol: { ... }, // green symbol
-  uniqueValueInfos: [{
-    value: "selected",
-    symbol: { ... }, // blue symbol
-  }]
-};
 </code></pre>
 </div>
 
@@ -628,17 +618,12 @@ buildingLayer.renderer = {
 <pre><code class="lang-ts">// Show Skyline
 view.goTo({
   position: {
-    spatialReference:
-      SpatialReference.WebMercator,
-    x: -8235336,
-    y: 4976009,
+    x: -73.977427, // lon
+    y: 40.757457, // lat
     z: 369
   },
   heading: 212, // deg
-  tilt: 84
-}, {
-  duration: 5000, // ms
-  easing: "in-out-coast-quadratic",
+  tilt: 84  // deg
 });</code></pre>
 </div>
 
@@ -663,20 +648,21 @@ view.goTo({
 var esriAdminBldg = new BuildingSceneLayer({
   url: ".../Esri_Admin_Bldg/SceneServer"
 });
-view.map.add(buildingSceneLayer);
+view.map.add(buildingSceneLayer);</code></pre>
+</div>
 
-// Retrieve building sublayer
+<div class="fragment" data-fragment-index="1">
+<div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="hideWallsButton"></button>
+<pre><code class="lang-ts">// Retrieve building sublayer
 function getSublayer(title) {
   return esriAdminBldg.allSublayers
     .find(function(sublayer) {
       return sublayer.title === title;
     });
-};</code></pre>
-</div>
+};
 
-<div class="code-snippet" style="font-size: 160%;">
-<button class="play" id="hideWallsButton"></button>
-<pre><code class="lang-ts">// Hide sublayer named "Walls"
+// Hide sublayer named "Walls"
 getSublayer("Walls").visible = false;</code></pre>
 </div>
 
@@ -685,6 +671,7 @@ getSublayer("Walls").visible = false;</code></pre>
 <pre><code class="lang-ts">// Hide roof and windows
 getSublayer("Roof").visible = false;
 getSublayer("Windows").visible = false;</code></pre>
+</div>
 </div>
 
   </div>
