@@ -615,6 +615,19 @@ var sliceWidget = new Slice({
 // Add widget to the UI
 view.ui.add(sliceWidget, "top-right");
 </code></pre>
+    </div>
+    <br/>
+    <div class="snippet fragment">
+    <pre><code class="lang-js hljs javascript">// Create measurement widget
+var msmtWidget = new DirectLineMeasurement3D({
+  view: view
+});
+
+// Add widget to the UI
+view.ui.add(msmtWidget, "top-right");
+</code></pre>
+      <div class="play-code" data-play-frame="widgets-slice"></div>
+    </div>
   </div>
   <div class="snippet-preview" style="width:100%">
     <iframe id="widgets-slice" data-src="./snippets/widgets-slice.html"></iframe>
