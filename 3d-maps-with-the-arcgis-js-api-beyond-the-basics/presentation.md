@@ -357,28 +357,35 @@ view.goTo({
 - Use the options to control the animation
 
 <div class="twos">
-  <div class="snippet">
-  <pre><code class="lang-js hljs javascript">
-// double the animation speed
+  <div>
+    <div class="snippet">
+      <pre><code class="lang-js hljs javascript">// double the animation speed
 view.goTo(target, {
   speedFactor: 2
 });
-
-
-// animate for exactly 1 second
+</code></pre>
+      <div class="play-code" id="frame-goto-options-speed"></div>
+    </div>
+    <br/>
+    <div class="snippet">
+      <pre><code class="lang-js hljs javascript">// animate for exactly 1 second
 view.goTo(target, {
-  duration: 1000
+  duration: 5000
 });
-
-
-// disable ease-in and ease-out
+</code></pre>
+      <div class="play-code" id="frame-goto-options-duration"></div>
+    </div>
+    <br/>
+    <div class="snippet">
+      <pre><code class="lang-js hljs javascript">// disable easing
 view.goTo(target, {
   easing: "linear"
 });
 </code></pre>
-  <div class="play-code" data-play-frame="frame-goto-options"></div>
-  </div>
-  <div class="snippet-preview">
+      <div class="play-code" id="frame-goto-options-easing"></div>
+    </div>
+  </div>  
+  <div class="snippet-preview" style="width:60%">
     <iframe id="frame-goto-options" data-src="./snippets/setup-goto-options.html"></iframe>
   </div>
 </div>
@@ -393,16 +400,19 @@ view.goTo(target, {
 - Use [`SceneView.constraints`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#constraints) to control navigation and rendering aspects
 
 <div class="twos">
-  <div class="snippet">
-  <pre><code class="lang-js hljs javascript">
-// Set the allowed altitude range of the viewer
+  <div style="width:20%">
+    <div class="snippet">
+      <pre><code class="lang-js hljs javascript">// Set the allowed altitude range of the viewer
 view.constraints.altitude = {
   max: 100000000, // 100'000 km
   min: 10000000   // 10'000 km
 };
-
-
-// Set the clip distance (near/far planes)
+</code></pre>
+    <div class="play-code" id="frame-constraints-altitude"></div>
+    </div>
+    <br/>
+    <div class="snippet">
+      <pre><code class="lang-js hljs javascript">// Set the clip distance (near/far planes)
 // to override the default clipping heuristics
 view.constraints.clipDistance = {
   far: 200000000, // 200'000 km
@@ -410,7 +420,8 @@ view.constraints.clipDistance = {
 };
 
 </code></pre>
-  <div class="play-code" data-play-frame="frame-constraints"></div>
+    <div class="play-code" id="frame-constraints-clipDistance"></div>
+    </div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-constraints" data-src="./snippets/setup-constraints.html"></iframe>

@@ -71,23 +71,29 @@ function snippet(containers, interlinks) {
       interlinks.log("Altitude", Math.round(view.camera.position.z / 1000) + " km, Clipping: ", Math.round(view.constraints.clipDistance.near / 1000), " km \/ ", Math.round(view.constraints.clipDistance.far / 1000) + " km");
     });
 
-    let stage = 0;
-    interlinks.playButton = () => {
-      switch (stage) {
-        case 0:
-          view.constraints.altitude = {
-            min: 10000000,
-            max: 100000000
-          };
-          break;
-        case 1:
-          view.constraints.clipDistance = {
-            near: 200000,
-            far: 200000000
-          };
+    onclick("frame-constraints-altitude", function() {
+      view.constraints.altitude = {
+        min: 10000000,
+        max: 100000000
+      };
+    });
+
+    onclick("frame-constraints-clipDistance", function() {
+      view.constraints.clipDistance = {
+        near: 200000,
+        far: 200000000
+      };
+    });
+
+    function onclick(buttonId, onclick) {
+      var button = window.parent.document.getElementById(buttonId);
+      if (button && onclick) {
+        button.onclick = function() {
+          view.when(onclick).catch(console.error);
+        };
       }
-      stage++;
-    };
+    }
+
 
     function loadSatellites() {
       var date = new Date();

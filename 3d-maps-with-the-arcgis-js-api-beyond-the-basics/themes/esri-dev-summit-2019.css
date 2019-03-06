@@ -440,10 +440,6 @@ body {
   width: auto;
 }
 
-.reveal .twos .snippet {
-  display: flex;
-}
-
 .reveal .twos .snippet pre {
-  display: flex;
+ width: 100%;
 }
