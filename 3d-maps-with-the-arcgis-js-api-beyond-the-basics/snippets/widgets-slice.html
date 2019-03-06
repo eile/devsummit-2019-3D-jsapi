@@ -4,12 +4,14 @@ function snippet(containers, interlinks) {
     "esri/Map",
     "esri/views/SceneView",
     "esri/layers/BuildingSceneLayer",
-    "esri/widgets/Slice"
+    "esri/widgets/Slice",
+    "esri/widgets/DirectLineMeasurement3D"
   ], function(
     Map,
     SceneView,
     BuildingSceneLayer,
-    Slice
+    Slice,
+    DirectLineMeasurement3D
   ) {
 
     var view = new SceneView({
@@ -72,6 +74,13 @@ function snippet(containers, interlinks) {
       view: view
     });
     view.ui.add(sliceWidget, "top-right");
+
+    interlinks.playButton = function() {
+      var msmtWidget = new DirectLineMeasurement3D({
+        view: view
+      });
+      view.ui.add(msmtWidget, "top-right");
+    };
 
     window.parent.view = view;
   });

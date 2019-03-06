@@ -265,7 +265,7 @@ camera.heading += 5;
 
 // Set the modified camera on the view
 view.camera = camera;</code></pre>
-  <svg data-play-frame="frame-camera-heading-increment" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  <div class="play-code" data-play-frame="frame-camera-heading-increment"></div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-camera-heading-increment" data-src="./snippets/setup-camera-heading-increment.html"></iframe>
@@ -306,7 +306,7 @@ view.goTo({
   heading: heading
 });
 </code></pre>
-  <svg data-play-frame="frame-goto-heading" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  <div class="play-code" data-play-frame="frame-goto-heading"></div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-goto-heading" data-src="./snippets/setup-goto-heading.html"></iframe>
@@ -340,7 +340,7 @@ view.goTo({
   tilt: 70
 });
 </code></pre>
-  <svg data-play-frame="frame-goto-graphics" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  <div class="play-code" data-play-frame="frame-goto-graphics"></div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-goto-graphics" data-src="./snippets/setup-goto-graphics.html"></iframe>
@@ -376,7 +376,7 @@ view.goTo(target, {
   easing: "linear"
 });
 </code></pre>
-  <svg data-play-frame="frame-goto-options" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  <div class="play-code" data-play-frame="frame-goto-options"></div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-goto-options" data-src="./snippets/setup-goto-options.html"></iframe>
@@ -410,7 +410,7 @@ view.constraints.clipDistance = {
 };
 
 </code></pre>
-  <svg data-play-frame="frame-constraints" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  <div class="play-code" data-play-frame="frame-constraints"></div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-constraints" data-src="./snippets/setup-constraints.html"></iframe>
@@ -438,7 +438,7 @@ view.padding = {
   left: 150
 };
 </code></pre>
-  <svg data-play-frame="frame-padding" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  <div class="play-code" data-play-frame="frame-padding"></div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-padding" data-src="./snippets/setup-padding.html"></iframe>
@@ -473,7 +473,7 @@ function (event) {
   view.graphics.push(polygon); // add to view
 }
 </code></pre>
-  <svg data-play-frame="frame-tomap-graphics" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  <div class="play-code" data-play-frame="frame-tomap-graphics"></div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-tomap-graphics" data-src="./snippets/tomap-graphics.html"></iframe>
@@ -507,7 +507,7 @@ function (event) {
   }
 }
 </code></pre>
-  <svg data-play-frame="frame-hittest-graphics" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  <div class="play-code" data-play-frame="frame-hittest-graphics"></div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-hittest-graphics" data-src="./snippets/hittest-graphics.html"></iframe>
@@ -586,7 +586,7 @@ view.when(function () {
   svm.create("polygon");
 });
 </code></pre>
-  <svg data-play-frame="frame-svm-graphics" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  <div class="play-code" data-play-frame="frame-svm-graphics"></div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-svm-graphics" data-src="./snippets/svm-graphics.html"></iframe>
@@ -598,8 +598,9 @@ view.when(function () {
 ### Slice Widget
 
 <div class="twos">
-  <div class="snippet">
-  <pre><code class="lang-js hljs javascript">const buildingLayer = new BuildingSceneLayer({
+  <div>
+    <div class="snippet">
+    <pre><code class="lang-js hljs javascript">const buildingLayer = new BuildingSceneLayer({
   portalItem: {
     id: "fca0557a79c645e6843b00a7b55ce511"
   }
@@ -614,9 +615,8 @@ var sliceWidget = new Slice({
 // Add widget to the UI
 view.ui.add(sliceWidget, "top-right");
 </code></pre>
-  <svg data-play-frame="frame-svm-graphics" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
   </div>
-  <div class="snippet-preview">
+  <div class="snippet-preview" style="width:100%">
     <iframe id="widgets-slice" data-src="./snippets/widgets-slice.html"></iframe>
   </div>
 </div>
@@ -648,7 +648,7 @@ view.ui.add(sliceWidget, "top-right");
 // only show healthy trees
 layer.definitionExpression = "health = 'good'"
 </code></pre>
-  <svg data-play-frame="frame-def-graphics" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  <div class="play-code" data-play-frame="frame-def-graphics"></div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-def-graphics" data-src="./snippets/def-graphics.html"></iframe>
@@ -686,7 +686,7 @@ layer.definitionExpression = "health = 'good'"
   });
 });
 </code></pre>
-  <svg data-play-frame="frame-filter-graphics" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  <div class="play-code" data-play-frame="frame-filter-graphics"></div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-filter-graphics" data-src="./snippets/filter-graphics.html"></iframe>
@@ -734,7 +734,7 @@ view.whenLayerView(outside).then(function (lv) {
   });
 });
 </code></pre>
-  <svg data-play-frame="frame-filter-inout" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  <div class="play-code" data-play-frame="frame-filter-inout"></div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-filter-inout" data-src="./snippets/inout-graphics.html"></iframe>
@@ -771,7 +771,7 @@ outside.renderer = new SimpleRenderer({
   })
 });)
 </code></pre>
-  <svg data-play-frame="frame-filter-outside" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  <div class="play-code" data-play-frame="frame-filter-outside"></div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-filter-outside" data-src="./snippets/outside-graphics.html"></iframe>
@@ -814,7 +814,7 @@ for (var i = 0; i < trees.length; ++i) {
     }));
 }
 </code></pre>
-  <svg data-play-frame="frame-filter-inside" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  <div class="play-code" data-play-frame="frame-filter-inside"></div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-filter-inside" data-src="./snippets/inside-graphics.html"></iframe>
@@ -863,7 +863,7 @@ viewRight = new SceneView({
   }
 });
 </code></pre>
-  <svg data-play-frame="frame-quality-profile" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  <div class="play-code" data-play-frame="frame-quality-profile"></div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-quality-profile" data-src="./snippets/setup-quality-profile.html"></iframe>
@@ -903,7 +903,7 @@ buildings.renderer = {
   ..no edges.. 
 };
 </code></pre>
-  <svg data-play-frame="frame-memory" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  <div class="play-code" data-play-frame="frame-memory"></div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-memory" data-src="./snippets/memory.html"></iframe>
@@ -948,12 +948,15 @@ buildings.renderer = {
 <!-- .slide: data-background="images/bg-2.png" -->
 
 ### Related sessions
-- Advanced WebGL in 3D Scene Views with the ArcGIS API for JavaScript<br/>
-  _Thu 1.30pm, Demo Theater 1 (Oasis 1-2)_ 
-- Practical Guide for Building a 3D Web App From 2D Data<br/>
-  _Thu 10.30am, Primrose A_
-- 3D Visualization with the ArcGIS API for JavaScript<br/>
-  _Thu 4pm, Primrose C-D_
+<br/>
+Advanced WebGL in 3D Scene Views with the ArcGIS API for JavaScript<br/>
+_Thu 1.30pm, Demo Theater 1 (Oasis 1-2)_<br/>
+<br/> 
+Practical Guide for Building a 3D Web App From 2D Data<br/>
+_Thu 10.30am, Primrose A_<br/>
+<br/>
+3D Visualization with the ArcGIS API for JavaScript<br/>
+_Thu 4pm, Primrose C-D_<br/>
 
 ---
 

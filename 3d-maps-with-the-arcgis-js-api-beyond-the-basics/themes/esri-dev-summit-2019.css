@@ -428,10 +428,11 @@ body {
   width: 24px;
   height: 24px;
   cursor: pointer;
+  background-image: url("../images/play-button.svg");
 }
 
-.reveal .snippet .play-code:hover path {
-  fill: #fff;
+.reveal .snippet .play-code:hover {
+  background-image: url("../images/play-button-hover.svg");
 }
 
 .reveal pre {
