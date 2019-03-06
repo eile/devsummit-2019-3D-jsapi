@@ -183,39 +183,6 @@ Browser requirements
 
 ---
 
-### Projections
-
-[SceneView.viewingMode](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#viewingMode)
-
-<table>
-  <tr>
-    <td style="vertical-align: middle">
-      Global scene:<br/>
-      <ul>
-        <li>WebMercator</li>
-        <li>WGS84</li>
-      </ul>  
-    </td>
-    <td>
-      <img src="images/global-scene.jpg" width="405px"/>
-    </td>
-  </tr>
-  <tr>
-    <td style="vertical-align: middle">
-      Local scene:<br/>
-      <ul>
-        <li>Any projected CS</li>
-        <li>One PCS only!</li>
-      </ul>  
-    </td>
-    <td>
-      <img src="images/local-scene.jpg" width="405px"/>
-    </td>
-  </tr>
-</table>
-
----
-
 <!-- .slide: data-background="images/bg-3.png" data-title="add-tile-layer" -->
 
 ### Add TileLayer
@@ -354,6 +321,39 @@ map.layers.add(buildingsLayer);
     </ul>
   </li>
 </ul>
+
+---
+
+### Projections
+
+[SceneView.viewingMode](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#viewingMode)
+
+<table>
+  <tr>
+    <td style="vertical-align: middle">
+      Global scene:<br/>
+      <ul>
+        <li>WebMercator</li>
+        <li>WGS84</li>
+      </ul>  
+    </td>
+    <td>
+      <img src="images/global-scene.jpg" width="405px"/>
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: middle">
+      Local scene:<br/>
+      <ul>
+        <li>Any projected CS</li>
+        <li>One PCS only!</li>
+      </ul>  
+    </td>
+    <td>
+      <img src="images/local-scene.jpg" width="405px"/>
+    </td>
+  </tr>
+</table>
 
 ---
 
