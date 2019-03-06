@@ -433,7 +433,6 @@ view.constraints.clipDistance = {
 
 ---
 
-
 <!-- .slide: data-background="images/bg-2.png" -->
 
 ### View Padding
@@ -458,6 +457,43 @@ view.padding = {
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
+
+### Background
+
+<div class="twos">
+  <div class="snippet">
+  <pre><code class="lang-js hljs javascript">var view = new SceneView({
+  container: viewDiv,
+  map: map,
+
+  // enable canvas transparency
+  alphaCompositingEnabled: true,
+  
+  environment: {
+    // set transparent background
+    background: {
+      type: "color",
+      color: [0, 0, 0, 0]
+    },
+    
+    // disable stars & atmosphere
+    starsEnabled: false,
+    atmosphereEnabled: false
+  }
+});
+
+view.ui.empty("top-left");
+</code></pre>
+  </div>
+  <div class="snippet-preview">
+    <iframe id="frame-background" data-src="./snippets/setup-background.html" style="background-image: none; background-color: rgba(0, 0, 0, 0)"></iframe>
+  </div>
+</div>
+
+<span style="font-size: 50%">https://ralucanicola.github.io/JSAPI_demos/cities-globe/</span>
+
+---
 
 <!-- .slide: data-background="images/bg-4.png" -->
 
