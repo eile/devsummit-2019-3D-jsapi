@@ -282,7 +282,8 @@ var buildingInfo = new FeatureLayer({
   }
   popupEnabled: true,
   outFields: ["NAME", "CNSTRCT_YR", "HEIGHT"],
-})
+});
+map.layers.add(buildingInfo);
 </code></pre>
 </div>
 
@@ -643,10 +644,12 @@ view.goTo({
 <div class="code-snippet" style="font-size: 160%;">
 <button class="play" id="addBuildingButton"></button>
 <pre><code class="lang-ts">// Add new Building Scene Layer
-var esriAdminBldg = new BuildingSceneLayer({
-  url: ".../Esri_Admin_Bldg/SceneServer"
+var building = new BuildingSceneLayer({
+  portalItem: {
+    id: "34238fa639f441a794bd97ca526b3d26"
+  }
 });
-view.map.add(buildingSceneLayer);</code></pre>
+view.map.add(building);</code></pre>
 </div>
 
 <div class="fragment" data-fragment-index="1">
@@ -654,20 +657,18 @@ view.map.add(buildingSceneLayer);</code></pre>
 <button class="play" id="hideWallsButton"></button>
 <pre><code class="lang-ts">// Retrieve building sublayer
 function getSublayer(title) {
-  return esriAdminBldg.allSublayers
+  return building.allSublayers
     .find(function(sublayer) {
       return sublayer.title === title;
     });
 };
 
-// Hide sublayer named "Walls"
 getSublayer("Walls").visible = false;</code></pre>
 </div>
 
 <div class="code-snippet" style="font-size: 160%;">
 <button class="play" id="hideRoofButton"></button>
-<pre><code class="lang-ts">// Hide roof and windows
-getSublayer("Roof").visible = false;
+<pre><code class="lang-ts">getSublayer("Roof").visible = false;
 getSublayer("Windows").visible = false;</code></pre>
 </div>
 </div>
