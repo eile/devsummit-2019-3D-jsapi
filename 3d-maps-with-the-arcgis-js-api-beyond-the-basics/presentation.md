@@ -24,7 +24,6 @@ Live version of this presentation:<br>https://esri.github.io/devsummit-2019-3D-j
 1. Feature Filtering
 1. Symbology
 1. Performance and Quality
-1. 3D Models
 
 ---
 
@@ -776,7 +775,6 @@ layer.definitionExpression = "health = 'good'"
 <!-- .slide: data-background="images/bg-2.png" -->
 
 ### Symbology
-#### _Inside - Outside_
 
 - Set up two areas for different Styles
 
@@ -868,11 +866,7 @@ inside.renderer = new UniqueValueRenderer({
 });
 
 // species lookup table
-var trees = [
-  ["black locust", "Robinia"],
-  ...
-  ["London planetree", "Platanus"]
-];
+var trees = [ ["black locust", "Robinia"],  ... ];
 
 // Use WebStyleSymbol to map species to model
 for (var i = 0; i < trees.length; ++i) {
@@ -905,7 +899,16 @@ for (var i = 0; i < trees.length; ++i) {
 ### View Quality
 
 - Use [`qualityProfile`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#constraints) and [`quality`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#constraints) to control performance and quality
-- Affects: Level of detail for map and scene layer, anti-aliasing, atmosphere, memory used
+- Affects
+  - Level of detail for tile and scene layer
+  - Anti-aliasing
+  - Memory limit
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+### View Quality
 
 <div class="twos">
   <div class="snippet">
