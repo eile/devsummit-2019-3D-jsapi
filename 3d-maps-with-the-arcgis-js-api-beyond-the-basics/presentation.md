@@ -966,18 +966,25 @@ viewRight = new SceneView({
 ### Memory and Quality
 
 <div class="twos">
-  <div class="snippet">
+  <div style="width:11%">
+    <div class="snippet">
   <pre><code class="lang-js hljs javascript">// Use simpler basemap
 view.map.basemap = "topo";
-
-// Reduce number of trees
-treeLayerView.maximumNumberOfFeatures = 10000;
-
+</code></pre>
+  <div class="play-code" id="frame-memory1"></div>
+  </div><div class="snippet">
+<pre><code class="lang-js hljs javascript">// Reduce number of trees
+treeLV.maximumNumberOfFeatures = 10000;
+</code></pre>
+  <div class="play-code" id="frame-memory2"></div>
+  </div><div class="snippet">
+<pre><code class="lang-js hljs javascript">// Use simpler basemap
 buildings.renderer = {
   ..no edges.. 
 };
 </code></pre>
-  <div class="play-code" data-play-frame="frame-memory"></div>
+  <div class="play-code" id="frame-memory3"></div>
+  </div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-memory" data-src="./snippets/memory.html"></iframe>
