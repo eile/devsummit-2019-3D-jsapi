@@ -96,6 +96,8 @@ const pointsRenderer = new UniqueValueRenderer({
     }
   ]
 });
+
+expression: "$feature.Name"
 ```
 
 - Fix event handler typing
