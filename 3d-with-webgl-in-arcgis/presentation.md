@@ -10,6 +10,9 @@
 <p>Philip Mielke, Esri Redlands</p>
 <p>Arno Fiva, Esri R&amp;D Center Z&uuml;rich</p>
 
+<p><br/><small>
+Live version of this presentation:<br>https://esri.github.io/devsummit-2019-3D-jsapi/3d-with-webgl-in-arcgis
+</small></p>
 
 ---
 
@@ -391,6 +394,10 @@ track.on("track", function() {
     <iframe id="go-to-demo" data-src="./samples/redlands.html" ></iframe>
   </div>
 </div>
+
+---
+
+<!-- .slide: data-background="../images/bg-survey.jpg" -->
 
 ---
 
