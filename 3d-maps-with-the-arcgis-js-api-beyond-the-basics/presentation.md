@@ -548,7 +548,7 @@ function (event) {
 
 <div class="twos">
   <div class="snippet">
-  <pre><code class="lang-js hljs javascript">document.getElementById("viewDiv").onclick = function (event) {
+  <pre><code class="lang-js hljs javascript" style="font-size: 85%">document.getElementById("viewDiv").onclick = function (event) {
   event.stopPropagation();
 
   view.hitTest({x: event.clientX, y: event.clientY})
