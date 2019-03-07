@@ -76,7 +76,7 @@
               wkid: 102100
             }
           },
-          heading: 0,
+          heading: 5,
           tilt: 83
         }
       });
@@ -110,37 +110,39 @@
         interlinks.log(overview);
       });
 
-      let i = 0;
-      interlinks.playButton = function () {
-        switch (i) {
-          case 0:
-            view.map.basemap = "topo";
-            i = 1;
-            return;
+      onclick("frame-memory1", function() {
+        view.map.basemap = "topo";
+        i = 1;
+      });
 
-          case 1:
-            view.whenLayerView(trees).then(function (lv) {
-              lv.maximumNumberOfFeatures = 10000;
-            });
-            i = 2;
-            return;
+      onclick("frame-memory2", function() {
+        view.whenLayerView(trees).then(function (lv) {
+          lv.maximumNumberOfFeatures = 10000;
+        });
+      });
 
-          case 2:
-            buildings.renderer = {
-              type: "simple",
-              symbol: {
-                type: "mesh-3d",
-                symbolLayers: [{
-                  type: "fill",
-                  enabled: true,
-                  material: {
-                    color: [205, 205, 200]
-                  }
-                }]
+      onclick("frame-memory3", function() {
+        buildings.renderer = {
+          type: "simple",
+          symbol: {
+            type: "mesh-3d",
+            symbolLayers: [{
+              type: "fill",
+              enabled: true,
+              material: {
+                color: [205, 205, 200]
               }
-            };
-            i = 3;
-            return;
+            }]
+          }
+        };
+      });
+
+      function onclick(buttonId, onclick) {
+        var button = window.parent.document.getElementById(buttonId);
+        if (button && onclick) {
+          button.onclick = function() {
+            view.when(onclick).catch(console.error);
+          };
         }
       }
     });

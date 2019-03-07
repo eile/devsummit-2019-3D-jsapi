@@ -24,7 +24,6 @@ Live version of this presentation:<br>https://esri.github.io/devsummit-2019-3D-j
 1. Feature Filtering
 1. Symbology
 1. Performance and Quality
-1. 3D Models
 
 ---
 
@@ -265,7 +264,7 @@ camera.heading += 5;
 
 // Set the modified camera on the view
 view.camera = camera;</code></pre>
-  <svg data-play-frame="frame-camera-heading-increment" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  <div class="play-code" data-play-frame="frame-camera-heading-increment"></div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-camera-heading-increment" data-src="./snippets/setup-camera-heading-increment.html"></iframe>
@@ -306,7 +305,7 @@ view.goTo({
   heading: heading
 });
 </code></pre>
-  <svg data-play-frame="frame-goto-heading" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  <div class="play-code" data-play-frame="frame-goto-heading"></div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-goto-heading" data-src="./snippets/setup-goto-heading.html"></iframe>
@@ -340,7 +339,7 @@ view.goTo({
   tilt: 70
 });
 </code></pre>
-  <svg data-play-frame="frame-goto-graphics" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  <div class="play-code" data-play-frame="frame-goto-graphics"></div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-goto-graphics" data-src="./snippets/setup-goto-graphics.html"></iframe>
@@ -357,28 +356,35 @@ view.goTo({
 - Use the options to control the animation
 
 <div class="twos">
-  <div class="snippet">
-  <pre><code class="lang-js hljs javascript">
-// double the animation speed
+  <div>
+    <div class="snippet">
+      <pre><code class="lang-js hljs javascript">// double the animation speed
 view.goTo(target, {
   speedFactor: 2
 });
-
-
-// animate for exactly 1 second
+</code></pre>
+      <div class="play-code" id="frame-goto-options-speed"></div>
+    </div>
+    <br/>
+    <div class="snippet">
+      <pre><code class="lang-js hljs javascript">// animate for exactly 1 second
 view.goTo(target, {
-  duration: 1000
+  duration: 5000
 });
-
-
-// disable ease-in and ease-out
+</code></pre>
+      <div class="play-code" id="frame-goto-options-duration"></div>
+    </div>
+    <br/>
+    <div class="snippet">
+      <pre><code class="lang-js hljs javascript">// disable easing
 view.goTo(target, {
   easing: "linear"
 });
 </code></pre>
-  <svg data-play-frame="frame-goto-options" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
-  </div>
-  <div class="snippet-preview">
+      <div class="play-code" id="frame-goto-options-easing"></div>
+    </div>
+  </div>  
+  <div class="snippet-preview" style="width:60%">
     <iframe id="frame-goto-options" data-src="./snippets/setup-goto-options.html"></iframe>
   </div>
 </div>
@@ -393,16 +399,19 @@ view.goTo(target, {
 - Use [`SceneView.constraints`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#constraints) to control navigation and rendering aspects
 
 <div class="twos">
-  <div class="snippet">
-  <pre><code class="lang-js hljs javascript">
-// Set the allowed altitude range of the viewer
+  <div style="width:20%">
+    <div class="snippet">
+      <pre><code class="lang-js hljs javascript">// Set the allowed altitude range of the viewer
 view.constraints.altitude = {
   max: 100000000, // 100'000 km
   min: 10000000   // 10'000 km
 };
-
-
-// Set the clip distance (near/far planes)
+</code></pre>
+    <div class="play-code" id="frame-constraints-altitude"></div>
+    </div>
+    <br/>
+    <div class="snippet">
+      <pre><code class="lang-js hljs javascript">// Set the clip distance (near/far planes)
 // to override the default clipping heuristics
 view.constraints.clipDistance = {
   far: 200000000, // 200'000 km
@@ -410,7 +419,8 @@ view.constraints.clipDistance = {
 };
 
 </code></pre>
-  <svg data-play-frame="frame-constraints" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+    <div class="play-code" id="frame-constraints-clipDistance"></div>
+    </div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-constraints" data-src="./snippets/setup-constraints.html"></iframe>
@@ -421,7 +431,6 @@ view.constraints.clipDistance = {
 </p>
 
 ---
-
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
@@ -438,7 +447,7 @@ view.padding = {
   left: 150
 };
 </code></pre>
-  <svg data-play-frame="frame-padding" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  <div class="play-code" data-play-frame="frame-padding"></div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-padding" data-src="./snippets/setup-padding.html"></iframe>
@@ -447,6 +456,54 @@ view.padding = {
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
+
+### Background
+
+<div class="twos">
+  <div class="snippet">
+  <pre><code class="lang-js hljs javascript">var view = new SceneView({
+  container: viewDiv,
+  map: map,
+
+  // enable canvas transparency
+  alphaCompositingEnabled: true,
+  
+  environment: {
+    // set transparent background
+    background: {
+      type: "color",
+      color: [0, 0, 0, 0]
+    },
+    
+    // disable stars & atmosphere
+    starsEnabled: false,
+    atmosphereEnabled: false
+  },
+  
+  // don't create any default widgets
+  ui: null
+});
+</code></pre>
+  </div>
+  <div class="snippet-preview">
+    <iframe id="frame-background" data-src="./snippets/setup-background.html" style="background-image: none; background-color: rgba(0, 0, 0, 0); border: 2px solid rgba(0, 0, 0, 0.3)"></iframe>
+  </div>
+</div>
+
+<span style="font-size: 50%">https://ralucanicola.github.io/JSAPI_demos/cities-globe/</span>
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+### Overview Map
+
+<div class="snippet-preview">
+  <iframe data-src="./snippets/overview-map.html" style="width: 1000px; height: 600px"></iframe>
+</div>
+
+---
 
 <!-- .slide: data-background="images/bg-4.png" -->
 
@@ -473,7 +530,7 @@ function (event) {
   view.graphics.push(polygon); // add to view
 }
 </code></pre>
-  <svg data-play-frame="frame-tomap-graphics" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  <div class="play-code" data-play-frame="frame-tomap-graphics"></div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-tomap-graphics" data-src="./snippets/tomap-graphics.html"></iframe>
@@ -491,7 +548,7 @@ function (event) {
 
 <div class="twos">
   <div class="snippet">
-  <pre><code class="lang-js hljs javascript">document.getElementById("viewDiv").onclick = function (event) {
+  <pre><code class="lang-js hljs javascript" style="font-size: 85%">document.getElementById("viewDiv").onclick = function (event) {
   event.stopPropagation();
 
   view.hitTest({x: event.clientX, y: event.clientY})
@@ -507,7 +564,7 @@ function (event) {
   }
 }
 </code></pre>
-  <svg data-play-frame="frame-hittest-graphics" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  <div class="play-code" data-play-frame="frame-hittest-graphics"></div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-hittest-graphics" data-src="./snippets/hittest-graphics.html"></iframe>
@@ -586,7 +643,7 @@ view.when(function () {
   svm.create("polygon");
 });
 </code></pre>
-  <svg data-play-frame="frame-svm-graphics" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  <div class="play-code" data-play-frame="frame-svm-graphics"></div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-svm-graphics" data-src="./snippets/svm-graphics.html"></iframe>
@@ -598,8 +655,9 @@ view.when(function () {
 ### Slice Widget
 
 <div class="twos">
-  <div class="snippet">
-  <pre><code class="lang-js hljs javascript">const buildingLayer = new BuildingSceneLayer({
+  <div>
+    <div class="snippet">
+    <pre><code class="lang-js hljs javascript">const buildingLayer = new BuildingSceneLayer({
   portalItem: {
     id: "fca0557a79c645e6843b00a7b55ce511"
   }
@@ -614,9 +672,21 @@ var sliceWidget = new Slice({
 // Add widget to the UI
 view.ui.add(sliceWidget, "top-right");
 </code></pre>
-  <svg data-play-frame="frame-svm-graphics" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+    </div>
+    <br/>
+    <div class="snippet fragment">
+    <pre><code class="lang-js hljs javascript">// Create measurement widget
+var msmtWidget = new DirectLineMeasurement3D({
+  view: view
+});
+
+// Add widget to the UI
+view.ui.add(msmtWidget, "top-right");
+</code></pre>
+      <div class="play-code" data-play-frame="widgets-slice"></div>
+    </div>
   </div>
-  <div class="snippet-preview">
+  <div class="snippet-preview" style="width:100%">
     <iframe id="widgets-slice" data-src="./snippets/widgets-slice.html"></iframe>
   </div>
 </div>
@@ -648,7 +718,7 @@ view.ui.add(sliceWidget, "top-right");
 // only show healthy trees
 layer.definitionExpression = "health = 'good'"
 </code></pre>
-  <svg data-play-frame="frame-def-graphics" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  <div class="play-code" data-play-frame="frame-def-graphics"></div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-def-graphics" data-src="./snippets/def-graphics.html"></iframe>
@@ -686,7 +756,7 @@ layer.definitionExpression = "health = 'good'"
   });
 });
 </code></pre>
-  <svg data-play-frame="frame-filter-graphics" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  <div class="play-code" data-play-frame="frame-filter-graphics"></div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-filter-graphics" data-src="./snippets/filter-graphics.html"></iframe>
@@ -705,7 +775,6 @@ layer.definitionExpression = "health = 'good'"
 <!-- .slide: data-background="images/bg-2.png" -->
 
 ### Symbology
-#### _Inside - Outside_
 
 - Set up two areas for different Styles
 
@@ -734,7 +803,7 @@ view.whenLayerView(outside).then(function (lv) {
   });
 });
 </code></pre>
-  <svg data-play-frame="frame-filter-inout" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  <div class="play-code" data-play-frame="frame-filter-inout"></div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-filter-inout" data-src="./snippets/inout-graphics.html"></iframe>
@@ -771,7 +840,7 @@ outside.renderer = new SimpleRenderer({
   })
 });)
 </code></pre>
-  <svg data-play-frame="frame-filter-outside" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  <div class="play-code" data-play-frame="frame-filter-outside"></div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-filter-outside" data-src="./snippets/outside-graphics.html"></iframe>
@@ -797,11 +866,7 @@ inside.renderer = new UniqueValueRenderer({
 });
 
 // species lookup table
-var trees = [
-  ["black locust", "Robinia"],
-  ...
-  ["London planetree", "Platanus"]
-];
+var trees = [ ["black locust", "Robinia"],  ... ];
 
 // Use WebStyleSymbol to map species to model
 for (var i = 0; i < trees.length; ++i) {
@@ -814,7 +879,7 @@ for (var i = 0; i < trees.length; ++i) {
     }));
 }
 </code></pre>
-  <svg data-play-frame="frame-filter-inside" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  <div class="play-code" data-play-frame="frame-filter-inside"></div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-filter-inside" data-src="./snippets/inside-graphics.html"></iframe>
@@ -834,7 +899,16 @@ for (var i = 0; i < trees.length; ++i) {
 ### View Quality
 
 - Use [`qualityProfile`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#constraints) and [`quality`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#constraints) to control performance and quality
-- Affects: Level of detail for map and scene layer, anti-aliasing, atmosphere, memory used
+- Affects
+  - Level of detail for tile and scene layer
+  - Anti-aliasing
+  - Memory limit
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+### View Quality
 
 <div class="twos">
   <div class="snippet">
@@ -863,7 +937,7 @@ viewRight = new SceneView({
   }
 });
 </code></pre>
-  <svg data-play-frame="frame-quality-profile" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  <div class="play-code" data-play-frame="frame-quality-profile"></div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-quality-profile" data-src="./snippets/setup-quality-profile.html"></iframe>
@@ -892,18 +966,25 @@ viewRight = new SceneView({
 ### Memory and Quality
 
 <div class="twos">
-  <div class="snippet">
+  <div style="width:11%">
+    <div class="snippet">
   <pre><code class="lang-js hljs javascript">// Use simpler basemap
 view.map.basemap = "topo";
-
-// Reduce number of trees
-treeLayerView.maximumNumberOfFeatures = 10000;
-
+</code></pre>
+  <div class="play-code" id="frame-memory1"></div>
+  </div><div class="snippet">
+<pre><code class="lang-js hljs javascript">// Reduce number of trees
+treeLV.maximumNumberOfFeatures = 10000;
+</code></pre>
+  <div class="play-code" id="frame-memory2"></div>
+  </div><div class="snippet">
+<pre><code class="lang-js hljs javascript">// Use simpler basemap
 buildings.renderer = {
   ..no edges.. 
 };
 </code></pre>
-  <svg data-play-frame="frame-memory" class="play-code" viewBox="0 0 24 24"><path fill="#999" d="M12,20.14C7.59,20.14 4,16.55 4,12.14C4,7.73 7.59,4.14 12,4.14C16.41,4.14 20,7.73 20,12.14C20,16.55 16.41,20.14 12,20.14M12,2.14A10,10 0 0,0 2,12.14A10,10 0 0,0 12,22.14A10,10 0 0,0 22,12.14C22,6.61 17.5,2.14 12,2.14M10,16.64L16,12.14L10,7.64V16.64Z" /></svg>
+  <div class="play-code" id="frame-memory3"></div>
+  </div>
   </div>
   <div class="snippet-preview">
     <iframe id="frame-memory" data-src="./snippets/memory.html"></iframe>
@@ -948,12 +1029,15 @@ buildings.renderer = {
 <!-- .slide: data-background="images/bg-2.png" -->
 
 ### Related sessions
-- Advanced WebGL in 3D Scene Views with the ArcGIS API for JavaScript<br/>
-  _Thu 1.30pm, Demo Theater 1 (Oasis 1-2)_ 
-- Practical Guide for Building a 3D Web App From 2D Data<br/>
-  _Thu 10.30am, Primrose A_
-- 3D Visualization with the ArcGIS API for JavaScript<br/>
-  _Thu 4pm, Primrose C-D_
+<br/>
+Advanced WebGL in 3D Scene Views with the ArcGIS API for JavaScript<br/>
+_Thu 1.30pm, Demo Theater 1 (Oasis 1-2)_<br/>
+<br/> 
+Practical Guide for Building a 3D Web App From 2D Data<br/>
+_Thu 10.30am, Primrose A_<br/>
+<br/>
+3D Visualization with the ArcGIS API for JavaScript<br/>
+_Thu 4pm, Primrose C-D_<br/>
 
 ---
 

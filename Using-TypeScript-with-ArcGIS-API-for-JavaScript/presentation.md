@@ -3,7 +3,7 @@
 <h1 style="text-align: left; font-size: 80px;">Using TypeScript</h1>
 <h2 style="text-align: left; font-size: 60px;">with the ArcGIS API for JavaScript</h2>
 <p style="text-align: left; font-size: 30px;">Stefan Eilemann | René Rubalcava</p>
-    <p style="text-align: left; font-size: 30px;">slides: <a href="https://git.io/fhNc2"><code>https://git.io/fhNc2</code></a></p>
+    <p style="text-align: left; font-size: 30px;">slides: <a href="https://git.io/fhpEi"><code>https://git.io/fhpEi</code></a></p>
 
 ---
 
@@ -269,22 +269,6 @@ class My4dPoint extends MyPoint {
 - In rare occasions typings are missing or imprecise
 - Typings can be externally "patched" through declaration merging
 - [Code](./demos/type-extensions)
-
----
-
-<!-- .slide: data-background="../images/bg-5.png" -->
-
-## Headline Here 5
-
-* Bullet [points here](http://hakim.se).
-
----
-
-<!-- .slide: data-background="../images/bg-6.png" -->
-
-## Headline Here 6
-
-* Bullet [points here](http://hakim.se).
 
 ---
 

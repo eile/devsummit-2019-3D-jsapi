@@ -82,26 +82,36 @@ function snippet(containers, interlinks) {
       tilt: 70
     };
 
-    const goToOptions = [
-      { speedFactor: 2 }, "speedFactor: 2",
-      { duration: 1000 }, "duration: 1000",
-      { easing: "linear" }, "easing: \"linear\""
-    ];
+    onclick("frame-goto-options-speed", function() {
+      view.goTo(goToTarget, { speedFactor: 2 }).then(resetAfterDelay);
+      interlinks.log("speedFactor: 2")
+    });
 
-    let idx = 0;
+    onclick("frame-goto-options-duration", function() {
+      view.goTo(goToTarget, { duration: 5000 }).then(resetAfterDelay);
+      interlinks.log("duration: 5000")
+    });
 
-    interlinks.playButton = () => {
-      if (idx % 2 === 0) {
-        const optionsIndex = idx % goToOptions.length;
-        view.goTo(goToTarget, goToOptions[optionsIndex]);
-        interlinks.log(goToOptions[optionsIndex + 1]);
-      } else {
+    onclick("frame-goto-options-easing", function() {
+      view.goTo(goToTarget, { easing: "linear" }).then(resetAfterDelay);
+      interlinks.log("easing: linear")
+    });
+
+    function onclick(buttonId, onclick) {
+      var button = window.parent.document.getElementById(buttonId);
+      if (button && onclick) {
+        button.onclick = function() {
+          view.when(onclick).catch(console.error);
+        };
+      }
+    }
+
+    function resetAfterDelay() {
+      return promiseUtils.after(2000).then(() => {
         view.camera = initialCamera.clone();
         interlinks.log("");
-      }
-
-      idx++;
-    };
+      })
+    }
   });
 }
 

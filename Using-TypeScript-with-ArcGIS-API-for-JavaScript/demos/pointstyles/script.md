@@ -1,7 +1,21 @@
 - Move application into separate Typescript file:
 
 ```ts
-    <script>
+  <script>
+    var locationPath = location.pathname.replace(/\/[^\/]+$/, "");
+    window.dojoConfig = {
+      packages: [
+        {
+          name: "app",
+          location: locationPath
+        }
+      ]
+    };
+  </script>
+
+  <script src="https://js.arcgis.com/4.11/"></script>
+
+  <script>
       var app;
       require([
         "app/Application",
@@ -9,7 +23,7 @@
       ], function(Application) {
         var app = new Application();
       });
-    </script>
+  </script>
 ```
 
 - Fix imports
@@ -82,6 +96,8 @@ const pointsRenderer = new UniqueValueRenderer({
     }
   ]
 });
+
+expression: "$feature.Name"
 ```
 
 - Fix event handler typing
