@@ -13,29 +13,40 @@
 
 ---
 
-<!-- .slide: data-background="../images/bg-4.png" data-title="feature-filter" -->
+<!-- .slide: data-background="../images/bg-3.png" data-title="goto" -->
 
-## goTo
+## Creating a 3D Map
 
 <div class="two-columns">
   <div class="left-column">
 
 <div class="code-snippet" style="font-size: 160%;">
-<button class="play" id="addBasemapButton"></button>
-<pre><code class="lang-ts">// Show basemap 2D and tilt</code></pre>
+<button class="play" id="steetViewButton"></button>
+<pre><code class="lang-ts">// SceneView vs MapView
+const view = new SceneView({
+  map: map,
+});
+view.goTo({ position: {
+  x: -117.19, y: 34.05, z: 418}, // Redlands
+  heading: 80, tilt: 84,
+}});</code></pre>
 </div>
 
 <div class="code-snippet" style="font-size: 160%;">
 <button class="play" id="addElevationButton"></button>
-<pre><code class="lang-ts">// Add mountains</code></pre>
+<pre><code class="lang-ts">// Show terrain
+map.ground = "world-elevation";</code></pre>
 </div>
 
 <div class="code-snippet" style="font-size: 160%;">
 <button class="play" id="addBuildingsButton"></button>
 <pre><code class="lang-ts">// Add building scene layer, lights, trees
-var sceneLayer = new SceneLayer({
-  url: ".../Buildings_TODO/SceneServer",
-});</code></pre>
+var buildingsLayer = new SceneLayer({
+  portalItem: {
+    id: "2e0761b9a4274b8db52c4bf34356911e"
+  }
+});
+map.layers.add(buildingsLayer);</code></pre>
 </div>
 
   </div>
@@ -46,19 +57,18 @@ var sceneLayer = new SceneLayer({
 
 ---
 
-<!-- .slide: data-background="../images/bg-4.png" data-title="feature-filter" -->
+<!-- .slide: data-background="../images/bg-3.png" data-title="feature-filter" -->
 
-## Filter
+## Geometries
 
 <div class="two-columns">
   <div class="left-column">
 
 <div class="code-snippet" style="font-size: 160%;">
-<pre><code class="lang-ts">// Define polygon vertices
-var polygon = new Polygon({
+<pre><code class="lang-ts">var polygon = new Polygon({
   rings: [
-    [-13045144.22519497, 4036815.986120914],
-    [-13045149.901010452, 4036915.714135076],
+    [-117.186524, 34.059662], // lon, lat
+    [-117.186575, 34.060404],
     ...
   ],
 });</code></pre>
@@ -66,7 +76,7 @@ var polygon = new Polygon({
 
 <div class="code-snippet" style="font-size: 160%;">
 <button class="play" id="gotoBuildingButton"></button>
-<pre><code class="lang-ts">// Zoom to building
+<pre><code class="lang-ts">// Zoom to polygon
 view.goTo(polygon).then(function() {
   // Draw polygon
   view.graphics.add(new Graphic({
@@ -78,7 +88,7 @@ view.goTo(polygon).then(function() {
 
 <div class="code-snippet" style="font-size: 160%;">
 <button class="play" id="buildings_filter_button"></button>
-<pre><code class="lang-ts">// Filter buildings inside polygon
+<pre><code class="lang-ts">// Hide buildings inside polygon
 layerView.filter = new FeatureFilter({
   geometry: geometry,
   spatialRelationship: "disjoint",
@@ -94,7 +104,7 @@ layerView.filter = new FeatureFilter({
 
 ---
 
-<!-- .slide: data-background="../images/bg-4.png" data-title="building-scene-layer-api" -->
+<!-- .slide: data-background="../images/bg-3.png" data-title="building-scene-layer-api" -->
 
 ## Building Scene Layer
 
@@ -103,21 +113,26 @@ layerView.filter = new FeatureFilter({
 
 <div class="code-snippet" style="font-size: 160%;">
 <button class="play" id="addBSLButton"></button>
-<pre><code class="lang-ts">TODO</code></pre>
+<pre><code class="lang-ts">// Add new Building Scene Layer
+var building = new BuildingSceneLayer({
+  portalItem: {
+    id: "34238fa639f441a794bd97ca526b3d26"
+  }
+});
+view.map.add(building);</code></pre>
 </div>
 
+
 <div class="code-snippet" style="font-size: 160%;">
+<button class="play" id="hideWallsButton"></button>
 <pre><code class="lang-ts">// Retrieve building sublayer
 function getSublayer(title) {
   adminBuildingLayer.allSublayers.find(
     function(sublayer) {
       return sublayer.title === title;
-});}</code></pre>
-</div>
+});}
 
-<div class="code-snippet" style="font-size: 160%;">
-<button class="play" id="hideWallsButton"></button>
-<pre><code class="lang-ts">// Hide sublayer named "Walls"
+// Hide sublayer named "Walls"
 getSublayer("Walls").visible = false;</code></pre>
 </div>
 
@@ -138,7 +153,7 @@ getSublayer("Windows").visible = false;</code></pre>
 
 ---
 
-<!-- .slide: data-background="../images/bg-4.png" data-title="building-scene-layer-widgets" -->
+<!-- .slide: data-background="../images/bg-3.png" data-title="building-scene-layer-widgets" -->
 
 ## Building Scene Layer
 
@@ -186,7 +201,7 @@ widget.viewModel.excludedLayers.addMany(
 
 ---
 
-<!-- .slide: data-background="../images/bg-4.png" data-title="underground" -->
+<!-- .slide: data-background="../images/bg-3.png" data-title="underground" -->
 
 ## Underground
 
@@ -197,7 +212,9 @@ widget.viewModel.excludedLayers.addMany(
 <button class="play" id="showUndergroundButton"></button>
 <pre>
 <code class="lang-ts">// Add underground features
-TODO
+new FeatureLayer({ portalItem: {
+  id: "e9950bd0d35d49438dda4cc59548046e"
+}};
 // Make ground transparent
 adminBuildingLayer.opacity = 0.4;
 webscene.ground.opacity = 0.4;
@@ -232,7 +249,7 @@ view.goTo(sewerCamera);</code></pre>
 
 ---
 
-<!-- .slide: data-background="../images/bg-4.png" data-title="rendering-environment" -->
+<!-- .slide: data-background="../images/bg-3.png" data-title="rendering-environment" -->
 
 ## Rendering: Quality & Lighting
 
@@ -252,8 +269,6 @@ view.environment.atmosphere = {
 view.environment.lighting = {
   date: "Thu Mar 15 2018 16:30:00 PST",
   directShadowsEnabled: true,
-  ambientOcclusionEnabled: true,
-  cameraTrackingEnabled: false,
 };
 </code></pre>
 </div>
@@ -280,7 +295,7 @@ Slide.createFrom(view).then(function(slide) {
 
 ---
 
-<!-- .slide: data-background="../images/bg-4.png" data-title="rendering-nightmode" -->
+<!-- .slide: data-background="../images/bg-3.png" data-title="rendering-nightmode" -->
 
 ## Rendering: Colors & Basemaps
 
@@ -288,19 +303,18 @@ Slide.createFrom(view).then(function(slide) {
   <div class="left-column">
 
 <div class="code-snippet" style="font-size: 160%;">
-<button class="play" id="showTacticalViewButton"></button>
-<pre>
-<code class="lang-ts">view.goTo(esriCampusCamera);
-</code></pre>
-</div>
-
-<div class="code-snippet" style="font-size: 160%;">
 <button class="play" id="darkBuildingsButton"></button>
 <pre>
 <code class="lang-ts">// Buildings with white edges
-buildingLayer.renderer = {
-  symbol: TODO...
-};
+buildingLayer.opacity = 0.5;
+buildingLayer.renderer = {...
+  material: {
+    color: [0, 132, 168]
+  },
+  edges: {
+    type: "solid", color: [255, 255, 255],
+  }
+...};
 </code></pre>
 </div>
 
@@ -308,7 +322,14 @@ buildingLayer.renderer = {
 <button class="play" id="darkBasemapButton"></button>
 <pre>
 <code class="lang-ts">// Apply color scheme to vector tile layer
-vectorTileLayer.styling = TODO;
+var vectorBasemap = new VectorTileLayer();
+vectorBasemap.loadStyle({
+  layers: [..., {
+    id: "Urban area",
+    paint: {fill-color: "#00FABC"}
+  }, ...]
+});
+map.layers.add(vectorBasemap);
 
 </code></pre>
 </div>
@@ -323,9 +344,9 @@ vectorTileLayer.styling = TODO;
 
 ---
 
-<!-- .slide: data-background="../images/bg-4.png" data-title="rendering-dispatch" -->
+<!-- .slide: data-background="../images/bg-3.png" data-title="rendering-dispatch" -->
 
-## Location
+## Tactical Operations
 
 <div class="two-columns">
   <div class="left-column">
@@ -333,7 +354,7 @@ vectorTileLayer.styling = TODO;
 <div class="code-snippet" style="font-size: 160%;">
 <button class="play" id="showTacticalTeamsButton"></button>
 <pre>
-<code class="lang-ts">view.goTo(tacticalCamera);
+<code class="lang-ts">tacticalOpsGroupLayer.visible = true;
 </code></pre>
 </div>
 
@@ -370,3 +391,7 @@ track.on("track", function() {
     <iframe id="go-to-demo" data-src="./samples/redlands.html" ></iframe>
   </div>
 </div>
+
+---
+
+<!-- .slide: data-background="../images/bg-esri.png" -->

@@ -129,7 +129,7 @@
         view: view
       });
 
-      view.ui.add(layerList, "top-right");
+    //  view.ui.add(layerList, "top-right");
 
       // Reset scene
       webscene.when(function() {
@@ -190,7 +190,8 @@
             })
         });
 
-        webscene.basemap = "gray";
+        webscene.basemap = "topo";
+        // webscene.basemap = "gray";
         webscene.ground.opacity = 1;
         webscene.ground.navigationConstraint = {
           type: "stay-above",
@@ -198,24 +199,50 @@
       }).catch(console.error);
 
 
-      // Slide: Add Layers
+      // GoTo slide
 
-      onshow("feature-filter", function() {
+      var startingCamera = {
+        position: {
+          spatialReference: { latestWkid: 3857, wkid: 102100 },
+          x: -13039879.928688359,
+          y: 4027483.107127033,
+          z: 409321.83076594584
+        },
+        heading: 0,
+        tilt: 0.46988973297232406
+      };
 
+      var streetView = {
+        position: {
+          spatialReference: { latestWkid: 3857, wkid: 102100 },
+          x: -13046336.31187835,
+          y: 4036354.123494361,
+          z: 418.7264904398471
+        },
+        heading: 80.52069492708416,
+        tilt: 84.76086803445592
+      };
+
+      var groundElevation =
+      onshow("goto", function() {
+        view.map.ground.layers.removeAll();
+        view.camera = startingCamera;
       });
 
-      onclick("addBasemapButton", function() {
-
+      onclick("steetViewButton", function() {
+        view.goTo(streetView);
       });
 
       onclick("addElevationButton", function() {
-
+        view.map.ground = "world-elevation";
+        view.camera = streetView;
       });
 
       onclick("addBuildingsButton", function() {
-        buildingLayer.visible = true;
         treeLayer.visible = true;
+        buildingLayer.visible = true;
         streetLightLayer.visible = true;
+        view.goTo({"position":{"spatialReference":{"latestWkid":3857,"wkid":102100},"x":-13046513.765082473,"y":4036353.7950316602,"z":608.157624845393},"heading":80.51980222741736,"tilt":52.67946837976369});
       });
 
       // Slide: Mask Filter
@@ -339,12 +366,12 @@
       var sliceCamera = {
         position: {
           spatialReference: { latestWkid: 3857, wkid: 102100 },
-          x: -13045246.922400912,
-          y: 4036934.65440884,
-          z: 428.80822070036083
+          x: -13045262.52320365,
+          y: 4036952.6394461244,
+          z: 454.4498537359759
         },
-        heading: 135.2558814803693,
-        tilt: 77.86087490284824
+        heading: 135.25580358242388,
+        tilt: 65.28348183372395
       };
 
       onshow("building-scene-layer-widgets", function() {
@@ -499,12 +526,12 @@
       var redlandsCamera = {
         position: {
           spatialReference: { latestWkid: 3857, wkid: 102100 },
-          x: -13044948.708015954,
-          y: 4036890.7827479956,
-          z: 451.6049574604258
+          x: -13044937.54702505,
+          y: 4036930.739142728,
+          z: 437.9886806830764
         },
-        heading: 254.5782832850494,
-        tilt: 85.73957693725893
+        heading: 254.57834364281925,
+        tilt: 87
       };
 
       var day = "Thu Mar 15 2018 13:00:00 PST";
@@ -519,19 +546,35 @@
         view.environment.lighting = {
           date: date,
           directShadowsEnabled: true,
-          ambientOcclusionEnabled: true,
+          ambientOcclusionEnabled: false,
           cameraTrackingEnabled: false,
         };
+        view.environment.background = null;
       }
 
       onshow("rendering-environment", function() {
         view.camera = redlandsCamera;
-        treeLayer.visible = true;
-        streetLightLayer.visible = true;
-        buildingLayer.visible = true;
+        // treeLayer.visible = true;
+        // streetLightLayer.visible = true;
+        //buildingLayer.visible = true;
         adminBuildingLayer.visible = true;
         webscene.basemap = "satellite";
+
+        view.environment.atmosphereEnabled = false;
+        view.environment.starsEnabled = false;
+        view.environment.background = {
+          type: "color",
+          color: [255, 255, 255, 1]
+        };
+
+        webscene.ground.navigationConstraint = {
+          type: "none",
+        };
+
+
+
         applyFeatureFilter();
+      //  applyEnvironment(view, day);
       });
 
       onclick("highQualityButton", function() {
@@ -544,7 +587,7 @@
         Slide.createFrom(view).then(function(slide) {
           applyEnvironment(slide, night);
           slide.viewpoint.camera.position.z = slide.viewpoint.camera.position.z - 1;
-          slide.applyTo(view, { duration: 15000 });
+          slide.applyTo(view, { duration: 20000, maxDuration: 20000, easing: "linear" });
         });
       });
 
@@ -601,14 +644,15 @@
       });
 
       onclick("showTacticalViewButton", function() {
-        view.goTo(mainBuildingCamera, {duration: 1000});
       });
 
       onclick("darkBuildingsButton", function() {
-        treeLayer.renderer = darkTreeRenderer;
-        treeLayer.opacity = darkBuildingOpacity;
-        buildingLayer.renderer = darkBuildingRenderer;
-        buildingLayer.opacity = darkBuildingOpacity;
+        view.goTo(mainBuildingCamera, {duration: 2000}).then(function() {
+          treeLayer.renderer = darkTreeRenderer;
+          treeLayer.opacity = darkBuildingOpacity;
+          buildingLayer.renderer = darkBuildingRenderer;
+          buildingLayer.opacity = darkBuildingOpacity;
+        });
       });
 
       onclick("darkBasemapButton", function() {
@@ -637,7 +681,7 @@
         buildingLayer.visible = true;
         buildingLayer.renderer = darkBuildingRenderer;
         buildingLayer.opacity = darkBuildingOpacity;
-        treeLayer.visible = true;
+        treeLayer.visible = false;
         treeLayer.renderer = darkTreeRenderer;
         treeLayer.opacity = darkBuildingOpacity;
         webscene.ground.surfaceColor = "#041221";
@@ -776,7 +820,7 @@
           view.goTo({
             center: location,
             tilt: 60,
-            scale: 1200,
+            scale: 500,
             heading: 360 - heading
           }, { duration: 1000 });
 
