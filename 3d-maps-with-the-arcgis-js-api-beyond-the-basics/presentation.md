@@ -480,18 +480,29 @@ view.padding = {
     // disable stars & atmosphere
     starsEnabled: false,
     atmosphereEnabled: false
-  }
+  },
+  
+  // don't create any default widgets
+  ui: null
 });
-
-view.ui.empty("top-left");
 </code></pre>
   </div>
   <div class="snippet-preview">
-    <iframe id="frame-background" data-src="./snippets/setup-background.html" style="background-image: none; background-color: rgba(0, 0, 0, 0)"></iframe>
+    <iframe id="frame-background" data-src="./snippets/setup-background.html" style="background-image: none; background-color: rgba(0, 0, 0, 0); border: 2px solid rgba(0, 0, 0, 0.3)"></iframe>
   </div>
 </div>
 
 <span style="font-size: 50%">https://ralucanicola.github.io/JSAPI_demos/cities-globe/</span>
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+### Overview Map
+
+<div class="snippet-preview">
+  <iframe data-src="./snippets/overview-map.html" style="width: 1000px; height: 600px"></iframe>
+</div>
 
 ---
 
