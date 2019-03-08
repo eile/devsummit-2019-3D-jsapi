@@ -699,7 +699,7 @@ view.ui.add(msmtWidget, "top-right");
 
 - Model - View
 - Layer - LayerView
-- Layer filters are generally server side
+- Layer filters are applied during data fetch
 - LayerView filters are client side
 
 ---

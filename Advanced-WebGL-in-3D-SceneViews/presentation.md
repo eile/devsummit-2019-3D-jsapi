@@ -27,7 +27,7 @@ Live version of this presentation:<br>https://esri.github.io/devsummit-2019-3D-j
 ## Basics
 
 - Implement ExternalRenderer API
-- Add to SceneView
+- Add Instance to SceneView
     
 ```ts
 export class VolumeRenderer implements ExternalRenderer {
