@@ -1,5 +1,5 @@
 
-<!-- .slide: data-background="images/bg-1.png" -->
+<!-- .slide: data-background="../images/bg-1.png" -->
 
 ### Interactive 3D Maps with the<br/> ArcGIS API for JavaScript
 
@@ -14,13 +14,13 @@ Live version of this presentation:<br>https://esri.github.io/devsummit-2019-3D-j
 
 ---
 
-<!-- .slide: data-background="images/bg-4.png" -->
+<!-- .slide: data-background="../images/bg-4.png" -->
 
 <img src="images/teaser.jpg" width="100%"/>
 
 ---
 
-<!-- .slide: data-background="images/bg-2.png" -->
+<!-- .slide: data-background="../images/bg-2.png" -->
 
 ## Preface
 
@@ -32,7 +32,7 @@ Live version of this presentation:<br>https://esri.github.io/devsummit-2019-3D-j
 
 ---
 
-<!-- .slide: data-background="images/bg-2.png" -->
+<!-- .slide: data-background="../images/bg-2.png" -->
 
 ## Preface
 
@@ -43,7 +43,7 @@ Browser requirements
 
 ---
 
-<!-- .slide: data-background="images/bg-2.png" -->
+<!-- .slide: data-background="../images/bg-2.png" -->
 
 ## Agenda
 
@@ -55,13 +55,13 @@ Browser requirements
 
 ---
 
-<!-- .slide: data-background="images/bg-4.png" -->
+<!-- .slide: data-background="../images/bg-4.png" -->
 
 ## Getting Started
 
 ---
 
-<!-- .slide: data-background="images/bg-3.png" -->
+<!-- .slide: data-background="../images/bg-3.png" -->
 
 ### The simplest possible app
 
@@ -117,7 +117,7 @@ Browser requirements
 
 ---
 
-<!-- .slide: data-background="images/bg-3.png" -->
+<!-- .slide: data-background="../images/bg-3.png" -->
 
 ### Architecture
 
@@ -126,7 +126,7 @@ Browser requirements
 
 ---
 
-<!-- .slide: data-background="images/bg-3.png" -->
+<!-- .slide: data-background="../images/bg-3.png" -->
 
 ### Changing a map from 2D to 3D
 
@@ -138,7 +138,7 @@ Browser requirements
 
 ---
 
-<!-- .slide: data-background="images/bg-4.png" -->
+<!-- .slide: data-background="../images/bg-4.png" -->
 
 ## Resources
 
@@ -177,13 +177,13 @@ Browser requirements
 
 ---
 
-<!-- .slide: data-background="images/bg-4.png" -->
+<!-- .slide: data-background="../images/bg-4.png" -->
 
 ## Adding Data
 
 ---
 
-<!-- .slide: data-background="images/bg-3.png" data-title="add-tile-layer" -->
+<!-- .slide: data-background="../images/bg-3.png" data-title="add-tile-layer" -->
 
 ### Add TileLayer
 
@@ -220,7 +220,7 @@ map.layers.add(housingDensityLayer);
 
 ---
 
-<!-- .slide: data-background="images/bg-3.png" data-title="add-feature-layer" -->
+<!-- .slide: data-background="../images/bg-3.png" data-title="add-feature-layer" -->
 
 ### URL vs Portal Item ID
 
@@ -232,7 +232,7 @@ map.layers.add(housingDensityLayer);
 
 ---
 
-<!-- .slide: data-background="images/bg-3.png" data-title="add-feature-layer" -->
+<!-- .slide: data-background="../images/bg-3.png" data-title="add-feature-layer" -->
 
 ### Add FeatureLayer
 
@@ -262,7 +262,7 @@ map.layers.add(buildingInfo);
 
 ---
 
-<!-- .slide: data-background="images/bg-3.png" data-title="add-scene-layer" -->
+<!-- .slide: data-background="../images/bg-3.png" data-title="add-scene-layer" -->
 
 ### Add SceneLayer
 
@@ -357,12 +357,12 @@ map.layers.add(buildingsLayer);
 
 ---
 
-<!-- .slide: data-background="images/bg-4.png" -->
+<!-- .slide: data-background="../images/bg-4.png" -->
 ## Visualizing Data
 
 ---
 
-<!-- .slide: data-background="images/bg-3.png" data-title="feature-layer-renderer" -->
+<!-- .slide: data-background="../images/bg-3.png" data-title="feature-layer-renderer" -->
 
 ### Visualization: FeatureLayer
 
@@ -405,7 +405,7 @@ buildingInfoLayer
 
 ---
 
-<!-- .slide: data-background="images/bg-3.png" data-title="scene-layer-renderer" -->
+<!-- .slide: data-background="../images/bg-3.png" data-title="scene-layer-renderer" -->
 
 ### Visualization: SceneLayer
 
@@ -452,7 +452,7 @@ buildingLayer.renderer = new SimpleRenderer({
 
 ---
 
-<!-- .slide: data-background="images/bg-3.png" data-title="elevation-info" -->
+<!-- .slide: data-background="../images/bg-3.png" data-title="elevation-info" -->
 
 ### Visualization: Elevation Mode
 
@@ -483,7 +483,7 @@ buildingInfoLayer.elevationInfo = {
 
 ---
 
-<!-- .slide: data-background="images/bg-3.png" data-title="feature-layer-renderer" -->
+<!-- .slide: data-background="../images/bg-3.png" data-title="feature-layer-renderer" -->
 
 ### Renderers and Symbols
 
@@ -538,13 +538,13 @@ buildingInfoLayer.elevationInfo = {
 
 ---
 
-<!-- .slide: data-background="images/bg-4.png" -->
+<!-- .slide: data-background="../images/bg-4.png" -->
 
 ## Interacting with Data
 
 ---
 
-<!-- .slide: data-background="images/bg-2.png" -->
+<!-- .slide: data-background="../images/bg-2.png" -->
 
 ### Working with the SceneView
 
@@ -570,7 +570,7 @@ class SceneView {
 
 ---
 
-<!-- .slide: data-background="images/bg-3.png" data-title="scene-layer-hittest" -->
+<!-- .slide: data-background="../images/bg-3.png" data-title="scene-layer-hittest" -->
 
 ### SceneView: hitTest()
 
@@ -605,7 +605,7 @@ view.on("click",function(event) {
 
 ---
 
-<!-- .slide: data-background="images/bg-3.png" data-title="scene-view-goto" -->
+<!-- .slide: data-background="../images/bg-3.png" data-title="scene-view-goto" -->
 
 ### SceneView: goTo()
 
@@ -634,7 +634,7 @@ view.goTo({
 
 ---
 
-<!-- .slide: data-background="images/bg-3.png" data-title="building-scene-layer" -->
+<!-- .slide: data-background="../images/bg-3.png" data-title="building-scene-layer" -->
 
 ### Building Scene Layer
 
@@ -681,7 +681,7 @@ getSublayer("Windows").visible = false;</code></pre>
 
 ---
 
-<!-- .slide: data-background="images/bg-4.png" -->
+<!-- .slide: data-background="../images/bg-4.png" -->
 
 ## WebScene
 ### _Loading and saving your scene_
@@ -764,13 +764,13 @@ require([
 
 ---
 
-<!-- .slide: data-background="images/bg-4.png" -->
+<!-- .slide: data-background="../images/bg-4.png" -->
 
 ## Where to?
 
 ---
 
-<!-- .slide: data-background="images/bg-2.png" -->
+<!-- .slide: data-background="../images/bg-2.png" -->
 
 ### Related sessions
 <br/>
@@ -785,8 +785,8 @@ _Thu 4pm, Primrose C-D_<br/>
 
 ---
 
-<!-- .slide: data-background="images/bg-survey.jpg" -->
+<!-- .slide: data-background="../images/bg-survey.jpg" -->
 
 ---
 
-<!-- .slide: data-background="images/bg-esri.png" -->
+<!-- .slide: data-background="../images/bg-esri.png" -->
