@@ -12,7 +12,7 @@ define(["require", "exports", "esri/Color", "esri/renderers", "esri/request", "e
     };
     // Use local data on a local checkout, fall back to hosted data:
     var localURL = "../isabeldata/";
-    var remoteURL = "https://media.githubusercontent.com/media/eile/devsummit-2019-3D-jsapi/master/Advanced-WebGL-in-3D-SceneViews/isabeldata/";
+    var remoteURL = "https://media.githubusercontent.com/media/esri/devsummit-2019-3D-jsapi/master/Advanced-WebGL-in-3D-SceneViews/isabeldata/";
     var dataSetURL = localURL;
     // Use double math for precision at global scale
     gl_matrix_1.glMatrix.ARRAY_TYPE = Float64Array;
