@@ -152,8 +152,7 @@ export class VolumeRenderer implements ExternalRenderer {
   private _loadVolume(): void {
     const sequence =
       this._timeStep < 10 ? "0" + this._timeStep : this._timeStep.toFixed(0);
-    const filename =
-      dataSetURL + this._data[0] + sequence + "_500x500x100_uint8.raw";
+    const filename = `${dataSetURL}${this._data[0]}${sequence}_500x500x100_uint8.raw.png`;
 
     selectVolume(
       filename,
@@ -161,7 +160,7 @@ export class VolumeRenderer implements ExternalRenderer {
       () => {
         if (this._updateColorMap) {
           this._updateColorMap = false;
-          selectColormap(dataSetURL + this._data[0] + ".png", () => {
+          selectColormap(`${dataSetURL}${this._data[0]}.png`, () => {
             this._updateLegend();
             requestRender(this._view);
           });
@@ -188,7 +187,7 @@ export class VolumeRenderer implements ExternalRenderer {
   // automatically by the Legend implementation.
   private _updateLegend(): void {
     const image = new Image();
-    esriRequest(dataSetURL + this._data[0] + ".png", {
+    esriRequest(`${dataSetURL}${this._data[0]}.png`, {
       authMode: "anonymous",
       method: "get",
       responseType: "image"

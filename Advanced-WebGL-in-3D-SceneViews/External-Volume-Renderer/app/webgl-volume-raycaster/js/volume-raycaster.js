@@ -82,13 +82,11 @@ var colormaps = {
 	"Samsel Linear YGB 1211G": "colormaps/samsel-linear-ygb-1211g.png"
 };
 
-var loadVolume = function(url, nBytes, onload, onerror) {
+var loadVolume = function(url, onload, onerror) {
 	var m = url.match(fileRegex);
 	volDims = [parseInt(m[2]), parseInt(m[3]), parseInt(m[4])];
 
-	var req = new XMLHttpRequest();
-	req.open("GET", url, true);
-	req.responseType = "arraybuffer";
+	var texImage = new Image();
 
 	if (loadingProgressText) {
 		var loadingProgressText = document.getElementById("loadingText");
@@ -97,38 +95,29 @@ var loadVolume = function(url, nBytes, onload, onerror) {
 		loadingProgressText.innerHTML = "Loading Volume";
 		loadingProgressBar.setAttribute("style", "width: 0%");
 
-		req.onprogress = function(evt) {
+		texImage.onprogress = function(evt) {
 			var vol_size = volDims[0] * volDims[1] * volDims[2];
 			var percent = (evt.loaded / vol_size) * 100;
 			loadingProgressBar.setAttribute("style", "width: " + percent.toFixed(2) + "%");
 		};
-		req.onerror = function(evt) {
+		texImage.onerror = function(evt) {
 			loadingProgressText.innerHTML = "Error Loading Volume";
 			loadingProgressBar.setAttribute("style", "width: 0%");
 		};
 	}
 
-	req.onload = function(evt) {
+	texImage.onload = function() {
 		if (loadingProgressText) {
 			loadingProgressText.innerHTML = "Loaded Volume";
 			loadingProgressBar.setAttribute("style", "width: 100%");
 		}
 
-		var dataBuffer = req.response;
-		if (dataBuffer && req.status < 400 && dataBuffer.byteLength === nBytes) {
-			dataBuffer = new Uint8Array(dataBuffer);
-			onload(url, dataBuffer);
-		} else {
-			if (onerror) {
-				onerror();
-			} else {
-				alert("Unable to load buffer properly from volume?");
-				console.log("no buffer?");
-			}
-		}
+		onload(texImage);
 	};
-	req.onerror = onerror;
-	req.send();
+
+	texImage.crossOrigin = "Anonymous";
+	texImage.src = url;
+	texImage.onerror = onerror;
 };
 
 var selectVolume = function(selection, size, doneCB, errCB) {
@@ -138,14 +127,12 @@ var selectVolume = function(selection, size, doneCB, errCB) {
 		selection = "https://www.dl.dropboxusercontent.com/s/" + volumes[selection] + "?dl=1";
 	}
 
-	var m = selection.match(fileRegex);
-	volDims = [parseInt(m[2]), parseInt(m[3]), parseInt(m[4])];
-	var nBytes = volDims[0] * volDims[1] * volDims[2];
-
 	loadVolume(
 		selection,
-		nBytes,
-		function(_, data) {
+		function(image) {
+			var m = selection.match(fileRegex);
+			volDims = [parseInt(m[2]), parseInt(m[3]), parseInt(m[4])];
+
 			if (!volumeTexture) {
 				volumeTexture = gl.createTexture();
 
@@ -185,6 +172,8 @@ var selectVolume = function(selection, size, doneCB, errCB) {
 				}
 			}
 
+			var data = unpackImage(image);
+
 			gl.activeTexture(gl.TEXTURE0);
 			gl.bindTexture(gl.TEXTURE_3D, volumeTexture);
 			gl.texParameteri(gl.TEXTURE_3D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
@@ -223,12 +212,10 @@ var selectVolume = function(selection, size, doneCB, errCB) {
 	);
 };
 
-var colormapImage = new Image();
-
 var selectColormap = function(selection, doneCB) {
 	selection = selection || colormaps[document.getElementById("colormapList").value];
 
-	colormapImage = new Image();
+	var colormapImage = new Image();
 	colormapImage.onload = function() {
 		if (!colormapTexture) {
 			colormapTexture = gl.createTexture();
@@ -392,4 +379,37 @@ var fillcolormapSelector = function() {
 		opt.innerHTML = p;
 		selector.appendChild(opt);
 	}
+};
+
+// Input 3D Volume image is grayscale. Render it and extract grayscale information.
+var buffer;
+var context;
+
+var unpackImage = function(image) {
+	if (!context) {
+		var canvas = document.createElement("canvas");
+		canvas.width = image.width;
+		canvas.height = image.height;
+		context = canvas.getContext("2d", { alpha: false });
+	}
+
+	context.drawImage(image, 0, 0);
+	var data = context.getImageData(0, 0, image.width, image.height).data;
+	var nBytes = image.width * image.height;
+
+	if (!buffer || buffer.byteLength !== nBytes) {
+		buffer = new Uint8Array(nBytes);
+	}
+
+	var h = image.height;
+	var w = image.width;
+	var flip = nBytes - 1;
+	for (var y = 0; y < h; ++y) {
+		var offset = y * w;
+		for (var x = 0; x < w; ++x) {
+			buffer[offset + x] = data[(flip - offset + x) << 2];
+		}
+	}
+
+	return buffer;
 };

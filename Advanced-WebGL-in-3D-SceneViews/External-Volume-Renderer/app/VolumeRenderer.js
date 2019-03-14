@@ -91,11 +91,11 @@ define(["require", "exports", "esri/Color", "esri/renderers", "esri/request", "e
         VolumeRenderer.prototype._loadVolume = function () {
             var _this = this;
             var sequence = this._timeStep < 10 ? "0" + this._timeStep : this._timeStep.toFixed(0);
-            var filename = dataSetURL + this._data[0] + sequence + "_500x500x100_uint8.raw";
+            var filename = "" + dataSetURL + this._data[0] + sequence + "_500x500x100_uint8.raw.png";
             selectVolume(filename, this._size, function () {
                 if (_this._updateColorMap) {
                     _this._updateColorMap = false;
-                    selectColormap(dataSetURL + _this._data[0] + ".png", function () {
+                    selectColormap("" + dataSetURL + _this._data[0] + ".png", function () {
                         _this._updateLegend();
                         externalRenderers_1.requestRender(_this._view);
                     });
@@ -120,7 +120,7 @@ define(["require", "exports", "esri/Color", "esri/renderers", "esri/request", "e
         VolumeRenderer.prototype._updateLegend = function () {
             var _this = this;
             var image = new Image();
-            esriRequest(dataSetURL + this._data[0] + ".png", {
+            esriRequest("" + dataSetURL + this._data[0] + ".png", {
                 authMode: "anonymous",
                 method: "get",
                 responseType: "image"
