@@ -52,7 +52,7 @@ declare var draw: (projView: mat4, eye: vec3) => void;
 // Use local data on a local checkout, fall back to hosted data:
 const localURL = "../isabeldata/";
 const remoteURL =
-  "https://media.githubusercontent.com/media/eile/devsummit-2019-3D-jsapi/master/Advanced-WebGL-in-3D-SceneViews/isabeldata/";
+  "https://media.githubusercontent.com/media/esri/devsummit-2019-3D-jsapi/master/Advanced-WebGL-in-3D-SceneViews/isabeldata/";
 let dataSetURL = localURL;
 
 // Use double math for precision at global scale
