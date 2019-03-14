@@ -12,7 +12,7 @@
       "lib": ["es2015", "dom"]
     },
     "include": [
-      "ArcGIS-Volume-Renderer/**/*.ts"
+      "External-Volume-Renderer/**/*.ts"
     ],
     "exclude": [
       "node_modules"

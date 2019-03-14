@@ -31,7 +31,7 @@ Find out how to use WebGL and WebGL-based 3D rendering engines like three.js to 
 
 [https://esri.github.io/devsummit-2019-3D-jsapi/Advanced-WebGL-in-3D-SceneViews](https://esri.github.io/devsummit-2019-3D-jsapi/Advanced-WebGL-in-3D-SceneViews)
 
-[4D Volume Rendering Demo using the ArcGIS JS API external renderer API](https://esri.github.io/devsummit-2019-3D-jsapi/Advanced-WebGL-in-3D-SceneViews/ArcGIS-Volume-Renderer/). This application integrates an external WebGL rendering application into a SceneView. Beware: Due to the large size of volume data sets, this application loads 25MB of data per time step. WebGL 2.0 required.
+[4D Volume Rendering Demo using the ArcGIS JS API external renderer API](https://esri.github.io/devsummit-2019-3D-jsapi/Advanced-WebGL-in-3D-SceneViews/External-Volume-Renderer/). This application integrates an external WebGL rendering application into a SceneView. Beware: Due to the large size of volume data sets, this application loads 25MB of data per time step. WebGL 2.0 required.
 
 ## Using TypeScript with ArcGIS API for JavaScript
 
@@ -41,8 +41,8 @@ In this session we will learn some of the basics of TypeScript and how it can he
 
 # Installing
 
-The [4D Volume Rendering Demo](https://esri.github.io/devsummit-2019-3D-jsapi/Advanced-WebGL-in-3D-SceneViews/ArcGIS-Volume-Renderer/) can be installed locally for better performance. The data is stored in ```git lfs``` (Large File Storage). Install a local webserver to serve the checked out repository and follow the following steps:
+The [4D Volume Rendering Demo](https://esri.github.io/devsummit-2019-3D-jsapi/Advanced-WebGL-in-3D-SceneViews/External-Volume-Renderer/) can be installed locally for better performance. The data is stored in ```git lfs``` (Large File Storage). Install a local webserver to serve the checked out repository and follow the following steps:
 
 * Install git-lfs (for example using ```brew install git-lfs``` or ```apt install git-lfs```)
 * Clone the repository with lfs: ```git lfs clone https://github.com/Esri/devsummit-2019-3D-jsapi.git```
-* Open ```localhost://.../devsummit-2019-3D-jsapi/Advanced-WebGL-in-3D-SceneViews/ArcGIS-Volume-Renderer/``` in your browser
+* Open ```localhost://.../devsummit-2019-3D-jsapi/Advanced-WebGL-in-3D-SceneViews/External-Volume-Renderer/``` in your browser
