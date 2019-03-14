@@ -125,11 +125,13 @@ export class VolumeRenderer implements ExternalRenderer {
     context.resetWebGLState();
   }
 
-  playPause(): void {
+  /** @return true if animating after the change */
+  playPause(): boolean {
     this._animating = !this._animating;
     if (this._animating) {
       this._loadNextVolume();
     }
+    return this._animating;
   }
 
   set data(name: string) {

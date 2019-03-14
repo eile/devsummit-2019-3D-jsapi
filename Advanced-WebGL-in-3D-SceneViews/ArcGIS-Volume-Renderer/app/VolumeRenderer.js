@@ -63,11 +63,13 @@ define(["require", "exports", "esri/Color", "esri/renderers", "esri/request", "e
             draw(viewProj, position);
             context.resetWebGLState();
         };
+        /** @return true if animating after the change */
         VolumeRenderer.prototype.playPause = function () {
             this._animating = !this._animating;
             if (this._animating) {
                 this._loadNextVolume();
             }
+            return this._animating;
         };
         Object.defineProperty(VolumeRenderer.prototype, "data", {
             set: function (name) {

@@ -23,6 +23,10 @@
       }
     </style>
     <link rel="stylesheet" href="https://js.arcgis.com/4.10/esri/css/main.css">
+    <link
+      rel="stylesheet"
+      href="https://s3-us-west-1.amazonaws.com/patterns.esri.com/files/calcite-web/1.0.3/css/calcite-web.min.css"
+    />
 
     <!-- External webgl-volume-raycaster -->
     <script src="./app/webgl-volume-raycaster/js/gl-matrix-min.js"></script>
@@ -32,7 +36,7 @@
 
     <!-- 4.11 JSAPI -->
     <script>
-      var locationPath = location.pathname.replace(/\/[^\/]+$/, ""); // /sandbox/helloworld
+      var locationPath = location.pathname.replace(/\/[^\/]+$/, "");
       window.dojoConfig = {
         packages: [
           {
@@ -54,16 +58,17 @@
     <script>
       var app;
       require([
+        "https://s3-us-west-1.amazonaws.com/patterns.esri.com/files/calcite-web/1.0.3/js/calcite-web.min.js",
         "app/Application",
         "dojo/domReady!"
-      ], function(Application) {
+      ], function(calcite, Application) {
+        calcite.init();
         var app = new Application();
       });
     </script>
     <div id="view">
-      <div id="infoDiv">
-        <div id="filterbyAttributes" class="filter-fields"><select id="dataList" class="options"></select></div>
-      </div>
+      <div id="filterbyAttributes" class="filter-fields"><select id="dataList" class="options"></select></div>
+      <div id="playButton" class="esri-widget esri-widget--button esri-interactive" title="Play/Pause"><span id="playButtonIcon" class="esri-icon-play"></span></div>
     </div>
   </body>
 </html>

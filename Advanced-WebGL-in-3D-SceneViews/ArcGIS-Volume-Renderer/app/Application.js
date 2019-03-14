@@ -35,7 +35,8 @@ define(["require", "exports", "./VolumeRenderer", "esri/Camera", "esri/geometry"
                 }
             ];
             this.view.ui.add(legend, "top-right"); // Add legend to the bottom right corner of the view
-            this.view.ui.add("infoDiv", "top-right"); // Data set list to top right
+            this.view.ui.add("filterbyAttributes", "top-right"); // Data set list to top right
+            this.view.ui.add("playButton", "top-left"); // Play/pause to top left
             this.view["renderContext"] = "webgl2"; // Needed for 3D textures: this is an internal, unsupported API as of now.
             // Instantiate and add external volume renderer
             var renderer = new VolumeRenderer_1.VolumeRenderer(this.view, legendLayer);
@@ -86,6 +87,12 @@ define(["require", "exports", "./VolumeRenderer", "esri/Camera", "esri/geometry"
                 var aa = dataList;
                 renderer.data = aa.value;
             };
+            var playButton = document.getElementById("playButton");
+            var icon = document.getElementById("playButtonIcon");
+            playButton.addEventListener("click", function () {
+                var playing = renderer.playPause();
+                icon.className = playing ? "esri-icon-pause" : "esri-icon-play";
+            });
             window["app"] = this;
             window["view"] = this.view;
         }
